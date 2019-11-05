@@ -4,7 +4,8 @@ package main.java.cookie.parameters;
  * @author Lydia BARAUKOVA
  */
 public enum Topping {
-    whiteChocolate("White chocolate"), milkChocolate("Milk chocolate"), mNm("M&M's"), cherryJam("Cherry jam");
+    whiteChocolate("White chocolate"), milkChocolate("Milk chocolate"), darkChocolate("Dark chocolate"),
+    mNm("M&M's"), cherrySyrup("Cherry syrup");
 
     private final String type;
 
