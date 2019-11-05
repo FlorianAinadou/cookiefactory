@@ -1,10 +1,10 @@
-package main.java.cookie.ingredients;
+package main.java.cookie.parameters;
 
 /**
  * @author Lydia BARAUKOVA
  */
 public enum Flavour {
-    vanilla("Vanilla"), cinnamon("Cinnamon"), chili("Chili");
+    vanilla("Vanilla"), cinnamon("Cinnamon"), chili("Chili"), chocolate("Chocolate");
 
     private final String type;
 
