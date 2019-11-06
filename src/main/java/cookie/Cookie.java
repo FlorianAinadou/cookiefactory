@@ -1,8 +1,8 @@
-package main.java.cookie;
+package cookie;
 
 import java.util.List;
 
-import main.java.cookie.parameters.*;
+import cookie.parameters.*;
 
 /**
  * @author Lydia Baraukova

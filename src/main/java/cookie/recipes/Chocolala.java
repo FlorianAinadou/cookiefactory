@@ -1,7 +1,7 @@
-package main.java.cookie.recipes;
+package cookie.recipes;
 
-import main.java.cookie.Cookie;
-import main.java.cookie.parameters.*;
+import cookie.Cookie;
+import cookie.parameters.*;
 
 import java.util.ArrayList;
 

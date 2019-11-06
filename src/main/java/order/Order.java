@@ -1,6 +1,6 @@
-package main.java.order;
+package order;
 
-import main.java.cookie.Cookie;
+import cookie.Cookie;
 
 import java.util.HashMap;
 import java.util.Map;

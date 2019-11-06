@@ -1,10 +1,8 @@
-package main.java.cookiefactory;
+package cookiefactory;
 
-import main.java.cookie.Cookie;
-import main.java.cookie.parameters.CookieName;
-import main.java.cookie.recipes.CherryBlossom;
-import main.java.cookie.recipes.Chocolala;
-import main.java.cookie.recipes.DarkTemptation;
+import cookie.Cookie;
+import cookie.parameters.CookieName;
+import cookie.recipes.*;
 
 /**
  * @author Lydia BARAUKOVA
