@@ -1,8 +1,8 @@
-package main.java.cookiefactory;
+package cookiefactory;
 
-import main.java.cookie.Cookie;
-import main.java.cookie.CookieName;
-import main.java.cookie.recipes.Chocolala;
+import cookie.Cookie;
+import cookie.parameters.CookieName;
+import cookie.recipes.*;
 
 /**
  * @author Lydia BARAUKOVA
@@ -19,6 +19,8 @@ public class CookieFactory {
     public Cookie getCookie(CookieName n) {
         switch (n) {
             case chocolala: return new Chocolala();
+            case cherryBlossom: return new CherryBlossom();
+            case darkTemptation: return new DarkTemptation();
             default: return null;
         }
     }

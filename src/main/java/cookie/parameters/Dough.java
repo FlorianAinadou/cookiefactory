@@ -1,10 +1,10 @@
-package main.java.cookie.parameters;
+package cookie.parameters;
 
 /**
  * @author Lydia BARAUKOVA
  */
 public enum Dough {
-    plain("Plain"), chocolate("Chocolate"), peanutButter("Peanut butter"), oatmeal("Oatmeal");
+    plain("Plain"), chocolate("Chocolate"), peanutButter("Peanut butter"), oatmeal("Oatmeal"), cherryJam("Cherry jam");
 
     private final String type;
 

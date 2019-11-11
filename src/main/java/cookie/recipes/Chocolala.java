@@ -1,7 +1,7 @@
-package main.java.cookie.recipes;
+package cookie.recipes;
 
-import main.java.cookie.Cookie;
-import main.java.cookie.parameters.*;
+import cookie.Cookie;
+import cookie.parameters.*;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Chocolala extends Cookie {
 
     public Chocolala() {
-        super(Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<Topping>());
+        super(Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<Topping>(), 0.25);
         toppings.add(Topping.milkChocolate);
     }
 }
