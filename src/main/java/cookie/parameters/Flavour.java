@@ -1,4 +1,4 @@
-package main.java.cookie.parameters;
+package cookie.parameters;
 
 /**
  * @author Lydia BARAUKOVA
