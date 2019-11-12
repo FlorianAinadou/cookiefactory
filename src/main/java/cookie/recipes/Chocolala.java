@@ -14,6 +14,8 @@ public class Chocolala extends Cookie {
     public Chocolala() {
         super(Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<Topping>(), 0.25);
         toppings.add(Topping.milkChocolate);
+
+        type="Chocolala";
     }
 
 

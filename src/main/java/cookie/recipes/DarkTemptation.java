@@ -13,5 +13,6 @@ public class DarkTemptation extends Cookie {
     public DarkTemptation() {
         super(Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(), 0.21);
         toppings.add(Topping.darkChocolate);
+        type="DarkTemptation";
     }
 }
