@@ -22,7 +22,7 @@ public class Cart {
     public double getTotalPrice(){ return totalPrice; } // returns total price
 
     public String toString() { // builds a String describing the contents of the cart
-        String s = "Cart:\n";
+        String s = "\nCart:\n";
         for(Map.Entry<Cookie, Integer> entry : items.entrySet()) {
             Cookie cookie = entry.getKey();
             Integer quantity = entry.getValue();
