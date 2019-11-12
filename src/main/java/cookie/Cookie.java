@@ -15,6 +15,7 @@ public class Cookie {
     protected Mix mix;
     protected List<Topping> toppings;
     protected double unitPriceEuro;
+    protected String type;
 
     public Cookie(Dough d, Cooking c, Flavour f, Mix m, List<Topping> t, double p) {
         dough = d;
@@ -44,4 +45,9 @@ public class Cookie {
 
     public double getUnitPriceEuro() { return unitPriceEuro; }
     void setUnitPriceEuro(double p) { unitPriceEuro = p; }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }

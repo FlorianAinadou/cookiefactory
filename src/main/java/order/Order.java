@@ -13,10 +13,9 @@ public class Order {
     ReservationsPlace reservationsPlace;
 
 
-    public Order(Basket basket, Customer customer, int number, Date date, ReservationsPlace reservationsPlace){
+    public Order(Basket basket, Customer customer, Date date, ReservationsPlace reservationsPlace){
          this.basket = basket;
          this.customer= customer;
-         this.orderNumber= number;
          this.date=date;
          this.reservationsPlace= reservationsPlace;
     }
