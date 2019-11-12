@@ -10,8 +10,11 @@ import java.util.ArrayList;
  */
 public class Chocolala extends Cookie {
 
+
     public Chocolala() {
-        super(Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<Topping>(), 0.25);
+        super(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<Topping>(), 0.25);
         toppings.add(Topping.milkChocolate);
     }
+
+
 }

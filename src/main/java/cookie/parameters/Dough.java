@@ -10,5 +10,8 @@ public enum Dough {
 
     Dough(String t) { type = t; }
 
-    String getType() { return type; }
+    @Override
+    public String toString() {
+        return type;
+    }
 }

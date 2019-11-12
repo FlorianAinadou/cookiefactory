@@ -10,5 +10,8 @@ public enum Mix {
 
     Mix(String t) { type = t; }
 
-    String getType() { return type; }
+    @Override
+    public String toString() {
+        return type;
+    }
 }

@@ -10,5 +10,8 @@ public enum Cooking {
 
     Cooking(String t) { type = t; }
 
-    String getType() { return type; }
+    @Override
+    public String toString() {
+        return type;
+    }
 }

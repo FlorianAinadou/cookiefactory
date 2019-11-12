@@ -9,14 +9,17 @@ import cookie.parameters.*;
  */
 public class Cookie {
 
-    protected Dough dough;
-    protected Cooking cooking;
-    protected Flavour flavour;
-    protected Mix mix;
+    private final String name;
+    private Dough dough;
+    private Cooking cooking;
+    private Flavour flavour;
+    private Mix mix;
     protected List<Topping> toppings;
-    protected double unitPriceEuro;
+    private double unitPriceEuro;
+    private String type;
 
-    public Cookie(Dough d, Cooking c, Flavour f, Mix m, List<Topping> t, double p) {
+    public Cookie(String n, Dough d, Cooking c, Flavour f, Mix m, List<Topping> t, double p) {
+        name = n;
         dough = d;
         cooking = c;
         flavour = f;
@@ -24,6 +27,8 @@ public class Cookie {
         toppings = t;
         unitPriceEuro = p;
     }
+
+    public String getName() { return name; }
 
     Dough getDough() { return dough; }
     void setDough(Dough d) { dough = d; }
@@ -44,4 +49,9 @@ public class Cookie {
 
     public double getUnitPriceEuro() { return unitPriceEuro; }
     void setUnitPriceEuro(double p) { unitPriceEuro = p; }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }

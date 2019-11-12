@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DarkTemptation extends Cookie {
 
     public DarkTemptation() {
-        super(Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(), 0.21);
+        super(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(), 0.21);
         toppings.add(Topping.darkChocolate);
     }
 }

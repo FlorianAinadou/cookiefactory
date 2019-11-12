@@ -10,5 +10,8 @@ public enum CookieName {
 
     CookieName(String t) { type = t; }
 
-    public String getType() { return type; }
+    @Override
+    public String toString() {
+        return type;
+    }
 }
