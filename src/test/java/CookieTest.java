@@ -1,21 +1,27 @@
+import cookie.parameters.CookieName;
+import cookie.recipes.Chocolala;
+import cookiefactory.CookieFactory;
+import cookie.Cookie;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import main.java.cookie.Cookie;
+/**
+ * @author Lydia BARAUKOVA
+ */
+class CookieTest {
 
-public class CookieTest {
+    private CookieFactory factory = new CookieFactory();
     private Cookie cookie;
 
     @BeforeEach
-    public void setUp() {
-        biblio = new Bibliotheque();
-        livre = new Livre(biblio);
+    void setUp() {
+        cookie = factory.createCookie(CookieName.chocolala);
     }
 
     @Test
-    public void EtudiantCreated() {
-
-        assertEquals(false, livre.getEmprunte());
+    void CookieCreated() {
+        assertEquals(cookie.getUnitPriceEuro(), new Chocolala().getUnitPriceEuro());
     }
 }

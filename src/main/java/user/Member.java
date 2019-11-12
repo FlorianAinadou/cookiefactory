@@ -1,5 +1,8 @@
 package user;
 
+/**
+ * @author Aldric DUCREUX
+ */
 public class Member extends User {
 
     public Member(int id, String firstname, String name, int age, String mail, String adress, int countCookie) {

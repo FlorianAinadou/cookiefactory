@@ -8,15 +8,10 @@ import cookie.recipes.*;
  * @author Lydia BARAUKOVA
  */
 public class CookieFactory {
-    private static CookieFactory instance = new CookieFactory();
 
-    private CookieFactory() {}
+    public CookieFactory() {}
 
-    public static CookieFactory getInstance() {
-        return instance;
-    }
-
-    public Cookie getCookie(CookieName n) {
+    public Cookie createCookie(CookieName n) {
         switch (n) {
             case chocolala: return new Chocolala();
             case cherryBlossom: return new CherryBlossom();

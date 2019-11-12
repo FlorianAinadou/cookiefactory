@@ -1,13 +1,13 @@
 package order;
 
-public enum ReservationsPlace {
+public enum Place {
     Valbonne( "Valbonne"),
     Antibes ( "Antibes"),
     Nice( "Nice");
 
     private final String type;
 
-    ReservationsPlace(String t) { type = t; }
+    Place(String t) { type = t; }
 
     String getType() { return type; }
 }

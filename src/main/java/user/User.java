@@ -1,5 +1,8 @@
 package user;
 
+/**
+ * @author Aldric DUCREUX
+ */
 public  abstract class User {
     private int id;
     private String firstname;

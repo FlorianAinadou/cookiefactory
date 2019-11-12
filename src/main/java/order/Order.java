@@ -4,20 +4,28 @@ import user.Customer;
 
 import java.util.Date;
 
+/**
+ * @author Florian AINADOU
+ * @author Lydia BARAUKOVA
+ */
 public class Order {
+    private final int id;  // tust a  random number given to every order
+    private final Cart cart;
+    private final Customer customer;
+    private final Date date; // the order date and hour
+    private final Place place; // the place where the order will be collected
 
-    Basket basket;
-    Customer customer;
-    int orderNumber;  // Just a  random number given to every order
-    Date date; //The order date
-    ReservationsPlace reservationsPlace;
-
-
-    public Order(Basket basket, Customer customer, int number, Date date, ReservationsPlace reservationsPlace){
-         this.basket = basket;
-         this.customer= customer;
-         this.orderNumber= number;
-         this.date=date;
-         this.reservationsPlace= reservationsPlace;
+    public Order(int id, Cart cart, Customer customer, Date date, Place place){
+        this.id = id;
+        this.cart = cart;
+        this.customer= customer;
+        this.date = date;
+        this.place = place;
     }
+
+    public int getId() { return id; }
+    public Cart getCart() { return cart; }
+    public Customer getCustomer() { return customer; }
+    public Date getDate() { return date; }
+    public Place getPlace() { return place; }
 }

@@ -1,5 +1,12 @@
-import io.cucumber.java8.En;
+import cookie.Cookie;
+import cookie.parameters.CookieName;
+import cookiefactory.CookieFactory;
+import order.Order;
+import user.Customer;
+import user.User;
 
+
+import io.cucumber.java8.En;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,10 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class OrderCookiesStepdefs implements En {
 
-    public OrderCookiesStepdefs() {
-        Given("a client named {string}", );
+    private CookieFactory factory = new CookieFactory();
+    private Cookie cookie;
+    private User customer;
+    private Order order;
 
-        And("a cookie named {string}", );
+    public OrderCookiesStepdefs() {
+        Given("an client of name {string}",
+                (String customerName) ->
+                    customer = new Customer(1,customerName,"Black",20,
+                            "mynameisjeff@gmail.com","89 Avenue de Nice 06200 Nice France",
+                            0)
+        );
+
+        And("a cookie named {string}", (CookieName name) -> cookie = factory.createCookie(name));
 
         When("{string} adds {int} {string} to his cart",);
 
