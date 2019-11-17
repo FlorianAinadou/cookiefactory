@@ -7,9 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @athor Florian AINADOU
+ * @author Florian AINADOU
  * @author Lydia BARAUKOVA
+ * @author Virgile FANTAUZZI
  */
+
+
+/// Classe dépréciée, je vous propose plutôt d'utiliser le {@Link OrderRepository}
 public class OrderManager {
     private List<Order> orderList;
     private int orderId;

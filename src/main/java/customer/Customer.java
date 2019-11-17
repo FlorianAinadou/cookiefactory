@@ -1,15 +1,21 @@
 package customer;
 
+import com.sun.istack.internal.Nullable;
 import cookie.Cookie;
 import order.Cart;
 import order.OrderManager;
 import order.Place;
 
 import java.util.Date;
+import java.util.Objects;
+import java.util.Random;
+
+import static api.FakeApiServiceGenerator.FAKE_USERS_RANDOM;
 
 /**
  * @author Aldric DUCREUX
  * @author Lydia BARAUKOVA
+ * @author Virgile FANTAUZZI
  */
 public abstract class Customer {
     private Cart cart; // every customer has a cart
@@ -41,10 +47,30 @@ public abstract class Customer {
     public void showCart(){
         System.out.println(cart.toString());
     }
+
+    //Fonction déprécié, passer par le repository
     public int placeOrder(OrderManager om, Date date, Place place){
         return om.placeOrder(this, date, place);
     }
+
     public void emptyCart() {
         cart.emptyCart();
+    }
+
+    public static Customer random(){
+        return FAKE_USERS_RANDOM.get(new Random().nextInt(FAKE_USERS_RANDOM.size()));
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Customer)) return false;
+        return (((Customer) obj).firstName.equals(this.firstName) && ((Customer) obj).lastName.equals(this.lastName));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 }
