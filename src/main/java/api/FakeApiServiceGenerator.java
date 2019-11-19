@@ -1,6 +1,9 @@
 package api;
 
 import cookie.Cookie;
+import cookie.ingredients.Dough;
+import cookie.ingredients.Flavour;
+import cookie.ingredients.Topping;
 import cookie.parameters.*;
 import customer.Customer;
 import customer.UnregisteredCustomer;
@@ -18,6 +21,7 @@ public abstract class FakeApiServiceGenerator {
     static List<Customer> generateUsers() {
         return new ArrayList<>(FAKE_USERS);
     }
+
     static Map<String, Cookie> generateCookieRecipes() {
         return new HashMap<String, Cookie>(RECIPES_COOKIE);
     }
@@ -39,10 +43,10 @@ public abstract class FakeApiServiceGenerator {
     );
 
 
-    public static Map<String, Cookie> RECIPES_COOKIE = new HashMap<String, Cookie>() {{
-        put("CherryBlossom", new Cookie(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup)), 0.23));
-        put("Chocolala", new Cookie(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate)), 0.25));
-        put("DarkTemptation", new Cookie(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(Collections.singletonList(Topping.darkChocolate)), 0.21));
+    private static Map<String, Cookie> RECIPES_COOKIE = new HashMap<String, Cookie>() {{
+        put("CherryBlossom", new Cookie(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup))));
+        put("Chocolala", new Cookie(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate))));
+        put("DarkTemptation", new Cookie(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(Collections.singletonList(Topping.darkChocolate))));
     }};
 
 }

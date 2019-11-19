@@ -15,9 +15,10 @@ import java.util.Collections;
  */
 public class Chocolala extends Cookie {
 
+    //Passer par l'api
 
     public Chocolala() {
-        super(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate)), 0.25);
+        super(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate)));
     }
 
 

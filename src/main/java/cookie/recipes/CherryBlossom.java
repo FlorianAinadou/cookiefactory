@@ -17,8 +17,9 @@ import java.util.Collections;
  */
 public class CherryBlossom extends Cookie {
 
+    //Passer par l'api
 
     public CherryBlossom() {
-        super(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup)), 0.23);
+        super(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup)));
     }
 }
