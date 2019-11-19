@@ -26,7 +26,7 @@ public class Cart {
         for(Map.Entry<Cookie, Integer> entry : items.entrySet()) {
             Cookie cookie = entry.getKey();
             Integer quantity = entry.getValue();
-            s += cookie.getName() + " " + cookie.getUnitPriceEuro() + "€ x" + quantity + "\n";
+            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + "\n";
         }
         return s;
     }
@@ -36,26 +36,26 @@ public class Cart {
             increaseQuantityBy(cookie, quantity); // we increase the quantity of this item
         } else { // if not
             items.put(cookie, quantity); // we add the new item
-            totalPrice += quantity*cookie.getUnitPriceEuro(); // and update the total price
+            totalPrice += quantity*cookie.getPrice(); // and update the total price
         }
     }
 
     private void increaseQuantityBy(Cookie cookie, Integer quantity) {
         items.put(cookie, items.get(cookie)+quantity); // we update the quantity
-        totalPrice += quantity*cookie.getUnitPriceEuro(); // and the total price
+        totalPrice += quantity*cookie.getPrice(); // and the total price
     }
 
     public void increaseQuantity(Cookie cookie) {
         items.put(cookie, items.get(cookie)+1);
-        totalPrice += cookie.getUnitPriceEuro();
+        totalPrice += cookie.getPrice();
     }
     public void decreaseQuantity(Cookie cookie) {
         items.put(cookie, items.get(cookie)-1);
-        totalPrice -= cookie.getUnitPriceEuro();
+        totalPrice -= cookie.getPrice();
     }
 
     public void removeItem(Cookie cookie) { // removes a certain model.cookie from the cart
-        totalPrice -= items.get(cookie)*cookie.getUnitPriceEuro();
+        totalPrice -= items.get(cookie)*cookie.getPrice();
         items.remove(cookie);
     }
     public void emptyCart() { // empties the cart

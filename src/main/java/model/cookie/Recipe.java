@@ -16,6 +16,7 @@ public class Recipe {
     private String name;
     private Cooking cooking;
     private Mix mix;
+    private double price;
     // ingrédients
     private Dough dough;
     private Flavour flavour;
@@ -28,9 +29,12 @@ public class Recipe {
         flavour = f;
         mix = m;
         toppings = t;
+        price = dough.getPrice() + flavour.getPrice();
+        toppings.forEach(topping -> price += topping.getPrice());
     }
 
     public String getName() { return name; }
+    double getPrice() { return  price; }
 
     Dough getDough() { return dough; }
     void setDough(Dough d) { dough = d; }

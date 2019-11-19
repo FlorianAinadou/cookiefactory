@@ -5,6 +5,7 @@ import model.cookie.Cookie;
 import di.Injection;
 import model.Order;
 import model.Place;
+import model.cookie.Recipe;
 import model.customer.*;
 import repository.CookieRepository;
 import repository.DiscountRepository;
@@ -67,12 +68,12 @@ public class Main {
         cookieRepository = getCookieRepository();
         discountRepository = getDiscountRepository();
 
-        Map<String, Cookie> recipes = getCookieRepository().getCookieRecipes();
+        Map<String, Recipe> recipes = getCookieRepository().getCookieRecipes();
 
         Customer Paul = Customer.random();
         userRepository.addUser(Paul);
 
-        Paul.addCookies(recipes.get("Chocolala"), 1);
+        Paul.addCookies(new Cookie(recipes.get("Chocolala")),1);
         Paul.showCart();
         orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe));
         } catch (ParseException e) {

@@ -13,6 +13,8 @@ public class Cookie {
 
     public Recipe getRecipe() { return recipe; }
 
+    public double getPrice() { return  recipe.getPrice(); }
+
     @Override
     public String toString() {
         return recipe.getName();

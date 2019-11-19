@@ -2,7 +2,7 @@ package api;
 
 
 import model.Discount;
-import model.cookie.Cookie;
+import model.cookie.Recipe;
 import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 import model.Order;
@@ -31,7 +31,7 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
-    Map<String, Cookie> getCookieRecipes();
+    Map<String, Recipe> getCookieRecipes();
 
     void addDiscount(RegisteredCustomer customer, Discount discount);
 
