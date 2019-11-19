@@ -1,7 +1,7 @@
 package order;
 
-import com.sun.istack.internal.Nullable;
 import customer.Customer;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.Objects;
@@ -17,6 +17,7 @@ public class Order {
     private final Customer customer;
     private final Date date; // the order date and hour
     private final Place place; // the place where the order will be collected
+    private int finalPrice; // The cart price after applying eventual discounts
 
     public Order(int id, Customer customer, Date date, Place place) {
         this.id = id;
@@ -58,5 +59,21 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getDate());
+    }
+
+
+    /**
+     * As his name says it
+     * @return the final price of the order
+     */
+    public void applyDiscount(){
+
+        int cookiesNumber=cart.getCookiesNumber();
+        if (customer.isRegistered()){
+
+        }
+
+
+
     }
 }

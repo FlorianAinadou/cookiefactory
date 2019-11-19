@@ -24,4 +24,9 @@ public class RegisteredCustomer extends Customer {
     public void setAdress(String a) { address = a; }
     public int getCookieCount() { return cookieCount; }
     public void increaseCookieCount(int c) { cookieCount += c; }
+
+    @Override
+    public boolean isRegistered(){
+        return true;
+    }
 }

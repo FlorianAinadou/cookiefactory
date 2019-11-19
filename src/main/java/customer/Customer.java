@@ -1,10 +1,11 @@
 package customer;
 
-import com.sun.istack.internal.Nullable;
+
 import cookie.Cookie;
 import order.Cart;
 import order.OrderManager;
 import order.Place;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.Objects;
@@ -73,4 +74,9 @@ public abstract class Customer {
     public int hashCode() {
         return Objects.hash(firstName, lastName);
     }
+
+    /**
+     * Want to know if the customer is registered
+     */
+    public abstract boolean isRegistered();
 }

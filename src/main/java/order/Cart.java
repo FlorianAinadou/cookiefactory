@@ -11,6 +11,8 @@ import java.util.HashMap;
 public class Cart {
     private Map<Cookie,Integer> items;
     private double totalPrice;
+    //Used to know how many cookies our cart could contain
+    private int cookiesNumber=0;
 
     public Cart() {
         items = new HashMap<>();
@@ -20,6 +22,10 @@ public class Cart {
     public Map<Cookie, Integer> getItems(){ return items; } // returns all the items in the basket
 
     public double getTotalPrice(){ return totalPrice; } // returns total price
+
+    public int getCookiesNumber(){
+        return cookiesNumber ;
+    } //returns cookies' number in the cart
 
     public String toString() { // builds a String describing the contents of the cart
         String s = "\nCart:\n";
@@ -38,6 +44,7 @@ public class Cart {
             items.put(cookie, quantity); // we add the new item
             totalPrice += quantity*cookie.getUnitPriceEuro(); // and update the total price
         }
+        cookiesNumber+= quantity;
     }
 
     private void increaseQuantityBy(Cookie cookie, Integer quantity) {
@@ -61,4 +68,7 @@ public class Cart {
     public void emptyCart() { // empties the cart
         items.clear();
     }
+
+
+
 }
