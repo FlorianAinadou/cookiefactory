@@ -1,7 +1,7 @@
-package order;
+package model;
 
 import com.sun.istack.internal.Nullable;
-import customer.Customer;
+import model.customer.Customer;
 
 import java.util.Date;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class Order {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-        customer.emptyCart(); // and empty the customer's cart
+        customer.emptyCart(); // and empty the model.customer's cart
         this.date = new Date();
         this.place = place;
     }

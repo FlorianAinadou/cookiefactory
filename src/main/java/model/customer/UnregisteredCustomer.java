@@ -1,4 +1,4 @@
-package customer;
+package model.customer;
 
 /**
  * @author Lydia BARAUKOVA

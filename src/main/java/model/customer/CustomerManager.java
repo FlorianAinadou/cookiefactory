@@ -1,4 +1,4 @@
-package customer;
+package model.customer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,6 @@ public class CustomerManager {
         id++;
         RegisteredCustomer newCustomer = new RegisteredCustomer(id, firstName, lastName, age, tel, email, address);
         registeredCustomers.add(newCustomer);
-        System.out.println("A customer №" + id +" has been registered!");
+        System.out.println("A model.customer №" + id +" has been registered!");
     }
 }

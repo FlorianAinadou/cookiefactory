@@ -1,6 +1,6 @@
-package order;
+package model;
 
-import cookie.Cookie;
+import model.cookie.Cookie;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class Cart {
     }
 
     public void addCookies(Cookie cookie, Integer quantity) {
-        if (items.containsKey(cookie)) { // if the cookie is already in the cart
+        if (items.containsKey(cookie)) { // if the model.cookie is already in the cart
             increaseQuantityBy(cookie, quantity); // we increase the quantity of this item
         } else { // if not
             items.put(cookie, quantity); // we add the new item
@@ -54,7 +54,7 @@ public class Cart {
         totalPrice -= cookie.getUnitPriceEuro();
     }
 
-    public void removeItem(Cookie cookie) { // removes a certain cookie from the cart
+    public void removeItem(Cookie cookie) { // removes a certain model.cookie from the cart
         totalPrice -= items.get(cookie)*cookie.getUnitPriceEuro();
         items.remove(cookie);
     }

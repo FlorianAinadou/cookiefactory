@@ -1,10 +1,10 @@
-package customer;
+package model.customer;
 
 /**
  * @author Lydia BARAUKOVA
  */
 public class RegisteredCustomer extends Customer {
-    private int id; // every registered customer has an id
+    private int id; // every registered model.customer has an id
     private int cookieCount; // nb of cookies bought during all the time
     // additional information that registered customers provide
     private int age;

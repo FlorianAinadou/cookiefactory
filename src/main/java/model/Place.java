@@ -1,4 +1,4 @@
-package order;
+package model;
 
 public enum Place {
     Valbonne( "Valbonne"),

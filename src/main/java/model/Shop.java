@@ -1,4 +1,4 @@
-package shop;
+package model;
 
 public class Shop {
     String street;

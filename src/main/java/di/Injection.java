@@ -2,7 +2,9 @@ package di;
 
 
 import api.FakeApiService;
+import model.Discount;
 import repository.CookieRepository;
+import repository.DiscountRepository;
 import repository.OrderRepository;
 import repository.UserRepository;
 /**
@@ -16,7 +18,9 @@ public class Injection {
     public static UserRepository createUserRepository() {
         return new UserRepository(fakeApiService);
     }
-
+    public static DiscountRepository createDiscountRepository() {
+        return new DiscountRepository(fakeApiService);
+    }
     public static OrderRepository createOrderRepository() {
         return new OrderRepository(fakeApiService);
     }

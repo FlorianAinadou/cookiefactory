@@ -1,15 +1,14 @@
 package api;
 
-import cookie.Cookie;
-import customer.Customer;
-import order.Order;
+import model.Discount;
+import model.cookie.Cookie;
+import model.customer.Customer;
+import model.Order;
+import model.customer.RegisteredCustomer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static api.FakeApiServiceGenerator.generateCookieRecipes;
-import static api.FakeApiServiceGenerator.generateUsers;
+import static api.FakeApiServiceGenerator.*;
 
 /**
  * @author Virgile FANTAUZZI
@@ -20,6 +19,7 @@ public class FakeApiService implements ApiService {
 
     private List<Customer> users = generateUsers();
     private Map<String, Cookie> cookies = generateCookieRecipes();
+    private Map<RegisteredCustomer, List<Discount>> discounts = generateDiscounts();
     private List<Order> orders = new ArrayList<>();
 
     /**
@@ -38,6 +38,26 @@ public class FakeApiService implements ApiService {
     @Override
     public Map<String, Cookie> getCookieRecipes() {
         return cookies;
+    }
+
+    @Override
+    public void addDiscount(RegisteredCustomer customer, Discount discount) {
+        if(discounts.containsKey(customer)){
+            discounts.get(customer).add(discount);
+        }else{
+            discounts.put(customer, Collections.singletonList(discount));
+        }
+    }
+
+    @Override
+    public List<Discount> getDiscounts(RegisteredCustomer customer) {
+        return discounts.get(customer);
+    }
+
+    @Override
+    public float applyDiscount(RegisteredCustomer customer, Discount discount) {
+        discounts.get(customer).remove(discount);
+        return discount.getRate();
     }
 
     /**

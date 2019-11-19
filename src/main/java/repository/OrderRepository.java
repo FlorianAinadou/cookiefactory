@@ -2,8 +2,7 @@ package repository;
 
 
 import api.ApiService;
-import customer.Customer;
-import order.Order;
+import model.Order;
 
 import java.util.List;
 

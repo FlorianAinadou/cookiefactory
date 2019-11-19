@@ -2,10 +2,8 @@ package repository;
 
 
 import api.ApiService;
-import cookie.Cookie;
-import order.Order;
+import model.cookie.Cookie;
 
-import java.util.List;
 import java.util.Map;
 
 /**

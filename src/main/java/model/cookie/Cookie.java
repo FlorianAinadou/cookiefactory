@@ -1,11 +1,11 @@
-package cookie;
+package model.cookie;
 
 import java.util.List;
 
-import cookie.ingredients.Dough;
-import cookie.ingredients.Flavour;
-import cookie.ingredients.Topping;
-import cookie.parameters.*;
+import model.cookie.ingredients.Dough;
+import model.cookie.ingredients.Flavour;
+import model.cookie.ingredients.Topping;
+import model.cookie.parameters.*;
 
 /**
  * @author Lydia Baraukova

@@ -1,4 +1,4 @@
-package cookie.ingredients;
+package model.cookie.ingredients;
 
 /**
  * @author Lydia BARAUKOVA
