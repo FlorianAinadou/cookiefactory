@@ -2,6 +2,9 @@ package cookie;
 
 import java.util.List;
 
+import cookie.ingredients.Dough;
+import cookie.ingredients.Flavour;
+import cookie.ingredients.Topping;
 import cookie.parameters.*;
 
 /**

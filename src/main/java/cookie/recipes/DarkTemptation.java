@@ -1,6 +1,9 @@
 package cookie.recipes;
 
 import cookie.Cookie;
+import cookie.ingredients.Dough;
+import cookie.ingredients.Flavour;
+import cookie.ingredients.Topping;
 import cookie.parameters.*;
 
 import java.util.ArrayList;
