@@ -7,7 +7,7 @@ public class Shop {
     protected Place city;
     protected Date openShop;
     protected Date closeShop;
-    protected double taxe;
+    protected static double taxe;
 
     public Shop(String adress, Place city, Date openShop, Date closeShop, double taxe) {
         this.adress = adress;
@@ -33,7 +33,7 @@ public class Shop {
         return closeShop;
     }
 
-    public double getTaxe() {
+    public static double getTaxe() {
         return taxe;
     }
 }

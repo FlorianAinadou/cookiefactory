@@ -73,7 +73,8 @@ public class Main {
         Customer Paul = Customer.random();
         userRepository.addUser(Paul);
 
-        Paul.addCookies(new Cookie(recipes.get("Chocolala")),1);
+        Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
+        Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),2);
         Paul.showCart();
         orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe));
         } catch (ParseException e) {

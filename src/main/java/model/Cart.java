@@ -2,6 +2,7 @@ package model;
 
 import model.cookie.Cookie;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -22,11 +23,14 @@ public class Cart {
     public double getTotalPrice(){ return totalPrice; } // returns total price
 
     public String toString() { // builds a String describing the contents of the cart
+        DecimalFormat price = new DecimalFormat ( ) ;
+        price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
         String s = "\nCart:\n";
         for(Map.Entry<Cookie, Integer> entry : items.entrySet()) {
             Cookie cookie = entry.getKey();
             Integer quantity = entry.getValue();
-            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + "\n";
+            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + ", Soit Total(TTC): "+ price.format((cookie.getPrice()+cookie.getPrice()*Shop.getTaxe())*quantity)+ "€\n";
+
         }
         return s;
     }
