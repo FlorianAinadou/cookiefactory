@@ -118,6 +118,8 @@ public class FakeApiService implements ApiService {
     @Override
     public void addOrder(Order order) {
         orders.add(order);
-        System.out.println("The order №" + order.getId() + " has been placed!");
+        //System.out.println("The order №" + order.getId() + " has been placed!");
+        System.out.println("The order №" + order.getId() + " has been placed, for the shop at" + order.getShop().getAdress()+", "+order.getShop().getCity());
+
     }
 }
