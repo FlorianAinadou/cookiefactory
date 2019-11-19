@@ -2,6 +2,7 @@ package di;
 
 
 import api.FakeApiService;
+import repository.CookieRepository;
 import repository.OrderRepository;
 import repository.UserRepository;
 /**
@@ -18,5 +19,8 @@ public class Injection {
 
     public static OrderRepository createOrderRepository() {
         return new OrderRepository(fakeApiService);
+    }
+    public static CookieRepository createCookieRepository() {
+        return new CookieRepository(fakeApiService);
     }
 }
