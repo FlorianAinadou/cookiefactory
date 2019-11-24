@@ -3,6 +3,7 @@ package repository;
 
 import api.ApiService;
 import model.cookie.Cookie;
+import model.cookie.Recipe;
 
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class CookieRepository {
         this.apiService = apiService;
     }
 
-    public Map<String, Cookie> getCookieRecipes() {
+    public Map<String, Recipe> getCookieRecipes() {
         return apiService.getCookieRecipes();
     }
 }

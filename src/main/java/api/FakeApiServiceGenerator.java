@@ -1,7 +1,7 @@
 package api;
 
 import model.Discount;
-import model.cookie.Cookie;
+import model.cookie.Recipe;
 import model.cookie.ingredients.Dough;
 import model.cookie.ingredients.Flavour;
 import model.cookie.ingredients.Topping;
@@ -26,12 +26,16 @@ public abstract class FakeApiServiceGenerator {
         return new ArrayList<>(FAKE_USERS);
     }
 
-    static Map<String, Cookie> generateCookieRecipes() {
-        return new HashMap<String, Cookie>(RECIPES_COOKIE);
+    static Map<String, Recipe> generateCookieRecipes() {
+        return new HashMap<String, Recipe>(RECIPES_COOKIE);
     }
 
-    static Map<RegisteredCustomer, List<Discount>> generateDiscounts() {
-        return new HashMap<RegisteredCustomer, List<Discount>>(DISCOUNTS);
+    static Map<Customer, List<Discount>> generateDiscounts() {
+        return new HashMap<Customer, List<Discount>>(DISCOUNTS);
+    }
+
+    static Map<String, Discount> getShopDiscounts(){
+        return new HashMap<String, Discount>(SHOP_DISCOUNTS);
     }
 
     private static List<Customer> FAKE_USERS = Arrays.asList(
@@ -51,16 +55,22 @@ public abstract class FakeApiServiceGenerator {
     );
 
 
-    private static Map<String, Cookie> RECIPES_COOKIE = new HashMap<String, Cookie>() {{
-        put("CherryBlossom", new Cookie(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup))));
-        put("Chocolala", new Cookie(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate))));
-        put("DarkTemptation", new Cookie(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(Collections.singletonList(Topping.darkChocolate))));
+    private static Map<String, Recipe> RECIPES_COOKIE = new HashMap<String, Recipe>() {{
+        put("CherryBlossom", new Recipe(CookieName.cherryBlossom.toString(), Dough.cherryJam, Cooking.chewy, Flavour.cherry, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.cherrySyrup))));
+        put("Chocolala", new Recipe(CookieName.chocolala.toString(), Dough.chocolate, Cooking.chewy, Flavour.chocolate, Mix.topped, new ArrayList<>(Collections.singletonList(Topping.milkChocolate))));
+        put("DarkTemptation", new Recipe(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(Collections.singletonList(Topping.darkChocolate))));
     }};
 
     private static Map<RegisteredCustomer, List<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, List<Discount>>() {{
         put((RegisteredCustomer)FAKE_USERS.get(0), Arrays.asList(new Discount( 0.90f, "PROMO10")));
     }};
 
-   // private static Map
+    private static Map<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
+        put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
+        //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
+        //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
+
+
+    }};
 
 }

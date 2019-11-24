@@ -1,3 +1,5 @@
+package java;
+
 import model.customer.Customer;
 import model.customer.UnregisteredCustomer;
 import model.cookie.Cookie;

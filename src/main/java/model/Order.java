@@ -19,16 +19,16 @@ public class Order {
     private final Cart cart;
     private final Customer customer;
     private final Date date; // the order date and hour
-    private final Place place; // the place where the order will be collected
-    private int finalPrice; // The cart price after applying eventual discounts
+    private final Shop shop; // the place where the order will be collected
 
-    public Order(int id, Customer customer, Date date, Place place) {
+
+    public Order(int id, Customer customer, Date date, Shop shop) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
         customer.emptyCart(); // and empty the model.customer's cart
         this.date = new Date();
-        this.place = place;
+        this.shop = shop;
     }
 
     public int getId() {
@@ -47,8 +47,8 @@ public class Order {
         return date;
     }
 
-    public Place getPlace() {
-        return place;
+    public Shop getShop() {
+        return shop;
     }
 
     @Override

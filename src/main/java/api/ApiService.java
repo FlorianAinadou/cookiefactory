@@ -2,10 +2,9 @@ package api;
 
 
 import model.Discount;
-import model.cookie.Cookie;
-import model.customer.Customer;
-import model.customer.RegisteredCustomer;
 import model.Order;
+import model.cookie.Recipe;
+import model.customer.Customer;
 
 import java.util.List;
 import java.util.Map;
@@ -31,11 +30,11 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
-    Map<String, Cookie> getCookieRecipes();
+    Map<String, Recipe> getCookieRecipes();
 
-    void addDiscount(RegisteredCustomer customer, Discount discount);
+    void addDiscount(Customer customer, Discount discount);
 
-    List<Discount> getDiscounts(RegisteredCustomer customer);
+    List<Discount> getDiscounts(Customer customer);
 
-    float applyDiscount(RegisteredCustomer customer, Discount discount);
+    float applyDiscount(Customer customer, Discount discount);
 }
