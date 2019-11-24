@@ -1,13 +1,10 @@
-package customer;
+package model.customer;
 
 
-import cookie.Cookie;
-import order.Cart;
-import order.OrderManager;
-import order.Place;
+import model.Cart;
+import model.cookie.Cookie;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
@@ -19,7 +16,7 @@ import static api.FakeApiServiceGenerator.FAKE_USERS_RANDOM;
  * @author Virgile FANTAUZZI
  */
 public abstract class Customer {
-    private Cart cart; // every customer has a cart
+    private Cart cart; // every model.customer has a cart
     // basic information that even unregistered users need to provide
     private String firstName;
     private String lastName;
@@ -49,10 +46,6 @@ public abstract class Customer {
         System.out.println(cart.toString());
     }
 
-    //Fonction déprécié, passer par le repository
-    public int placeOrder(OrderManager om, Date date, Place place){
-        return om.placeOrder(this, date, place);
-    }
 
     public void emptyCart() {
         cart.emptyCart();
@@ -79,4 +72,5 @@ public abstract class Customer {
      * Want to know if the customer is registered
      */
     public abstract boolean isRegistered();
+
 }

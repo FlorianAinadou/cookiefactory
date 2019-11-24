@@ -1,7 +1,10 @@
-package order;
+package model;
 
-import customer.Customer;
+
 import org.jetbrains.annotations.Nullable;
+
+import model.customer.Customer;
+
 
 import java.util.Date;
 import java.util.Objects;
@@ -23,7 +26,7 @@ public class Order {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-        customer.emptyCart(); // and empty the customer's cart
+        customer.emptyCart(); // and empty the model.customer's cart
         this.date = new Date();
         this.place = place;
     }
@@ -62,18 +65,5 @@ public class Order {
     }
 
 
-    /**
-     * As his name says it
-     * @return the final price of the order
-     */
-    public void applyDiscount(){
 
-        int cookiesNumber=cart.getCookiesNumber();
-        if (customer.isRegistered()){
-
-        }
-
-
-
-    }
 }

@@ -1,31 +1,35 @@
-package cookie;
+package model.cookie;
 
 import java.util.List;
 
-import cookie.parameters.*;
+import model.cookie.ingredients.Dough;
+import model.cookie.ingredients.Flavour;
+import model.cookie.ingredients.Topping;
+import model.cookie.parameters.*;
 
 /**
  * @author Lydia Baraukova
  */
 public class Cookie {
 
-    private final String name;
-    private Dough dough;
-    private Cooking cooking;
-    private Flavour flavour;
-    private Mix mix;
+    protected final String name;
+    protected Dough dough;
+    protected Cooking cooking;
+    protected Flavour flavour;
+    protected Mix mix;
     protected List<Topping> toppings;
-    private double unitPriceEuro;
-    private String type;
+    protected double unitPriceEuro;
+    protected String type;
 
-    public Cookie(String n, Dough d, Cooking c, Flavour f, Mix m, List<Topping> t, double p) {
+    public Cookie(String n, Dough d, Cooking c, Flavour f, Mix m, List<Topping> t) {
         name = n;
         dough = d;
         cooking = c;
         flavour = f;
         mix = m;
         toppings = t;
-        unitPriceEuro = p;
+        unitPriceEuro = dough.getPrice() + flavour.getPrice();
+        toppings.forEach(topping -> unitPriceEuro += topping.getPrice());
     }
 
     public String getName() { return name; }

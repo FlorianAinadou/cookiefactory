@@ -2,7 +2,7 @@ package repository;
 
 
 import api.ApiService;
-import customer.Customer;
+import model.customer.Customer;
 
 import java.util.List;
 /**

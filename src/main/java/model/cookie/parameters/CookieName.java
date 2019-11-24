@@ -1,4 +1,4 @@
-package cookie.parameters;
+package model.cookie.parameters;
 
 /**
  * @author Lydia BARAUKOVA

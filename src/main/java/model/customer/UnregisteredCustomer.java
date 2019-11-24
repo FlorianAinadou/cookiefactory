@@ -1,4 +1,4 @@
-package customer;
+package model.customer;
 
 /**
  * @author Lydia BARAUKOVA
@@ -12,4 +12,6 @@ public class UnregisteredCustomer extends Customer {
     public boolean isRegistered(){
         return false;
     }
+
+
 }
