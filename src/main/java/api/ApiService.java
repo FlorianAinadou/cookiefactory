@@ -3,6 +3,7 @@ package api;
 
 import model.Discount;
 import model.Order;
+import model.Shop;
 import model.cookie.Recipe;
 import model.customer.Customer;
 
@@ -18,6 +19,8 @@ public interface ApiService {
 
     List<Order> getOrders();
 
+    List<Shop> getShops();
+
     int getOrderNum();
 
     void generateRandomUser();
@@ -30,7 +33,12 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
+
     void addOrder(Order order, Discount discount);
+
+    void addShop(Shop shop);
+
+    void deleteShop(Shop shop);
 
     Map<String, Recipe> getCookieRecipes();
 

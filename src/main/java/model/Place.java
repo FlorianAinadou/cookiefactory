@@ -3,6 +3,8 @@ package model;
 public enum Place {
     Valbonne( "Valbonne"),
     Antibes ( "Antibes"),
+    Biot ( "Biot"),
+    Cannes ( "Cannes"),
     Nice( "Nice");
 
     private final String type;

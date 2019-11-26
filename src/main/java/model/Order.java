@@ -1,10 +1,8 @@
 package model;
 
 
-import org.jetbrains.annotations.Nullable;
-
 import model.customer.Customer;
-
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.Date;

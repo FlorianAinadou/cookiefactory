@@ -1,6 +1,8 @@
 package api;
 
 import model.Discount;
+import model.Place;
+import model.Shop;
 import model.cookie.Recipe;
 import model.cookie.ingredients.Dough;
 import model.cookie.ingredients.Flavour;
@@ -12,6 +14,9 @@ import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.MonthDay;
 import java.util.*;
 
 /**
@@ -33,6 +38,7 @@ public abstract class FakeApiServiceGenerator {
     static Map<Customer, ArrayList<Discount>> generateDiscounts() {
         return new HashMap<Customer, ArrayList<Discount>>(DISCOUNTS);
     }
+    static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS);}
 
     static Map<String, Discount> getShopDiscounts(){
         return new HashMap<String, Discount>(SHOP_DISCOUNTS);
@@ -53,6 +59,23 @@ public abstract class FakeApiServiceGenerator {
             new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com"),
             new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com")
     );
+
+    private static SimpleDateFormat horaire = new SimpleDateFormat("HH:mm");
+
+    public static List<Shop> FAKE_SHOPS;
+
+    static {
+        try {
+            FAKE_SHOPS = Arrays.asList(
+                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, horaire.parse("08:00"), horaire.parse("18:30"),0.5),
+                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, horaire.parse("09:00"), horaire.parse("18:30"),0.05),
+                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, horaire.parse("09:00"), horaire.parse("19:00"),0.1)
+
+                );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private static Map<String, Recipe> RECIPES_COOKIE = new HashMap<String, Recipe>() {{
