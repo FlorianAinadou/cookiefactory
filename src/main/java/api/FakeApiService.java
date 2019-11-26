@@ -2,15 +2,16 @@ package api;
 
 import model.Discount;
 import model.Order;
+<<<<<<< HEAD
 import model.RecipeCookie;
 import model.cookie.CookieComposant;
+=======
+import model.Shop;
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import model.cookie.Recipe;
 import model.customer.Customer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static api.FakeApiServiceGenerator.*;
 
@@ -22,6 +23,7 @@ import static api.FakeApiServiceGenerator.*;
 public class FakeApiService implements ApiService {
 
     private List<Customer> users = generateUsers();
+<<<<<<< HEAD
     private Map<String, RecipeCookie> recipes = generateCookieRecipes();
     private Map<String, CookieComposant> doughs = generateCookieDough();
     private Map<String, CookieComposant> topping = generateCookieTopping();
@@ -29,8 +31,14 @@ public class FakeApiService implements ApiService {
     private Map<String, CookieComposant> cooking = generateCookieCooking();
     private Map<String, CookieComposant> flavours = generateCookieFlavour();
     private Map<Customer, List<Discount>> discounts = generateDiscounts();
+=======
+    private Map<String, Recipe> recipes = generateCookieRecipes();
+    private HashMap<Customer, ArrayList<Discount>> discounts = new HashMap<>(generateDiscounts());
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
     private List<Order> orders = new ArrayList<>();
-    private Map<String, Discount> shopDiscounts= getShopDiscounts();
+    private HashMap<String, Discount> shopDiscounts= new HashMap<String, Discount>(getShopDiscounts());
+    private List<Shop> shops = new ArrayList<>();
+
 
     /**
      * Return a list of {@link Customer}
@@ -78,10 +86,14 @@ public class FakeApiService implements ApiService {
 
     @Override
     public void addDiscount(Customer customer, Discount discount) {
-        if(discounts.containsKey(customer)){
-            discounts.get(customer).add(discount);
-        }else{
-            discounts.put(customer, Collections.singletonList(discount));
+        if (customer.isRegistered()) {
+            if (discounts.containsKey(customer)) {
+               // ArrayList<Discount> dis = discounts.get(customer);
+                //discounts.put(customer,)
+                discounts.get(customer).add(discount);
+            } else {
+                discounts.put(customer, new ArrayList<>(Collections.singletonList(discount)));
+            }
         }
     }
 
@@ -96,15 +108,48 @@ public class FakeApiService implements ApiService {
 
     }
 
+    /**
+     * Used to apply a discount asked by a customer
+     * If the customer is not registered, return the total price of his cart
+     * @param customer
+     * @param discount
+     * @return
+     */
     @Override
-    public float applyDiscount(Customer customer, Discount discount) {
+    public double applyDiscount(Customer customer, Discount discount) {
         if(customer.isRegistered()) {
-            discounts.get(customer).remove(discount);
+            if (discounts.containsKey(customer)) {
+                try {
+                    discounts.get(customer).remove(discount);
+                    return (customer.getCart().getTotalPrice()) * (1.f - discount.getRate());
+                }
+                catch (Throwable e){
+                    System.out.println("You don't have the right to this discount ");
+                }
+
+            }
+        }
+        return customer.getCart().getTotalPrice();
+    }
+
+    /**
+     * the customer may just need to see the reduction which may be applied
+     * Not useful right now
+     * @param customer
+     * @param discount
+     * @return
+     */
+    @Override
+    public float askForADiscountApplying(Customer customer, Discount discount){
+        if(customer.isRegistered()) {
             return discount.getRate();
         }
 
         return 0.0f;
+
     }
+
+    // public float getFinalPrice(Customer customer, Discount discount){ }
 
     /**
      * Return a list of {@link Order}
@@ -113,6 +158,11 @@ public class FakeApiService implements ApiService {
     @Override
     public List<Order> getOrders() {
         return orders;
+    }
+
+    @Override
+    public List<Shop> getShops() {
+        return shops;
     }
 
     /**
@@ -163,11 +213,41 @@ public class FakeApiService implements ApiService {
      */
     @Override
     public void addOrder(Order order) {
+        giveDiscount(order);
+        order.setOrderAmount(order.getCart().getTotalPrice());
         orders.add(order);
+        System.out.println(order.toString());
+        order.getCustomer().emptyCart(); // and empty the model.customer's cart
 
-        //System.out.println("The order №" + order.getId() + " has been placed!");
-        System.out.println("The order №" + order.getId() + " has been placed, for the shop at" + order.getShop().getAdress()+", "+order.getShop().getCity());
+    }
 
+
+
+    /**
+     * used to get an order with a discount
+     * @param order
+     * @param discount
+     */
+    @Override
+    public void addOrder(Order order, Discount discount) {
+        giveDiscount(order);
+        System.out.println("The discount "+ discount.toString() + " have been used!");
+        order.setOrderAmount(applyDiscount(order.getCustomer(), discount));
+        System.out.println(order.toString());
+        orders.add(order);
+        order.getCustomer().emptyCart(); // and empty the model.customer's cart
+
+    }
+
+    @Override
+    public void addShop(Shop shop) {
+        shops.add(shop);
+        System.out.println(shop.getShopName() + ",nouveau Shop ajouté ");
+    }
+
+    @Override
+    public void deleteShop(Shop shop) {
+        shops.remove(shop);
     }
 
 
@@ -180,6 +260,7 @@ public class FakeApiService implements ApiService {
         int cookiesNumber=order.getCart().getCookiesNumber();
         if (order.getCustomer().isRegistered() && cookiesNumber>=30){
            addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));
+           System.out.println("Great news! you get the Loyalty_program discount (10% discount). Use it next time)");
         }
 
 

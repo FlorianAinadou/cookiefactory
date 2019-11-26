@@ -3,8 +3,12 @@ package api;
 
 import model.Discount;
 import model.Order;
+<<<<<<< HEAD
 import model.RecipeCookie;
 import model.cookie.CookieComposant;
+=======
+import model.Shop;
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import model.cookie.Recipe;
 import model.customer.Customer;
 
@@ -20,6 +24,8 @@ public interface ApiService {
 
     List<Order> getOrders();
 
+    List<Shop> getShops();
+
     int getOrderNum();
 
     void generateRandomUser();
@@ -32,6 +38,7 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
+<<<<<<< HEAD
     Map<String, RecipeCookie> getCookieRecipes();
 
     Map<String, CookieComposant> getCookieDough();
@@ -43,10 +50,22 @@ public interface ApiService {
     Map<String, CookieComposant> getCookieCooking();
 
     Map<String, CookieComposant> getCookieFlavour();
+=======
+
+    void addOrder(Order order, Discount discount);
+
+    void addShop(Shop shop);
+
+    void deleteShop(Shop shop);
+
+    Map<String, Recipe> getCookieRecipes();
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 
     void addDiscount(Customer customer, Discount discount);
 
     List<Discount> getDiscounts(Customer customer);
 
-    float applyDiscount(Customer customer, Discount discount);
+    double applyDiscount(Customer customer, Discount discount);
+
+    float askForADiscountApplying(Customer customer, Discount discount);
 }

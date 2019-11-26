@@ -1,8 +1,13 @@
 package api;
 
 import model.Discount;
+<<<<<<< HEAD
 import model.RecipeCookie;
 import model.cookie.CookieComposant;
+=======
+import model.Place;
+import model.Shop;
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import model.cookie.Recipe;
 import model.cookie.ingredients.Const;
 import model.cookie.ingredients.Dough;
@@ -15,6 +20,9 @@ import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.MonthDay;
 import java.util.*;
 
 /**
@@ -53,9 +61,10 @@ public abstract class FakeApiServiceGenerator {
         return new HashMap<String, CookieComposant>(MIX_COOKIE);
     }
 
-    static Map<Customer, List<Discount>> generateDiscounts() {
-        return new HashMap<Customer, List<Discount>>(DISCOUNTS);
+    static Map<Customer, ArrayList<Discount>> generateDiscounts() {
+        return new HashMap<Customer, ArrayList<Discount>>(DISCOUNTS);
     }
+    static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS);}
 
     static Map<String, Discount> getShopDiscounts() {
         return new HashMap<String, Discount>(SHOP_DISCOUNTS);
@@ -70,12 +79,29 @@ public abstract class FakeApiServiceGenerator {
     );
 
     public static List<Customer> FAKE_USERS_RANDOM = Arrays.asList(
-            new UnregisteredCustomer("Paul", "Dupont", "0612345678", "paul@gmail.com"),
+            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test"),
             new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com"),
             new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com"),
             new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com"),
             new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com")
     );
+
+    private static SimpleDateFormat horaire = new SimpleDateFormat("HH:mm");
+
+    public static List<Shop> FAKE_SHOPS;
+
+    static {
+        try {
+            FAKE_SHOPS = Arrays.asList(
+                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, horaire.parse("08:00"), horaire.parse("18:30"),0.5),
+                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, horaire.parse("09:00"), horaire.parse("18:30"),0.05),
+                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, horaire.parse("09:00"), horaire.parse("19:00"),0.1)
+
+                );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -119,12 +145,21 @@ public abstract class FakeApiServiceGenerator {
         }
     };
 
+<<<<<<< HEAD
     private static Map<RegisteredCustomer, List<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, List<Discount>>() {{
         put((RegisteredCustomer) FAKE_USERS.get(0), Arrays.asList(new Discount(0.90f, "PROMO10")));
     }};
 
     private static Map<String, Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>() {{
         put("LOYALTY_PROGRAM", new Discount(0.1f, "LOYALTY_PROGRAM"));
+=======
+    private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
+        put((RegisteredCustomer)FAKE_USERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
+    }};
+
+    private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
+        put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
+>>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};

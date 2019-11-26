@@ -1,6 +1,5 @@
 package model.customer;
 
-import di.Injection;
 import model.Discount;
 
 import java.util.ArrayList;
@@ -56,5 +55,6 @@ public class RegisteredCustomer extends Customer {
     public boolean isRegistered() {
         return true;
     }
+
 
 }

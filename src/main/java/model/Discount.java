@@ -49,4 +49,9 @@ public class Discount {
     public int hashCode() {
         return Objects.hash(getName(), getRate());
     }
+
+    @Override
+    public String toString(){
+        return ( this.name + " with rate of " + this.rate);
+    }
 }

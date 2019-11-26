@@ -73,4 +73,5 @@ public abstract class Customer {
      */
     public abstract boolean isRegistered();
 
+
 }
