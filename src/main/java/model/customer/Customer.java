@@ -1,9 +1,9 @@
 package model.customer;
 
 
+import com.sun.istack.internal.Nullable;
 import model.Cart;
 import model.cookie.Cookie;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Random;

@@ -58,11 +58,6 @@ public class Main {
         Paul.placeOrder(om, new Date(), Place.Antibes);*/
 
         // Je vous propose plutôt un main comme ça (Virgile)
-        SimpleDateFormat horaire = new SimpleDateFormat("HH:mm");
-        try {
-            Shop placeToBe = new Shop(" 6 Rue de la République", Place.Antibes, horaire.parse("08:00"), horaire.parse("19:00"),0.02);
-
-
         orderRepository = getOrderRepository();
         userRepository = getUserRepository();
         cookieRepository = getCookieRepository();
@@ -71,15 +66,13 @@ public class Main {
         Map<String, Recipe> recipes = getCookieRepository().getCookieRecipes();
 
         Customer Paul = Customer.random();
+        Shop placeToBe = Shop.random();
         userRepository.addUser(Paul);
 
         Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
         Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),2);
         Paul.showCart();
         orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
     }
 }

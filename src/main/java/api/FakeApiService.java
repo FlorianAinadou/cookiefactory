@@ -2,6 +2,7 @@ package api;
 
 import model.Discount;
 import model.Order;
+import model.Shop;
 import model.cookie.Recipe;
 import model.customer.Customer;
 
@@ -24,6 +25,7 @@ public class FakeApiService implements ApiService {
     private Map<Customer, List<Discount>> discounts = generateDiscounts();
     private List<Order> orders = new ArrayList<>();
     private Map<String, Discount> shopDiscounts= getShopDiscounts();
+    private List<Shop> shops = new ArrayList<>();
 
     /**
      * Return a list of {@link Customer}
@@ -82,6 +84,11 @@ public class FakeApiService implements ApiService {
         return orders;
     }
 
+    @Override
+    public List<Shop> getShops() {
+        return shops;
+    }
+
     /**
      * Generate an order ID according to the size of orders {@link Order} .
      * This number must be only get here.
@@ -133,8 +140,19 @@ public class FakeApiService implements ApiService {
         orders.add(order);
 
         //System.out.println("The order №" + order.getId() + " has been placed!");
-        System.out.println("The order №" + order.getId() + " has been placed, for the shop at" + order.getShop().getAdress()+", "+order.getShop().getCity());
+        System.out.println("The order №" + order.getId() + " has been placed, for the shop at " + order.getShop().getAdress()+", "+order.getShop().getCity());
 
+    }
+
+    @Override
+    public void addShop(Shop shop) {
+        shops.add(shop);
+        System.out.println(shop.getShopName() + ",nouveau Shop ajouté ");
+    }
+
+    @Override
+    public void deleteShop(Shop shop) {
+        shops.remove(shop);
     }
 
 

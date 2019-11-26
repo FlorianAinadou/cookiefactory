@@ -1,8 +1,7 @@
 package model;
 
 
-import org.jetbrains.annotations.Nullable;
-
+import com.sun.istack.internal.Nullable;
 import model.customer.Customer;
 
 
