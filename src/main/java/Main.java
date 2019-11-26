@@ -1,11 +1,8 @@
 
 
-<<<<<<< HEAD
 import model.RecipeCookie;
 import model.Shop;
 import model.cookie.Cookie;
-=======
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import di.Injection;
 import model.Order;
 import model.Shop;
@@ -66,15 +63,10 @@ public class Main {
         cookieRepository = getCookieRepository();
         discountRepository = getDiscountRepository();
 
-<<<<<<< HEAD
         Map<String, RecipeCookie> recipes = getCookieRepository().getCookieRecipes();
 
-        Customer Paul = Customer.random();
-=======
-        Map<String, Recipe> recipes = getCookieRepository().getCookieRecipes();
         Customer Paul = userRepository.getUsers().get(0);
         Shop placeToBe = Shop.random();
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
         userRepository.addUser(Paul);
 
 

@@ -1,7 +1,8 @@
 package model;
 
 
-import org.jetbrains.annotations.Nullable;
+
+import com.sun.istack.internal.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;

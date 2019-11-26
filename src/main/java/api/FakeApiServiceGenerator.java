@@ -1,13 +1,10 @@
 package api;
 
 import model.Discount;
-<<<<<<< HEAD
 import model.RecipeCookie;
 import model.cookie.CookieComposant;
-=======
 import model.Place;
 import model.Shop;
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import model.cookie.Recipe;
 import model.cookie.ingredients.Const;
 import model.cookie.ingredients.Dough;
@@ -145,21 +142,12 @@ public abstract class FakeApiServiceGenerator {
         }
     };
 
-<<<<<<< HEAD
-    private static Map<RegisteredCustomer, List<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, List<Discount>>() {{
-        put((RegisteredCustomer) FAKE_USERS.get(0), Arrays.asList(new Discount(0.90f, "PROMO10")));
-    }};
-
-    private static Map<String, Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>() {{
-        put("LOYALTY_PROGRAM", new Discount(0.1f, "LOYALTY_PROGRAM"));
-=======
     private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
         put((RegisteredCustomer)FAKE_USERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
     }};
 
     private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
         put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};

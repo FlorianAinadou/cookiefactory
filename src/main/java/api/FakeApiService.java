@@ -2,12 +2,9 @@ package api;
 
 import model.Discount;
 import model.Order;
-<<<<<<< HEAD
 import model.RecipeCookie;
 import model.cookie.CookieComposant;
-=======
 import model.Shop;
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
 import model.cookie.Recipe;
 import model.customer.Customer;
 
@@ -23,18 +20,13 @@ import static api.FakeApiServiceGenerator.*;
 public class FakeApiService implements ApiService {
 
     private List<Customer> users = generateUsers();
-<<<<<<< HEAD
     private Map<String, RecipeCookie> recipes = generateCookieRecipes();
     private Map<String, CookieComposant> doughs = generateCookieDough();
     private Map<String, CookieComposant> topping = generateCookieTopping();
     private Map<String, CookieComposant> mix = generateCookieMix();
     private Map<String, CookieComposant> cooking = generateCookieCooking();
     private Map<String, CookieComposant> flavours = generateCookieFlavour();
-    private Map<Customer, List<Discount>> discounts = generateDiscounts();
-=======
-    private Map<String, Recipe> recipes = generateCookieRecipes();
     private HashMap<Customer, ArrayList<Discount>> discounts = new HashMap<>(generateDiscounts());
->>>>>>> ffc557fff004a3b46bdf93ffa64cce97d309df25
     private List<Order> orders = new ArrayList<>();
     private HashMap<String, Discount> shopDiscounts= new HashMap<String, Discount>(getShopDiscounts());
     private List<Shop> shops = new ArrayList<>();
