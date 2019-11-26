@@ -30,11 +30,15 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
+    void addOrder(Order order, Discount discount);
+
     Map<String, Recipe> getCookieRecipes();
 
     void addDiscount(Customer customer, Discount discount);
 
     List<Discount> getDiscounts(Customer customer);
 
-    float applyDiscount(Customer customer, Discount discount);
+    double applyDiscount(Customer customer, Discount discount);
+
+    float askForADiscountApplying(Customer customer, Discount discount);
 }

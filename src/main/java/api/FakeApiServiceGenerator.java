@@ -30,8 +30,8 @@ public abstract class FakeApiServiceGenerator {
         return new HashMap<String, Recipe>(RECIPES_COOKIE);
     }
 
-    static Map<Customer, List<Discount>> generateDiscounts() {
-        return new HashMap<Customer, List<Discount>>(DISCOUNTS);
+    static Map<Customer, ArrayList<Discount>> generateDiscounts() {
+        return new HashMap<Customer, ArrayList<Discount>>(DISCOUNTS);
     }
 
     static Map<String, Discount> getShopDiscounts(){
@@ -47,7 +47,7 @@ public abstract class FakeApiServiceGenerator {
     );
 
     public static List<Customer> FAKE_USERS_RANDOM = Arrays.asList(
-            new UnregisteredCustomer("Paul", "Dupont", "0612345678", "paul@gmail.com"),
+            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test"),
             new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com"),
             new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com"),
             new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com"),
@@ -61,11 +61,11 @@ public abstract class FakeApiServiceGenerator {
         put("DarkTemptation", new Recipe(CookieName.darkTemptation.toString(), Dough.chocolate, Cooking.crunchy, Flavour.chocolate, Mix.mixed, new ArrayList<>(Collections.singletonList(Topping.darkChocolate))));
     }};
 
-    private static Map<RegisteredCustomer, List<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, List<Discount>>() {{
-        put((RegisteredCustomer)FAKE_USERS.get(0), Arrays.asList(new Discount( 0.90f, "PROMO10")));
+    private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
+        put((RegisteredCustomer)FAKE_USERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
     }};
 
-    private static Map<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
+    private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
         put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));

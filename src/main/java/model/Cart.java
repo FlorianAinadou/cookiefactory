@@ -38,6 +38,8 @@ public class Cart {
             s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + ", Soit Total(TTC): "+ price.format((cookie.getPrice()+cookie.getPrice()*Shop.getTaxe())*quantity)+ "€\n";
 
         }
+        DecimalFormat totalFinalPrice = new DecimalFormat ( ) ;
+        s+= "Total amount:  " + totalFinalPrice.format(this.totalPrice)+"€";
         return s;
     }
 
@@ -70,6 +72,8 @@ public class Cart {
         items.remove(cookie);
     }
     public void emptyCart() { // empties the cart
+        totalPrice=0;
+        cookiesNumber=0;
         items.clear();
     }
 

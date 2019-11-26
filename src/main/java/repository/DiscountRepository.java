@@ -3,7 +3,7 @@ package repository;
 
 import api.ApiService;
 import model.Discount;
-import model.Order;
+import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 
 import java.util.List;
@@ -20,15 +20,18 @@ public class DiscountRepository {
         this.apiService = apiService;
     }
 
-    void addDiscount(RegisteredCustomer customer, Discount discount){
+    public void addDiscount(RegisteredCustomer customer, Discount discount){
         apiService.addDiscount(customer, discount);
     }
 
-    List<Discount> getDiscounts(RegisteredCustomer customer){
-        return apiService.getDiscounts(customer);
+    public List<Discount> getDiscounts(Customer customer){
+        if(customer.isRegistered()) {
+            return apiService.getDiscounts(customer);
+        }
+        return null;
     }
 
-    float applyDiscount(RegisteredCustomer customer, Discount discount){
-        return apiService.applyDiscount(customer, discount);
+    public void applyDiscount(Customer customer, Discount discount){
+        apiService.applyDiscount(customer, discount);
     }
 }
