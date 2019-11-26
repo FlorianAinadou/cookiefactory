@@ -1,5 +1,6 @@
 
 
+import model.RecipeCookie;
 import model.Shop;
 import model.cookie.Cookie;
 import di.Injection;
@@ -68,7 +69,7 @@ public class Main {
         cookieRepository = getCookieRepository();
         discountRepository = getDiscountRepository();
 
-        Map<String, Recipe> recipes = getCookieRepository().getCookieRecipes();
+        Map<String, RecipeCookie> recipes = getCookieRepository().getCookieRecipes();
 
         Customer Paul = Customer.random();
         userRepository.addUser(Paul);

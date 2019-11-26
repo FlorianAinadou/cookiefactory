@@ -12,7 +12,7 @@ import repository.UserRepository;
 
 public class Injection {
 
-    public static FakeApiService fakeApiService = new FakeApiService();
+    private static FakeApiService fakeApiService = new FakeApiService();
 
     public static UserRepository createUserRepository() {
         return new UserRepository(fakeApiService);
