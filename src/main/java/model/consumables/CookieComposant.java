@@ -1,6 +1,5 @@
 package model.consumables;
 
-import com.sun.istack.internal.Nullable;
 
 //import org.jetbrains.annotations.Nullable;
 
@@ -49,7 +48,7 @@ public class CookieComposant {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof CookieComposant)) return false;
