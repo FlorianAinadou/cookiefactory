@@ -5,6 +5,7 @@ import model.Order;
 import model.RecipeCookie;
 import model.Shop;
 import model.consumables.Cookie;
+import model.consumables.Drink;
 import model.customer.Customer;
 import repository.CookieRepository;
 import repository.DiscountRepository;
@@ -67,14 +68,16 @@ public class Main {
         userRepository.addUser(Paul);
 
 
-        Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
-        Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),26);
+        Paul.addConsumables(new Cookie(recipes.get("Chocolala")),4);
+        Paul.addConsumables(new Cookie(recipes.get("DarkTemptation")),26);
+
         Paul.showCart();
 
         orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
 
-            Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
-            Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),6);
+            Paul.addConsumables(new Cookie(recipes.get("Chocolala")),4);
+            Paul.addConsumables(new Cookie(recipes.get("DarkTemptation")),6);
+            Paul.addConsumables(new Drink(0.5f, "Sprite"),1);
             Paul.showCart();
             orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
 

@@ -44,19 +44,20 @@ public class Cart {
         return s;
     }
 
-    public void addCookies(Cookie cookie, Integer quantity) {
-        if (items.containsKey(cookie)) { // if the model.consumables is already in the cart
-            increaseCookiesQuantityBy(cookie, quantity); // we increase the quantity of this item
+
+    public void addConsumables(Consumable consumable, Integer quantity) {
+        if (items.containsKey(consumable)) { // if the model.consumables is already in the cart
+            increaseCookiesQuantityBy(consumable, quantity); // we increase the quantity of this item
         } else { // if not
-            items.put(cookie, quantity); // we add the new item
-            totalPrice += quantity*cookie.getPrice(); // and update the total price
+            items.put(consumable, quantity); // we add the new item
+            totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
         cookiesNumber+= quantity;
     }
 
-    private void increaseCookiesQuantityBy(Cookie cookie, Integer quantity) {
-        items.put(cookie, items.get(cookie)+quantity); // we update the quantity
-        totalPrice += quantity*cookie.getPrice(); // and the total price
+    private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
+        items.put(consumable, items.get(consumable)+quantity); // we update the quantity
+        totalPrice += quantity*consumable.getPrice(); // and the total price
     }
 
     public void increaseQuantity(Cookie cookie) {

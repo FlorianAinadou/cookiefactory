@@ -34,7 +34,7 @@ public class OrderCookiesStepdefs implements En {
 
 
         When("the model.customer adds {int} cookies in his cart",
-                (Integer quantity) -> customer.addCookies(cookie, quantity));
+                (Integer quantity) -> customer.addConsumables(cookie, quantity));
         Then("A new item named like the wanted model.consumables appears in his cart",
                 () -> assertTrue(customer.getCart().getItems().containsKey(cookie)));
         And("The quantity of this item is {int}",
