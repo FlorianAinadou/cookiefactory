@@ -56,6 +56,8 @@ public class Main {
         Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
         Paul.addConsumables(new Drink(0.5f, "Sprite"),1);
         Paul.showCart();
-        orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, placeToBe), discountRepository.getDiscounts(Paul).get(0));
+        Order order = new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe);
+        orderRepository.addOrder(order, discountRepository.getDiscounts(Paul).get(0));
+        orderRepository.payOrder(order, Paul);
     }
 }

@@ -3,6 +3,9 @@ package repository;
 
 import api.ApiService;
 import model.discount.Discount;
+
+import model.Shop;
+
 import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 
@@ -31,7 +34,7 @@ public class DiscountRepository {
         return null;
     }
 
-    public void applyDiscount(Customer customer, Discount discount){
-        apiService.applyDiscount(customer, discount);
+    public void applyDiscount(Customer customer, Shop shop, Discount discount){
+        apiService.applyDiscount(customer, shop, discount);
     }
 }

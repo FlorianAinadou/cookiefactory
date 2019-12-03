@@ -29,7 +29,7 @@ public class OrderStepdefs implements En {
     public OrderStepdefs() {
         Given("a client named {string}",
                 (String firstName, String lastName, String tel, String email) ->
-                    customer = new UnregisteredCustomer(firstName, lastName, tel, email));
+                    customer = new UnregisteredCustomer(firstName, lastName, tel, email, 2.00));
         And("a cookie named {string}",
                 (String cookieName) -> cookie = new Cookie(COOKIE_RECIPES.get(cookieName)));
 

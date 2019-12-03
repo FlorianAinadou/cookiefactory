@@ -20,7 +20,7 @@ class CookieTest {
 
     @BeforeEach
     void setUp() {
-        cookie = new Cookie(new Recipe(Lib.CookieName.CHOCOLALA,new ArrayList<>(Arrays.asList(
+        cookie = new Cookie(new Recipe(Lib.CookieName.CHOCOLALA,2.00,new ArrayList<>(Arrays.asList(
                 new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.CHOCOLATE),
                 new CookieComponent(Lib.ComponentType.COOKING, Lib.Cooking.CRUNCHY),
                 new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHOCOLATE),

@@ -49,18 +49,21 @@ public interface ApiService {
 
     void addOrder(Order order, Discount discount);
 
+    void payOrder(Order order, Customer customer);
+
     void addShop(Shop shop);
 
     void deleteShop(Shop shop);
 
-    void changeHorairesShop(Shop shop, Date open, Date close);
+    void changeMarginRecipes(String name, double value);
 
+    void changeHorairesShop(Shop shop, Date open, Date close);
 
     void addDiscount(Customer customer, Discount discount);
 
     List<Discount> getDiscounts(Customer customer);
 
-    double applyDiscount(Customer customer, Discount discount);
+    double applyDiscount(Customer customer, Shop shop, Discount discount);
 
     float askForADiscountApplying(Customer customer, Discount discount);
 }

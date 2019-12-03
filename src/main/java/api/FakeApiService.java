@@ -7,6 +7,7 @@ import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static api.FakeApiServiceGenerator.*;
@@ -19,15 +20,15 @@ import static api.FakeApiServiceGenerator.*;
 public class FakeApiService implements ApiService {
 
     private List<Customer> users = generateUsers();
-    private Map<String, Recipe> recipes = generateCookieRecipes();
-    private Map<String, CookieComponent> doughs = generateCookieDough();
-    private Map<String, CookieComponent> topping = generateCookieTopping();
-    private Map<String, CookieComponent> mix = generateCookieMix();
-    private Map<String, CookieComponent> cooking = generateCookieCooking();
-    private Map<String, CookieComponent> flavours = generateCookieFlavour();
+    private HashMap<String, Recipe> recipes = new HashMap<>(generateCookieRecipes());
+    private HashMap<String, CookieComponent> doughs = new HashMap<>(generateCookieDough());
+    private HashMap<String, CookieComponent> topping = new HashMap<>(generateCookieTopping());
+    private HashMap<String, CookieComponent> mix = new HashMap<>(generateCookieMix());
+    private HashMap<String, CookieComponent> cooking = new HashMap<>(generateCookieCooking());
+    private HashMap<String, CookieComponent> flavours = new HashMap<>(generateCookieFlavour());
     private HashMap<Customer, ArrayList<Discount>> discounts = new HashMap<>(generateDiscounts());
     private List<Order> orders = new ArrayList<>();
-    private HashMap<String, Discount> shopDiscounts= new HashMap<String, Discount>(getShopDiscounts());
+    private HashMap<String, Discount> shopDiscounts = new HashMap<String, Discount>(getShopDiscounts());
     private List<Shop> shops = new ArrayList<>();
 
 
@@ -79,7 +80,7 @@ public class FakeApiService implements ApiService {
     public void addDiscount(Customer customer, Discount discount) {
         if (customer.isRegistered()) {
             if (discounts.containsKey(customer)) {
-               // ArrayList<Discount> dis = discounts.get(customer);
+                // ArrayList<Discount> dis = discounts.get(customer);
                 //discounts.put(customer,)
                 discounts.get(customer).add(discount);
             } else {
@@ -90,7 +91,7 @@ public class FakeApiService implements ApiService {
 
     @Override
     public List<Discount> getDiscounts(Customer customer) {
-        if(customer.isRegistered()) return discounts.get(customer);
+        if (customer.isRegistered()) return discounts.get(customer);
 
         else {
             System.out.println("Customer not registered");
@@ -102,19 +103,25 @@ public class FakeApiService implements ApiService {
     /**
      * Used to apply a discount asked by a customer
      * If the customer is not registered, return the total price of his cart
+<<<<<<< HEAD
+     *
+     * @param customer
+     * @param discount
+     * @return
+=======
      * @param customer active customer
      * @param discount discount he wants to apply
      * @return total price after discount application
+>>>>>>> 303efee5d25b8ed71a8d181c3100665e1695e566
      */
     @Override
-    public double applyDiscount(Customer customer, Discount discount) {
-        if(customer.isRegistered()) {
+    public double applyDiscount(Customer customer, Shop shop, Discount discount) {
+        if (customer.isRegistered()) {
             if (discounts.containsKey(customer)) {
                 try {
                     discounts.get(customer).remove(discount);
-                    return (customer.getCart().getTotalPrice()) * (1.f - discount.getRate());
-                }
-                catch (Throwable e){
+                    return (customer.getCart().getTotalPrice() + customer.getCart().getTotalPrice() * shop.getTaxe()) * (1.f - discount.getRate());
+                } catch (Throwable e) {
                     System.out.println("You don't have the right to this discount ");
                 }
 
@@ -126,13 +133,14 @@ public class FakeApiService implements ApiService {
     /**
      * the customer may just need to see the reduction which may be applied
      * Not useful right now
+     *
      * @param customer
      * @param discount
      * @return
      */
     @Override
-    public float askForADiscountApplying(Customer customer, Discount discount){
-        if(customer.isRegistered()) {
+    public float askForADiscountApplying(Customer customer, Discount discount) {
+        if (customer.isRegistered()) {
             return discount.getRate();
         }
 
@@ -191,6 +199,14 @@ public class FakeApiService implements ApiService {
     }
 
     /**
+     * Change a margin of {@link RecipeCookie} from the {@link FakeApiService#recipes} list.
+     */
+    @Override
+    public void changeMarginRecipes(String name, double value) {
+
+    }
+
+    /**
      * Delete a {@link Order} from the {@link FakeApiService#users} list.
      */
     @Override
@@ -205,7 +221,7 @@ public class FakeApiService implements ApiService {
     @Override
     public void addOrder(Order order) {
         giveDiscount(order);
-        order.setOrderAmount(order.getCart().getTotalPrice());
+        order.setOrderAmount(order.getCart().getTotalPrice() + order.getCart().getTotalPrice() * order.getShop().getTaxe());
         orders.add(order);
         System.out.println(order.toString());
         order.getCustomer().emptyCart(); // and empty the model.customer's cart
@@ -214,18 +230,39 @@ public class FakeApiService implements ApiService {
 
     /**
      * used to get an order with a discount
+     *
      * @param order
      * @param discount
      */
     @Override
     public void addOrder(Order order, Discount discount) {
         giveDiscount(order);
-        System.out.println("The discount "+ discount.toString() + " have been used!");
-        order.setOrderAmount(applyDiscount(order.getCustomer(), discount));
+        DecimalFormat totalFinalPrice = new DecimalFormat();
+        totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
+
+        double totalPrice = applyDiscount(order.getCustomer(), order.getShop(), discount);
+        System.out.println("The shop tax is " + order.getShop().getTaxe() * 100 + " %, total tax is " + totalFinalPrice.format(order.getCart().getTotalPrice() * order.getShop().getTaxe()) + " €");
+        System.out.println("Price TTC is " + totalFinalPrice.format(order.getCart().getTotalPrice() + order.getCart().getTotalPrice() * order.getShop().getTaxe()) + " €");
+        System.out.println("The discount " + discount.toString() + " have been used!");
+        order.setOrderAmount(totalPrice);
         System.out.println(order.toString());
+        order.setOrderStatu(order.getOrderStatu() + 1);
         orders.add(order);
         order.getCustomer().emptyCart(); // and empty the model.customer's cart
+    }
 
+    @Override
+    public void payOrder(Order order, Customer customer) {
+        System.out.println("Customer money before paying : " + customer.getWalletAmount() + " €");
+        DecimalFormat totalFinalPrice = new DecimalFormat();
+        totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
+        if (customer.getWalletAmount() > order.getOrderAmount()) {
+            order.setOrderStatu(order.getOrderStatu() + 1);
+            users.get(users.indexOf(customer)).setWalletAmount((customer.getWalletAmount() - order.getOrderAmount()));
+            System.out.println("Customer money : " + totalFinalPrice.format(users.get(users.indexOf(customer)).getWalletAmount()) + " €");
+        } else {
+            System.out.println("The order has not been paid, the walletAmount of the customer is not enough");
+        }
     }
 
     /**
@@ -263,9 +300,10 @@ public class FakeApiService implements ApiService {
 
     /**
      * used to give some discount to a customer for things he has bought
+     *
      * @return the final price of the order
      */
-    public void giveDiscount(Order order){
+    public void giveDiscount(Order order) {
 
         int cookiesNumber=order.getCart().getCookiesNumber();
         if (order.getCustomer().isRegistered()){
@@ -280,8 +318,5 @@ public class FakeApiService implements ApiService {
             }
         }*/
         }
-
-
-
     }
 }
