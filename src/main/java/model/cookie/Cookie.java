@@ -1,19 +1,19 @@
 package model.cookie;
 
-import model.RecipeCookie;
+import model.Recipe;
 
 /**
  * @author Lydia Baraukova
  */
 public class Cookie {
 
-    protected RecipeCookie recipe;
+    protected Recipe recipe;
 
-    public Cookie(RecipeCookie r) {
+    public Cookie(Recipe r) {
         recipe = r;
     }
 
-    public RecipeCookie getRecipe() { return recipe; }
+    public Recipe getRecipe() { return recipe; }
 
     public double getPrice() { return  recipe.getPrice(); }
 

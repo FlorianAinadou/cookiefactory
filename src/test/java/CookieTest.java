@@ -1,9 +1,15 @@
-import model.cookie.parameters.CookieName;
-import cookiefactory.CookieFactory;
+import di.Injection;
+import model.Recipe;
 import model.cookie.Cookie;
 
+import model.cookie.CookieComponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.Lib;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -11,16 +17,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class CookieTest {
 
-    private CookieFactory factory = new CookieFactory();
     private Cookie cookie;
 
     @BeforeEach
     void setUp() {
-        cookie = factory.createCookie(CookieName.chocolala);
+        cookie = new Cookie(new Recipe(Lib.CookieName.CHOCOLALA,new ArrayList<>(Arrays.asList(
+                new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.CHOCOLATE),
+                new CookieComponent(Lib.ComponentType.COOKING, Lib.Cooking.CRUNCHY),
+                new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHOCOLATE),
+                new CookieComponent(Lib.ComponentType.MIX, Lib.Mix.TOPPED),
+                new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.MILK_CHOCOLATE)))));
     }
 
-   // @Test
-    //void CookieCreated() {
-      //  assertEquals(cookie.getUnitPriceEuro(), new Chocolala().getUnitPriceEuro());
-   // }
+   @Test
+   void CookieCreated() {
+      assertEquals(cookie, new Cookie(Injection.createCookieRepository().getCookieRecipes().get(Lib.CookieName.CHOCOLALA)));
+   }
 }

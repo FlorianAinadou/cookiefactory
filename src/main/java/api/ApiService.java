@@ -3,10 +3,9 @@ package api;
 
 import model.Discount;
 import model.Order;
-import model.RecipeCookie;
-import model.cookie.CookieComposant;
+import model.Recipe;
+import model.cookie.CookieComponent;
 import model.Shop;
-import model.cookie.Recipe;
 import model.customer.Customer;
 
 import java.util.List;
@@ -35,17 +34,17 @@ public interface ApiService {
 
     void addOrder(Order orderNum);
 
-    Map<String, RecipeCookie> getCookieRecipes();
+    Map<String, Recipe> getCookieRecipes();
 
-    Map<String, CookieComposant> getCookieDough();
+    Map<String, CookieComponent> getCookieDough();
 
-    Map<String, CookieComposant> getCookieTopping();
+    Map<String, CookieComponent> getCookieTopping();
 
-    Map<String, CookieComposant> getCookieMix();
+    Map<String, CookieComponent> getCookieMix();
 
-    Map<String, CookieComposant> getCookieCooking();
+    Map<String, CookieComponent> getCookieCooking();
 
-    Map<String, CookieComposant> getCookieFlavour();
+    Map<String, CookieComponent> getCookieFlavour();
 
     void addOrder(Order order, Discount discount);
 

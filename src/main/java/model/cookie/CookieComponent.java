@@ -4,13 +4,13 @@ import com.sun.istack.internal.Nullable;
 
 import java.util.Objects;
 
-public class CookieComposant {
+public class CookieComponent {
 
     private int type;
     private String name;
     private float price;
 
-    public CookieComposant(int type, String name) {
+    public CookieComponent(int type, String name) {
         this.type = type;
         this.name = name;
         this.price = 0f;
@@ -40,7 +40,7 @@ public class CookieComposant {
         this.price = price;
     }
 
-    public CookieComposant(int type, String name, float price) {
+    public CookieComponent(int type, String name, float price) {
         this.type = type;
         this.name = name;
         this.price = price;
@@ -50,8 +50,8 @@ public class CookieComposant {
     public boolean equals(@Nullable Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
-        if (!(obj instanceof CookieComposant)) return false;
-        return (((CookieComposant) obj).name.equals(this.name) && ((CookieComposant) obj).price == (this.price));
+        if (!(obj instanceof CookieComponent)) return false;
+        return (((CookieComponent) obj).name.equals(this.name) && ((CookieComponent) obj).price == (this.price));
     }
 
     @Override
