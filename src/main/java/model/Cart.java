@@ -35,11 +35,11 @@ public class Cart {
         for(Map.Entry<Cookie, Integer> entry : items.entrySet()) {
             Cookie cookie = entry.getKey();
             Integer quantity = entry.getValue();
-            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + ", Soit Total(TTC): "+ price.format((cookie.getPrice()+cookie.getPrice()*Shop.getTaxe())*quantity)+ "€\n";
+            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + "\n";
 
         }
         DecimalFormat totalFinalPrice = new DecimalFormat ( ) ;
-        s+= "Total amount:  " + totalFinalPrice.format(this.totalPrice)+"€";
+        s+= "Total amount (HT):  " + totalFinalPrice.format(this.totalPrice)+"€";
         return s;
     }
 

@@ -40,10 +40,12 @@ public class Main {
         if (orderRepository == null) orderRepository = Injection.createOrderRepository();
         return orderRepository;
     }
+
     public static CookieRepository getCookieRepository() {
         if (cookieRepository == null) cookieRepository = Injection.createCookieRepository();
         return cookieRepository;
     }
+
     public static DiscountRepository getDiscountRepository() {
         if (discountRepository == null) discountRepository = Injection.createDiscountRepository();
         return discountRepository;
@@ -70,20 +72,18 @@ public class Main {
         userRepository.addUser(Paul);
 
 
-        Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
-        Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),26);
+        Paul.addCookies(new Cookie(recipes.get("Chocolala")), 4);
+        Paul.addCookies(new Cookie(recipes.get("DarkTemptation")), 26);
         Paul.showCart();
 
         orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
 
-            Paul.addCookies(new Cookie(recipes.get("Chocolala")),4);
-            Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),6);
-            Paul.showCart();
-            orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
-
-
-
-
+        Paul.addCookies(new Cookie(recipes.get("Chocolala")), 4);
+        Paul.addCookies(new Cookie(recipes.get("DarkTemptation")), 6);
+        Paul.showCart();
+        Order order = new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe);
+        orderRepository.addOrder(order, discountRepository.getDiscounts(Paul).get(0));
+        orderRepository.payOrder(order, Paul);
 
 
     }

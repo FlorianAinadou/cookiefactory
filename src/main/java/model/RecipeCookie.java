@@ -20,6 +20,7 @@ public class RecipeCookie {
     private CookieComposant cooking = null;
     private CookieComposant mix = null;
     private double price = 0;
+    private double marginPrice = 0;
     // ingrédients
     private CookieComposant dough = null;
     private CookieComposant flavour = null;
@@ -29,7 +30,7 @@ public class RecipeCookie {
         System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
     }
 
-    public RecipeCookie(String n, List<CookieComposant> composants) {
+    public RecipeCookie(String n, double mp, List<CookieComposant> composants) {
         name = n;
         composants.forEach(c -> {
             switch (c.getType()) {
@@ -72,6 +73,8 @@ public class RecipeCookie {
                     System.out.println("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
                     break;
             }
+            marginPrice = mp;
+            price+=mp;
         });
     }
 

@@ -23,12 +23,23 @@ public abstract class Customer {
     private String tel;
     private String email;
 
-    Customer(String firstName, String lastName, String tel, String email) {
+    public double getWalletAmount() {
+        return walletAmount;
+    }
+
+    public void setWalletAmount(double walletAmount) {
+        this.walletAmount = walletAmount;
+    }
+
+    private double walletAmount;
+
+    Customer(String firstName, String lastName, String tel, String email, double walletAmount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.tel = tel;
         this.email = email;
         this.cart = new Cart();
+        this.walletAmount = walletAmount;
     }
 
     public String getFirstName() { return firstName; }

@@ -22,11 +22,21 @@ public class Order {
     private final Shop shop; // the place where the order will be collected
     private double orderAmount; // the order amount
 
+    public int getOrderStatu() {
+        return orderStatu;
+    }
+
+    public void setOrderStatu(int orderStatu) {
+        this.orderStatu = orderStatu;
+    }
+
+    private int orderStatu; // statu of the order
+
     public Order(int id, Customer customer, Date date, Shop shop) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-
+        this.orderStatu = 0;
         this.date = new Date();
         this.shop = shop;
         this.orderAmount= 0;
@@ -34,6 +44,10 @@ public class Order {
 
     public double getOrderAmount() {
         return orderAmount;
+    }
+
+    public double getOrderAmount(Discount discount) {
+        return orderAmount-orderAmount*discount.getRate();
     }
 
     public void setOrderAmount(double orderAmount) {

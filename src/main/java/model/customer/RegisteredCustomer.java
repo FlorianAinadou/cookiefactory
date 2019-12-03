@@ -15,8 +15,8 @@ public class RegisteredCustomer extends Customer {
     private String address;
     private ArrayList<Discount> discountsList;
 
-    public RegisteredCustomer(int id, String firstName, String lastName, int age, String tel, String email, String address) {
-        super(firstName, lastName, tel, email);
+    public RegisteredCustomer(int id, String firstName, String lastName, int age, String tel, String email, String address, double walletAmount) {
+        super(firstName, lastName, tel, email, walletAmount);
         this.id = id;
         this.age = age;
         this.address = address;

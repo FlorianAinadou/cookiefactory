@@ -68,19 +68,19 @@ public abstract class FakeApiServiceGenerator {
     }
 
     private static List<Customer> FAKE_USERS = Arrays.asList(
-            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test"),
-            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com"),
-            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com"),
-            new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com"),
-            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com")
+            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test", 2000.0),
+            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com", 2000.0),
+            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com", 2000.0),
+            new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0),
+            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0)
     );
 
     public static List<Customer> FAKE_USERS_RANDOM = Arrays.asList(
-            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test"),
-            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com"),
-            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com"),
-            new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com"),
-            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com")
+            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test", 2000.0),
+            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com", 2000.0),
+            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com", 2000.0),
+            new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0),
+            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0)
     );
 
     private static SimpleDateFormat horaire = new SimpleDateFormat("HH:mm");
@@ -153,9 +153,9 @@ public abstract class FakeApiServiceGenerator {
     }};
 
     private static Map<String, RecipeCookie> RECIPES_COOKIE = new HashMap<String, RecipeCookie>() {{
-        put("CherryBlossom", new RecipeCookie("CherryBlossom", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
-        put("Chocolala", new RecipeCookie("Chocolala", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
-        put("DarkTemptation", new RecipeCookie("DarkTemptation", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
+        put("CherryBlossom", new RecipeCookie("CherryBlossom", 2.00,new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
+        put("Chocolala", new RecipeCookie("Chocolala", 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
+        put("DarkTemptation", new RecipeCookie("DarkTemptation", 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
     }};
 
 }

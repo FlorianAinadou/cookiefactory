@@ -17,39 +17,89 @@ public class Recipe {
     private Cooking cooking;
     private Mix mix;
     private double price;
+
+    public double getMarginPrice() {
+        return marginPrice;
+    }
+
+    public void setMarginPrice(double marginPrice) {
+        this.price -= this.marginPrice;
+        this.marginPrice = marginPrice;
+        this.price += marginPrice;
+    }
+
+    private double marginPrice;
     // ingrédients
     private Dough dough;
     private Flavour flavour;
     private List<Topping> toppings;
 
-    public Recipe(String n, Dough d, Cooking c, Flavour f, Mix m, List<Topping> t) {
+    public Recipe(String n, double mp, Dough d, Cooking c, Flavour f, Mix m, List<Topping> t) {
         name = n;
         dough = d;
         cooking = c;
         flavour = f;
         mix = m;
         toppings = t;
+        marginPrice = mp;
         price = dough.getPrice() + flavour.getPrice();
         toppings.forEach(topping -> price += topping.getPrice());
+        price += marginPrice;
     }
 
-    public String getName() { return name; }
-    double getPrice() { return  price; }
+    public String getName() {
+        return name;
+    }
 
-    Dough getDough() { return dough; }
-    void setDough(Dough d) { dough = d; }
+    double getPrice() {
+        return price;
+    }
 
-    Cooking getCooking() { return cooking; }
-    void setCooking(Cooking c) { cooking = c; }
+    Dough getDough() {
+        return dough;
+    }
 
-    Flavour getFlavour() { return flavour; }
-    void setFlavour(Flavour f) { flavour = f; }
+    void setDough(Dough d) {
+        dough = d;
+    }
 
-    Mix getMix() { return mix; }
-    void setMix(Mix m) { mix = m; }
+    Cooking getCooking() {
+        return cooking;
+    }
 
-    List<Topping> getToppings() { return toppings; }
-    void removeAllToppings() { toppings.removeAll(toppings); }
-    void removeTopping(Topping t) { toppings.remove(t); }
-    void addTopping(Topping t) { toppings.add(t); }
+    void setCooking(Cooking c) {
+        cooking = c;
+    }
+
+    Flavour getFlavour() {
+        return flavour;
+    }
+
+    void setFlavour(Flavour f) {
+        flavour = f;
+    }
+
+    Mix getMix() {
+        return mix;
+    }
+
+    void setMix(Mix m) {
+        mix = m;
+    }
+
+    List<Topping> getToppings() {
+        return toppings;
+    }
+
+    void removeAllToppings() {
+        toppings.removeAll(toppings);
+    }
+
+    void removeTopping(Topping t) {
+        toppings.remove(t);
+    }
+
+    void addTopping(Topping t) {
+        toppings.add(t);
+    }
 }

@@ -29,7 +29,7 @@ public class OrderCookiesStepdefs implements En {
         Given("an unregistered model.customer of first name {string}, last name {string}, tel {string}" +
                         "and email {string} wants to place an order in the CoD shop",
                 (String firstName, String lastName, String tel, String email) ->
-                    customer = new UnregisteredCustomer(firstName, lastName, tel, email)
+                    customer = new UnregisteredCustomer(firstName, lastName, tel, email, 2.0)
         );
         And("he wants to order cookies named {string}",
                 (CookieName name) -> cookie = cookieFactory.createCookie(name));
