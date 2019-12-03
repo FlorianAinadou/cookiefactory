@@ -1,6 +1,6 @@
 package model.customer;
 
-import model.Discount;
+import model.discount.Discount;
 
 import java.util.ArrayList;
 

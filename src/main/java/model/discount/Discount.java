@@ -1,4 +1,4 @@
-package model;
+package model.discount;
 
 
 //import org.jetbrains.annotations.Nullable;

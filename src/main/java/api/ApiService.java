@@ -1,7 +1,7 @@
 package api;
 
 
-import model.Discount;
+import model.discount.Discount;
 import model.Order;
 import model.Recipe;
 import model.Shop;

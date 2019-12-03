@@ -2,7 +2,7 @@ package repository;
 
 
 import api.ApiService;
-import model.Discount;
+import model.discount.Discount;
 import model.Order;
 
 import java.util.List;

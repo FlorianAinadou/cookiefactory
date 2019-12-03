@@ -2,7 +2,7 @@ package repository;
 
 
 import api.ApiService;
-import model.Discount;
+import model.discount.Discount;
 import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 
