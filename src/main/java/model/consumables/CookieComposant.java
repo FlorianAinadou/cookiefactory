@@ -1,8 +1,5 @@
 package model.consumables;
 
-
-//import org.jetbrains.annotations.Nullable;
-
 import java.util.Objects;
 
 public class CookieComposant {

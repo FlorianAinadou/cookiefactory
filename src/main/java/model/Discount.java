@@ -7,15 +7,30 @@ import java.util.Objects;
 
 /**
  * @author Virgile FANTAUZZI
+ * @author Florian
  */
 public class Discount {
 
     private float rate;
     private String name;
+    private final int minimumCookiesRequired;
+
+    public Discount(float rate, String name, int minimumCookiesRequired) {
+        this.rate = rate;
+        this.name = name;
+        this.minimumCookiesRequired= minimumCookiesRequired;
+    }
 
     public Discount(float rate, String name) {
         this.rate = rate;
         this.name = name;
+        this.minimumCookiesRequired= 0;
+    }
+
+
+
+    public int getMinimumCookiesRequired() {
+        return minimumCookiesRequired;
     }
 
     public float getRate() {

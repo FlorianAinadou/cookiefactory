@@ -269,9 +269,17 @@ public class FakeApiService implements ApiService {
     public void giveDiscount(Order order){
 
         int cookiesNumber=order.getCart().getCookiesNumber();
-        if (order.getCustomer().isRegistered() && cookiesNumber>=30){
-           addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));
-           System.out.println("Great news! you get the Loyalty_program discount (10% discount). Use it next time)");
+        if (order.getCustomer().isRegistered()){
+
+            if (cookiesNumber >= shopDiscounts.get("LOYALTY_PROGRAM").getMinimumCookiesRequired()) {
+                addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));
+                System.out.println("Great news! you get the Loyalty_program discount (10% discount). Use it next time)");
+            }
+
+            /*if (cookiesNumber >= shopDiscounts.get("CE")) {
+
+            }
+        }*/
         }
 
 

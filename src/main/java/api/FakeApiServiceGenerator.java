@@ -139,8 +139,8 @@ public abstract class FakeApiServiceGenerator {
     }};
 
     private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
-        put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
-        //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
+        put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM", 30));
+        put("CE_AMADEUS",new Discount(0.05f, "CE_AMADEUS"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
