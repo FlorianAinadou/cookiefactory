@@ -1,7 +1,7 @@
 package cookiefactory;
 
-import model.cookie.Cookie;
-import model.cookie.parameters.CookieName;
+import model.consumables.Cookie;
+import model.consumables.parameters.CookieName;
 /**
  * @author Lydia BARAUKOVA
  */

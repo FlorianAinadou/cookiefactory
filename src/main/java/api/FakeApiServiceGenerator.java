@@ -2,24 +2,16 @@ package api;
 
 import model.Discount;
 import model.RecipeCookie;
-import model.cookie.CookieComposant;
+import model.consumables.CookieComposant;
 import model.Place;
 import model.Shop;
-import model.cookie.Recipe;
-import model.cookie.ingredients.Const;
-import model.cookie.ingredients.Dough;
-import model.cookie.ingredients.Flavour;
-import model.cookie.ingredients.Topping;
-import model.cookie.parameters.CookieName;
-import model.cookie.parameters.Cooking;
-import model.cookie.parameters.Mix;
+import model.consumables.ingredients.Const;
 import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.MonthDay;
 import java.util.*;
 
 /**

@@ -1,13 +1,10 @@
 
 
-import model.RecipeCookie;
-import model.Shop;
-import model.cookie.Cookie;
 import di.Injection;
 import model.Order;
+import model.RecipeCookie;
 import model.Shop;
-import model.cookie.Cookie;
-import model.cookie.Recipe;
+import model.consumables.Cookie;
 import model.customer.Customer;
 import repository.CookieRepository;
 import repository.DiscountRepository;
@@ -80,7 +77,6 @@ public class Main {
             Paul.addCookies(new Cookie(recipes.get("DarkTemptation")),6);
             Paul.showCart();
             orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
-
 
 
 

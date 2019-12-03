@@ -1,12 +1,7 @@
 package model;
 
-import model.cookie.CookieComposant;
-import model.cookie.ingredients.Const;
-import model.cookie.ingredients.Dough;
-import model.cookie.ingredients.Flavour;
-import model.cookie.ingredients.Topping;
-import model.cookie.parameters.Cooking;
-import model.cookie.parameters.Mix;
+import model.consumables.CookieComposant;
+import model.consumables.ingredients.Const;
 
 import java.util.ArrayList;
 import java.util.List;

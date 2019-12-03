@@ -1,10 +1,10 @@
-package model.cookie;
+package model.consumables;
 
-import model.cookie.ingredients.Dough;
-import model.cookie.ingredients.Flavour;
-import model.cookie.ingredients.Topping;
-import model.cookie.parameters.Cooking;
-import model.cookie.parameters.Mix;
+import model.consumables.ingredients.Dough;
+import model.consumables.ingredients.Flavour;
+import model.consumables.ingredients.Topping;
+import model.consumables.parameters.Cooking;
+import model.consumables.parameters.Mix;
 
 import java.util.List;
 

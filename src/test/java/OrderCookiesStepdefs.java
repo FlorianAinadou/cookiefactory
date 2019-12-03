@@ -2,14 +2,11 @@ package java;
 
 import model.customer.Customer;
 import model.customer.UnregisteredCustomer;
-import model.cookie.Cookie;
-import model.cookie.parameters.CookieName;
+import model.consumables.Cookie;
+import model.consumables.parameters.CookieName;
 import cookiefactory.CookieFactory;
 
 import io.cucumber.java8.En;
-import model.Place;
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +35,7 @@ public class OrderCookiesStepdefs implements En {
 
         When("the model.customer adds {int} cookies in his cart",
                 (Integer quantity) -> customer.addCookies(cookie, quantity));
-        Then("A new item named like the wanted model.cookie appears in his cart",
+        Then("A new item named like the wanted model.consumables appears in his cart",
                 () -> assertTrue(customer.getCart().getItems().containsKey(cookie)));
         And("The quantity of this item is {int}",
                 (Integer quantity) -> assertEquals(customer.getCart().getItems().get(cookie), quantity));
