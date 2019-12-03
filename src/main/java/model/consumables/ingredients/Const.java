@@ -1,4 +1,4 @@
-package model.cookie.ingredients;
+package model.consumables.ingredients;
 
 public class Const {
     public static final int TYPE_DOUGH = 0;

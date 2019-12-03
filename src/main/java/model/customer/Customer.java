@@ -1,9 +1,11 @@
 package model.customer;
 
 
-import com.sun.istack.internal.Nullable;
+//import com.sun.istack.internal.Nullable;
+
 import model.Cart;
-import model.cookie.Cookie;
+import model.consumables.Consumable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Random;
@@ -39,8 +41,8 @@ public abstract class Customer {
     public void setEmail(String e) { email = e; }
     public Cart getCart() { return cart; }
 
-    public void addCookies(Cookie cookie, Integer quantity) {
-        cart.addCookies(cookie, quantity);
+    public void addConsumables(Consumable consumable, Integer quantity) {
+        cart.addConsumables(consumable, quantity);
     }
     public void showCart(){
         System.out.println(cart.toString());

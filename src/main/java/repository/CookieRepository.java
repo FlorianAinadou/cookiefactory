@@ -3,9 +3,7 @@ package repository;
 
 import api.ApiService;
 import model.RecipeCookie;
-import model.cookie.Cookie;
-import model.cookie.CookieComposant;
-import model.cookie.Recipe;
+import model.consumables.CookieComposant;
 
 import java.util.Map;
 

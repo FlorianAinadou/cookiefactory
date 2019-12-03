@@ -4,9 +4,8 @@ package api;
 import model.Discount;
 import model.Order;
 import model.RecipeCookie;
-import model.cookie.CookieComposant;
+import model.consumables.CookieComposant;
 import model.Shop;
-import model.cookie.Recipe;
 import model.customer.Customer;
 
 import java.util.Date;

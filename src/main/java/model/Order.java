@@ -1,9 +1,8 @@
 package model;
 
 
-
-import com.sun.istack.internal.Nullable;
 import model.customer.Customer;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.Date;
