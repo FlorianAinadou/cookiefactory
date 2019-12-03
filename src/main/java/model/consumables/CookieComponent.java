@@ -1,6 +1,5 @@
-package model.cookie;
+package model.consumables;
 
-import com.sun.istack.internal.Nullable;
 
 import java.util.Objects;
 
@@ -47,7 +46,7 @@ public class CookieComponent {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof CookieComponent)) return false;

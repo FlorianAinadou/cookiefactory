@@ -2,7 +2,7 @@ package repository;
 
 import api.ApiService;
 import model.Recipe;
-import model.cookie.CookieComponent;
+import model.consumables.CookieComponent;
 
 import java.util.Map;
 
