@@ -39,8 +39,7 @@ public class Cart {
             s += consumable.getName() + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
 
         }
-        DecimalFormat totalFinalPrice = new DecimalFormat ( ) ;
-        s+= "Total amount (HT):  " + totalFinalPrice.format(this.totalPrice)+"€";
+        s+= "Total amount (HT):  " + price.format(this.totalPrice)+"€";
         return s;
     }
 

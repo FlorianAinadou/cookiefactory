@@ -1,14 +1,14 @@
 package api;
 
 import model.Discount;
-import model.RecipeCookie;
-import model.consumables.CookieComposant;
 import model.Place;
+import model.Recipe;
 import model.Shop;
-import model.consumables.ingredients.Const;
+import model.consumables.CookieComponent;
 import model.customer.Customer;
 import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
+import utils.Lib;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,47 +16,32 @@ import java.util.*;
 
 /**
  * @author Virgile FANTAUZZI
+ * @author Lydia BARAUKOVA
  */
-
-
 public abstract class FakeApiServiceGenerator {
-
 
     static List<Customer> generateUsers() {
         return new ArrayList<>(FAKE_USERS);
     }
-
-    static Map<String, RecipeCookie> generateCookieRecipes() {
-        return new HashMap<String, RecipeCookie>(RECIPES_COOKIE);
+    static Map<String, Recipe> generateCookieRecipes() {
+        return new HashMap<>(RECIPES_COOKIE);
     }
-
-    static Map<String, CookieComposant> generateCookieDough() {
-        return new HashMap<String, CookieComposant>(DOUGH_COOKIE);
+    static Map<String, CookieComponent> generateCookieDough() {
+        return new HashMap<>(DOUGH_COOKIE);
     }
-
-    static Map<String, CookieComposant> generateCookieFlavour() {
-        return new HashMap<String, CookieComposant>(FLAVOUR_COOKIE);
+    static Map<String, CookieComponent> generateCookieFlavour() { return new HashMap<>(FLAVOUR_COOKIE); }
+    static Map<String, CookieComponent> generateCookieTopping() { return new HashMap<>(TOPPING_COOKIE); }
+    static Map<String, CookieComponent> generateCookieCooking() { return new HashMap<>(COOKING_COOKIE); }
+    static Map<String, CookieComponent> generateCookieMix() {
+        return new HashMap<>(MIX_COOKIE);
     }
-
-    static Map<String, CookieComposant> generateCookieTopping() {
-        return new HashMap<String, CookieComposant>(TOPPING_COOKIE);
-    }
-
-    static Map<String, CookieComposant> generateCookieCooking() {
-        return new HashMap<String, CookieComposant>(COOKING_COOKIE);
-    }
-
-    static Map<String, CookieComposant> generateCookieMix() {
-        return new HashMap<String, CookieComposant>(MIX_COOKIE);
-    }
-
     static Map<Customer, ArrayList<Discount>> generateDiscounts() {
-        return new HashMap<Customer, ArrayList<Discount>>(DISCOUNTS);
+        return new HashMap<>(DISCOUNTS);
     }
     static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS);}
 
     static Map<String, Discount> getShopDiscounts() {
-        return new HashMap<String, Discount>(SHOP_DISCOUNTS);
+        return new HashMap<>(SHOP_DISCOUNTS);
     }
 
     private static List<Customer> FAKE_USERS = Arrays.asList(
@@ -94,43 +79,43 @@ public abstract class FakeApiServiceGenerator {
 
 
 
-    private static Map<String, CookieComposant> DOUGH_COOKIE = new HashMap<String, CookieComposant>() {
+    private static Map<String, CookieComponent> DOUGH_COOKIE = new HashMap<String, CookieComponent>() {
         {
-            put("Plain", new CookieComposant(Const.TYPE_DOUGH, "Plain", 0.05f));
-            put("Chocolate", new CookieComposant(Const.TYPE_DOUGH, "Chocolate", 0.12f));
-            put("Peanut butter", new CookieComposant(Const.TYPE_DOUGH, "Peanut butter", 0.10f));
-            put("Oatmeal", new CookieComposant(Const.TYPE_DOUGH, "Oatmeal", 0.08f));
-            put("Cherry jam", new CookieComposant(Const.TYPE_DOUGH, "Cherry jam", 0.15f));
+            put(Lib.Dough.PLAIN, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.PLAIN, 0.05f));
+            put(Lib.Dough.CHOCOLATE, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.CHOCOLATE, 0.12f));
+            put(Lib.Dough.PEANUT_BUTTER, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.PEANUT_BUTTER, 0.10f));
+            put(Lib.Dough.OATMEAL, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.OATMEAL, 0.08f));
+            put(Lib.Dough.CHERRY_JAM, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.CHERRY_JAM, 0.15f));
         }
     };
-    private static Map<String, CookieComposant> FLAVOUR_COOKIE = new HashMap<String, CookieComposant>() {
+    private static Map<String, CookieComponent> FLAVOUR_COOKIE = new HashMap<String, CookieComponent>() {
         {
-            put("Vanilla", new CookieComposant(Const.TYPE_FLAVOUR, "Vanilla", 0.05f));
-            put("Cinnamon", new CookieComposant(Const.TYPE_FLAVOUR, "Cinnamon", 0.12f));
-            put("Chili", new CookieComposant(Const.TYPE_FLAVOUR, "Chili", 0.10f));
-            put("Chocolate", new CookieComposant(Const.TYPE_FLAVOUR, "Chocolate", 0.08f));
-            put("Cherry", new CookieComposant(Const.TYPE_FLAVOUR, "Cherry", 0.15f));
+            put(Lib.Flavour.VANILLA, new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.VANILLA, 0.05f));
+            put(Lib.Flavour.CINNAMON, new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CINNAMON, 0.12f));
+            put(Lib.Flavour.CHILI, new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHILI, 0.10f));
+            put(Lib.Flavour.CHOCOLATE, new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHOCOLATE, 0.08f));
+            put(Lib.Flavour.CHERRY, new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHERRY, 0.15f));
         }
     };
-    private static Map<String, CookieComposant> TOPPING_COOKIE = new HashMap<String, CookieComposant>() {
+    private static Map<String, CookieComponent> TOPPING_COOKIE = new HashMap<String, CookieComponent>() {
         {
-            put("White chocolate", new CookieComposant(Const.TYPE_TOPPING, "White chocolate", 0.05f));
-            put("Milk chocolate", new CookieComposant(Const.TYPE_TOPPING, "Milk chocolate", 0.12f));
-            put("Dark chocolate", new CookieComposant(Const.TYPE_TOPPING, "Dark chocolate", 0.10f));
-            put("Cherry syrup", new CookieComposant(Const.TYPE_TOPPING, "Cherry syrup", 0.08f));
-            put("M&Ms", new CookieComposant(Const.TYPE_TOPPING, "M&Ms", 0.15f));
+            put(Lib.Topping.WHITE_CHOCOLATE, new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.WHITE_CHOCOLATE, 0.05f));
+            put(Lib.Topping.MILK_CHOCOLATE, new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.MILK_CHOCOLATE, 0.12f));
+            put(Lib.Topping.DARK_CHOCOLATE, new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.DARK_CHOCOLATE, 0.10f));
+            put(Lib.Topping.CHERRY_SYRUP, new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.CHERRY_SYRUP, 0.08f));
+            put(Lib.Topping.MNMS, new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.MNMS, 0.15f));
         }
     };
-    private static Map<String, CookieComposant> COOKING_COOKIE = new HashMap<String, CookieComposant>() {
+    private static Map<String, CookieComponent> COOKING_COOKIE = new HashMap<String, CookieComponent>() {
         {
-            put("Crunchy", new CookieComposant(Const.TYPE_COOKING, "Crunchy"));
-            put("Chewy", new CookieComposant(Const.TYPE_COOKING, "Chewy"));
+            put(Lib.Cooking.CRUNCHY, new CookieComponent(Lib.ComponentType.COOKING, Lib.Cooking.CRUNCHY));
+            put(Lib.Cooking.CHEWY, new CookieComponent(Lib.ComponentType.COOKING, Lib.Cooking.CHEWY));
         }
     };
-    private static Map<String, CookieComposant> MIX_COOKIE = new HashMap<String, CookieComposant>() {
+    private static Map<String, CookieComponent> MIX_COOKIE = new HashMap<String, CookieComponent>() {
         {
-            put("Mixed", new CookieComposant(Const.TYPE_MIX, "Mixed"));
-            put("Topped", new CookieComposant(Const.TYPE_MIX, "Topped"));
+            put(Lib.Mix.MIXED, new CookieComponent(Lib.ComponentType.MIX, Lib.Mix.MIXED));
+            put(Lib.Mix.TOPPED, new CookieComponent(Lib.ComponentType.MIX, Lib.Mix.TOPPED));
         }
     };
 
@@ -144,10 +129,10 @@ public abstract class FakeApiServiceGenerator {
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
-    private static Map<String, RecipeCookie> RECIPES_COOKIE = new HashMap<String, RecipeCookie>() {{
-        put("CherryBlossom", new RecipeCookie("CherryBlossom", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
-        put("Chocolala", new RecipeCookie("Chocolala", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
-        put("DarkTemptation", new RecipeCookie("DarkTemptation", new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
+    private static Map<String, Recipe> RECIPES_COOKIE = new HashMap<String, Recipe>() {{
+        put(Lib.CookieName.CHERRY_BLOSSOM, new Recipe(Lib.CookieName.CHERRY_BLOSSOM, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
+        put(Lib.CookieName.CHOCOLALA, new Recipe(Lib.CookieName.CHOCOLALA, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
+        put(Lib.CookieName.DARK_TEMPTATION, new Recipe(Lib.CookieName.DARK_TEMPTATION, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
     }};
 
 }

@@ -1,7 +1,8 @@
 package model;
 
-import model.consumables.CookieComposant;
-import model.consumables.ingredients.Const;
+
+import model.consumables.CookieComponent;
+import utils.Lib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +10,26 @@ import java.util.List;
 /**
  * @author Lydia BARAUKOVA
  */
-public class RecipeCookie {
+public class Recipe {
     // paramètres
     private String name;
-    private CookieComposant cooking = null;
-    private CookieComposant mix = null;
+    private CookieComponent cooking = null;
+    private CookieComponent mix = null;
     private double price = 0;
     // ingrédients
-    private CookieComposant dough = null;
-    private CookieComposant flavour = null;
-    private ArrayList<CookieComposant> toppings = new ArrayList<>();
+    private CookieComponent dough = null;
+    private CookieComponent flavour = null;
+    private ArrayList<CookieComponent> toppings = new ArrayList<>();
 
     private void errorRecipe(String name) {
         System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
     }
 
-    public RecipeCookie(String n, List<CookieComposant> composants) {
+    public Recipe(String n, List<CookieComponent> composants) {
         name = n;
         composants.forEach(c -> {
             switch (c.getType()) {
-                case Const.TYPE_DOUGH:
+                case Lib.ComponentType.DOUGH:
                     if (dough == null) {
                         this.dough = c;
                         price += c.getPrice();
@@ -36,7 +37,7 @@ public class RecipeCookie {
                         errorRecipe("dough");
                     }
                     break;
-                case Const.TYPE_FLAVOUR:
+                case Lib.ComponentType.FLAVOUR:
                     if (flavour == null) {
                         price += c.getPrice();
                         this.flavour = c;
@@ -44,7 +45,7 @@ public class RecipeCookie {
                         errorRecipe("flavour");
                     }
                     break;
-                case Const.TYPE_MIX:
+                case Lib.ComponentType.MIX:
                     if (mix == null) {
                         price += c.getPrice();
                         this.mix = c;
@@ -52,7 +53,7 @@ public class RecipeCookie {
                         errorRecipe("mix");
                     }
                     break;
-                case Const.TYPE_COOKING:
+                case Lib.ComponentType.COOKING:
                     if (cooking == null) {
                         price += c.getPrice();
                         this.cooking = c;
@@ -60,7 +61,7 @@ public class RecipeCookie {
                         errorRecipe("cooking");
                     }
                     break;
-                case Const.TYPE_TOPPING:
+                case Lib.ComponentType.TOPPING:
                     toppings.add(c);
                     break;
                 default:
@@ -78,19 +79,19 @@ public class RecipeCookie {
         this.name = name;
     }
 
-    public CookieComposant getCooking() {
+    public CookieComponent getCooking() {
         return cooking;
     }
 
-    public void setCooking(CookieComposant cooking) {
+    public void setCooking(CookieComponent cooking) {
         this.cooking = cooking;
     }
 
-    public CookieComposant getMix() {
+    public CookieComponent getMix() {
         return mix;
     }
 
-    public void setMix(CookieComposant mix) {
+    public void setMix(CookieComponent mix) {
         this.mix = mix;
     }
 
@@ -102,27 +103,27 @@ public class RecipeCookie {
         this.price = price;
     }
 
-    public CookieComposant getDough() {
+    public CookieComponent getDough() {
         return dough;
     }
 
-    public void setDough(CookieComposant dough) {
+    public void setDough(CookieComponent dough) {
         this.dough = dough;
     }
 
-    public CookieComposant getFlavour() {
+    public CookieComponent getFlavour() {
         return flavour;
     }
 
-    public void setFlavour(CookieComposant flavour) {
+    public void setFlavour(CookieComponent flavour) {
         this.flavour = flavour;
     }
 
-    public ArrayList<CookieComposant> getToppings() {
+    public ArrayList<CookieComponent> getToppings() {
         return toppings;
     }
 
-    public void setToppings(ArrayList<CookieComposant> toppings) {
+    public void setToppings(ArrayList<CookieComponent> toppings) {
         this.toppings = toppings;
     }
 }
