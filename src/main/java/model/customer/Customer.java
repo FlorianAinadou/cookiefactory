@@ -5,7 +5,7 @@ package model.customer;
 
 import model.Cart;
 import model.consumables.Consumable;
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Random;
@@ -58,7 +58,7 @@ public abstract class Customer {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Customer)) return false;

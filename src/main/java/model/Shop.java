@@ -1,7 +1,7 @@
 package model;
 
 
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +56,7 @@ public class Shop {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;

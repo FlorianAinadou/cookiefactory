@@ -2,7 +2,7 @@ package model;
 
 
 import model.customer.Customer;
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -59,7 +59,7 @@ public class Order {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
