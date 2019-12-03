@@ -12,7 +12,6 @@ import repository.CookieRepository;
 import java.util.Map;
 import model.consumables.Cookie;
 
-import io.cucumber.java8.En;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,5 +54,25 @@ public class OrderStepdefs implements En {
                 () -> assertEquals(orderId, orderManager.getOrderList().get(0).getId()));
         And("the cart of the model.customer is now empty",
                 () -> assertTrue(customer.getCart().getItems().isEmpty()));*/
+
+       //Je sais que la commande a été payée
+
+        //Je peux commander sans compte sur la plateforme CoD
+
+  //Il n'est pas possible de commander quelque chose qu'on ne sait pas fabriquer
+
+  //Je peux payer ma commande par carte bancaire
+
+  //Je peux passer une commande avec des cookies classiques et personnalisés
+
+  //Je peux calculer un prix TTC à partir des ingrédients, des discounts et des taxes.
+
+  //Les cookies personnalisés respectent les contraintes de fabrication (mix, topping, etc.)
+
+  //Je dois payer un surcoût en cas de commande de cookies personnalisés
+
+  //Je peux recevoir des packs de cookies selon le nombre de cookies commandés
+
+  //Je peux associer des boissons à des packs de cookies
     }
 }
