@@ -1,9 +1,11 @@
 package model.customer;
 
 
-import com.sun.istack.internal.Nullable;
+//import com.sun.istack.internal.Nullable;
+
 import model.Cart;
-import model.cookie.Cookie;
+import model.consumables.Consumable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Random;
@@ -50,8 +52,8 @@ public abstract class Customer {
     public void setEmail(String e) { email = e; }
     public Cart getCart() { return cart; }
 
-    public void addCookies(Cookie cookie, Integer quantity) {
-        cart.addCookies(cookie, quantity);
+    public void addConsumables(Consumable consumable, Integer quantity) {
+        cart.addConsumables(consumable, quantity);
     }
     public void showCart(){
         System.out.println(cart.toString());
@@ -67,7 +69,7 @@ public abstract class Customer {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Customer)) return false;

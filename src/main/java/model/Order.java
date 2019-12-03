@@ -1,9 +1,8 @@
 package model;
 
 
-
-import com.sun.istack.internal.Nullable;
 import model.customer.Customer;
+//import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -42,6 +41,7 @@ public class Order {
         this.orderAmount= 0;
     }
 
+
     public double getOrderAmount() {
         return orderAmount;
     }
@@ -75,7 +75,7 @@ public class Order {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
@@ -92,7 +92,7 @@ public class Order {
 
         DecimalFormat price = new DecimalFormat ( ) ;
         price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
-        return ("The order №" + this.getId() + " has been placed, for the shop at" + this.getShop().getAdress()+", "
+        return ("The order №" + this.getId() + " has been placed, for the shop at " + this.getShop().getAdress()+", "
                 +this.getShop().getCity() + ", final amount: " + price.format(this.getOrderAmount())+ " €");
     }
 

@@ -1,22 +1,36 @@
 package model;
 
 
-
-import com.sun.istack.internal.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 /**
  * @author Virgile FANTAUZZI
+ * @author Florian
  */
 public class Discount {
 
     private float rate;
     private String name;
+    private final int minimumCookiesRequired;
+
+    public Discount(float rate, String name, int minimumCookiesRequired) {
+        this.rate = rate;
+        this.name = name;
+        this.minimumCookiesRequired= minimumCookiesRequired;
+    }
 
     public Discount(float rate, String name) {
         this.rate = rate;
         this.name = name;
+        this.minimumCookiesRequired= 0;
+    }
+
+
+
+    public int getMinimumCookiesRequired() {
+        return minimumCookiesRequired;
     }
 
     public float getRate() {
@@ -38,7 +52,7 @@ public class Discount {
 
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Discount)) return false;

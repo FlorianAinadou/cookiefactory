@@ -1,44 +1,46 @@
-package java;
+package step_definitions;
 
+import di.Injection;
+import model.Recipe;
+import model.consumables.Cookie;
 import model.customer.Customer;
 import model.customer.UnregisteredCustomer;
-import model.cookie.Cookie;
-import model.cookie.parameters.CookieName;
-import cookiefactory.CookieFactory;
 
 import io.cucumber.java8.En;
-import model.Place;
+import repository.CookieRepository;
 
-import java.util.Date;
+import java.util.Map;
+import model.consumables.Cookie;
+
+import io.cucumber.java8.En;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Lydia BARAUKOVA
  */
-public class OrderCookiesStepdefs implements En {
-    private CookieFactory cookieFactory = new CookieFactory();
-    //private OrderManager orderManager = new OrderManager();
+public class OrderStepdefs implements En {
     private Customer customer;
     private Cookie cookie;
-    private int orderId;
 
+    private CookieRepository COOKIE_REPOSITORY = Injection.createCookieRepository();
+    private Map<String, Recipe> COOKIE_RECIPES = COOKIE_REPOSITORY.getCookieRecipes();
 
-
-    public OrderCookiesStepdefs() {
-        Given("an unregistered model.customer of first name {string}, last name {string}, tel {string}" +
-                        "and email {string} wants to place an order in the CoD shop",
+    public OrderStepdefs() {
+        Given("a client named {string}",
                 (String firstName, String lastName, String tel, String email) ->
-                    customer = new UnregisteredCustomer(firstName, lastName, tel, email, 2.0)
-        );
-        And("he wants to order cookies named {string}",
-                (CookieName name) -> cookie = cookieFactory.createCookie(name));
+                    customer = new UnregisteredCustomer(firstName, lastName, tel, email, 2.00));
+        And("a cookie named {string}",
+                (String cookieName) -> cookie = new Cookie(COOKIE_RECIPES.get(cookieName)));
 
 
 
-        When("the model.customer adds {int} cookies in his cart",
-                (Integer quantity) -> customer.addCookies(cookie, quantity));
-        Then("A new item named like the wanted model.cookie appears in his cart",
+
+
+        When("{string} adds {int} {string} to his cart",
+                (Integer quantity) -> customer.addConsumables(cookie, quantity));
+        Then("A new item named {string} appears in his cart",
+
                 () -> assertTrue(customer.getCart().getItems().containsKey(cookie)));
         And("The quantity of this item is {int}",
                 (Integer quantity) -> assertEquals(customer.getCart().getItems().get(cookie), quantity));

@@ -1,8 +1,7 @@
 package model;
 
 
-
-import com.sun.istack.internal.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,7 @@ public class Shop {
     protected Place city;
     protected Date openShop;
     protected Date closeShop;
-    protected double taxe;
+    protected  double taxe;
     protected List<Order> orderHistoric = new ArrayList<>();
 
     public Shop(int id, String shopName, String adress, Place city, Date openShop, Date closeShop, double taxe) {
@@ -43,19 +42,12 @@ public class Shop {
         return city;
     }
 
-    public Date getOpenShop() {
-        return openShop;
-    }
-
-    public Date getCloseShop()  {
-        return closeShop;
-    }
-
+    public Date getOpenShop() { return openShop; }
+    public Date getCloseShop()  { return closeShop; }
     public void setOpenShop(Date openShop) {this.openShop = openShop; }
-
     public void setCloseShop(Date closeShop) {this.closeShop = closeShop; }
 
-    public double getTaxe() {
+    public  double getTaxe() {
         return taxe;
     }
 
@@ -64,7 +56,7 @@ public class Shop {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals( Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
