@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Lydia BARAUKOVA
  */
-public class OrderCookiesStepdefs implements En {
+public class OrderStepdefs implements En {
     private CookieFactory cookieFactory = new CookieFactory();
     //private OrderManager orderManager = new OrderManager();
     private Customer customer;
@@ -23,7 +23,7 @@ public class OrderCookiesStepdefs implements En {
 
 
 
-    public OrderCookiesStepdefs() {
+    public OrderStepdefs() {
         Given("an unregistered model.customer of first name {string}, last name {string}, tel {string}" +
                         "and email {string} wants to place an order in the CoD shop",
                 (String firstName, String lastName, String tel, String email) ->
