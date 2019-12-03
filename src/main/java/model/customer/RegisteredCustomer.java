@@ -1,5 +1,9 @@
 package model.customer;
 
+import model.Discount;
+
+import java.util.ArrayList;
+
 /**
  * @author Lydia BARAUKOVA
  */
@@ -9,6 +13,7 @@ public class RegisteredCustomer extends Customer {
     // additional information that registered customers provide
     private int age;
     private String address;
+    private ArrayList<Discount> discountsList;
 
     public RegisteredCustomer(int id, String firstName, String lastName, int age, String tel, String email, String address) {
         super(firstName, lastName, tel, email);
@@ -18,10 +23,38 @@ public class RegisteredCustomer extends Customer {
         this.cookieCount = 0;
     }
 
-    public int getId() { return id; }
-    public int getAge() { return age; }
-    public String getAdress() { return address; }
-    public void setAdress(String a) { address = a; }
-    public int getCookieCount() { return cookieCount; }
-    public void increaseCookieCount(int c) { cookieCount += c; }
+    private ArrayList<Discount> getDiscountsList() {
+        return discountsList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAdress() {
+        return address;
+    }
+
+    public void setAdress(String a) {
+        address = a;
+    }
+
+    public int getCookieCount() {
+        return cookieCount;
+    }
+
+    public void increaseCookieCount(int c) {
+        cookieCount += c;
+    }
+
+    @Override
+    public boolean isRegistered() {
+        return true;
+    }
+
+
 }

@@ -4,7 +4,9 @@ package model.cookie.ingredients;
  * @author Lydia BARAUKOVA
  */
 public enum Topping {
-    whiteChocolate("White chocolate", 0.10), milkChocolate("Milk chocolate", 0.08), darkChocolate("Dark chocolate", 0.12),
+    whiteChocolate("White chocolate", 0.10),
+    milkChocolate("Milk chocolate", 0.08),
+    darkChocolate("Dark chocolate", 0.12),
     mNm("M&M's", 0.15), cherrySyrup("Cherry syrup", 0.18);
 
     private final String type;

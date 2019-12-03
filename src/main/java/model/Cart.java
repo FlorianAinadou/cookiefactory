@@ -2,6 +2,7 @@ package model;
 
 import model.cookie.Cookie;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -11,6 +12,8 @@ import java.util.HashMap;
 public class Cart {
     private Map<Cookie,Integer> items;
     private double totalPrice;
+    //Used to know how many cookies our cart could contain
+    private int cookiesNumber=0;
 
     public Cart() {
         items = new HashMap<>();
@@ -21,13 +24,22 @@ public class Cart {
 
     public double getTotalPrice(){ return totalPrice; } // returns total price
 
+    public int getCookiesNumber(){
+        return cookiesNumber ;
+    } //returns cookies' number in the cart
+
     public String toString() { // builds a String describing the contents of the cart
+        DecimalFormat price = new DecimalFormat ( ) ;
+        price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
         String s = "\nCart:\n";
         for(Map.Entry<Cookie, Integer> entry : items.entrySet()) {
             Cookie cookie = entry.getKey();
             Integer quantity = entry.getValue();
-            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + "\n";
+            s += cookie.getRecipe().getName() + " " + cookie.getPrice() + "€ x" + quantity + ", Soit Total(TTC): "+ price.format((cookie.getPrice()+cookie.getPrice()*Shop.getTaxe())*quantity)+ "€\n";
+
         }
+        DecimalFormat totalFinalPrice = new DecimalFormat ( ) ;
+        s+= "Total amount:  " + totalFinalPrice.format(this.totalPrice)+"€";
         return s;
     }
 
@@ -38,6 +50,7 @@ public class Cart {
             items.put(cookie, quantity); // we add the new item
             totalPrice += quantity*cookie.getPrice(); // and update the total price
         }
+        cookiesNumber+= quantity;
     }
 
     private void increaseQuantityBy(Cookie cookie, Integer quantity) {
@@ -59,6 +72,11 @@ public class Cart {
         items.remove(cookie);
     }
     public void emptyCart() { // empties the cart
+        totalPrice=0;
+        cookiesNumber=0;
         items.clear();
     }
+
+
+
 }

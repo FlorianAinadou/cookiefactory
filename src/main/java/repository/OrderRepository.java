@@ -2,6 +2,7 @@ package repository;
 
 
 import api.ApiService;
+import model.Discount;
 import model.Order;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class OrderRepository {
     public void addOrder(Order order) {
         apiService.addOrder(order);
     }
+
+    public void addOrder(Order order, Discount discount) {
+        apiService.addOrder(order, discount);
+    }
+
     public int getOrderNum() {
         return apiService.getOrderNum();
     }

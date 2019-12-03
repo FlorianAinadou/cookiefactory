@@ -4,7 +4,8 @@ package model.cookie.ingredients;
  * @author Lydia BARAUKOVA
  */
 public enum Dough {
-    plain("Plain", 0.05), chocolate("Chocolate", 0.12), peanutButter("Peanut butter", 0.10),
+    plain("Plain", 0.05), chocolate("Chocolate", 0.12),
+    peanutButter("Peanut butter", 0.10),
     oatmeal("Oatmeal", 0.08), cherryJam("Cherry jam", 0.15);
 
     private final String type;

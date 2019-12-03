@@ -1,11 +1,10 @@
 package model.customer;
 
-import com.sun.istack.internal.Nullable;
-import model.cookie.Cookie;
-import model.Cart;
-import model.Place;
 
-import java.util.Date;
+import com.sun.istack.internal.Nullable;
+import model.Cart;
+import model.cookie.Cookie;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -68,4 +67,11 @@ public abstract class Customer {
     public int hashCode() {
         return Objects.hash(firstName, lastName);
     }
+
+    /**
+     * Want to know if the customer is registered
+     */
+    public abstract boolean isRegistered();
+
+
 }

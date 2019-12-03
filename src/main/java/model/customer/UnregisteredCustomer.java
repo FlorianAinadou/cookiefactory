@@ -7,4 +7,11 @@ public class UnregisteredCustomer extends Customer {
     public UnregisteredCustomer(String firstName, String lastName, String tel, String email) {
         super(firstName, lastName, tel, email);
     }
+
+    @Override
+    public boolean isRegistered(){
+        return false;
+    }
+
+
 }

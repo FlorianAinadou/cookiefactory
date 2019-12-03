@@ -2,7 +2,9 @@ package repository;
 
 
 import api.ApiService;
+import model.RecipeCookie;
 import model.cookie.Cookie;
+import model.cookie.CookieComposant;
 import model.cookie.Recipe;
 
 import java.util.Map;
@@ -19,7 +21,27 @@ public class CookieRepository {
         this.apiService = apiService;
     }
 
-    public Map<String, Recipe> getCookieRecipes() {
+    public Map<String, RecipeCookie> getCookieRecipes() {
         return apiService.getCookieRecipes();
+    }
+
+    Map<String, CookieComposant> getCookieDough(){
+        return apiService.getCookieDough();
+    }
+
+    Map<String, CookieComposant> getCookieTopping(){
+        return apiService.getCookieTopping();
+    }
+
+    Map<String, CookieComposant> getCookieMix(){
+        return apiService.getCookieMix();
+    }
+
+    Map<String, CookieComposant> getCookieCooking(){
+        return apiService.getCookieCooking();
+    }
+
+    Map<String, CookieComposant> getCookieFlavour(){
+        return apiService.getCookieFlavour();
     }
 }

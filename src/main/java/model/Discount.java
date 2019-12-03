@@ -1,9 +1,9 @@
 package model;
 
-import com.sun.istack.internal.Nullable;
-import model.customer.Customer;
 
-import java.util.Date;
+
+import com.sun.istack.internal.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -48,5 +48,10 @@ public class Discount {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getRate());
+    }
+
+    @Override
+    public String toString(){
+        return ( this.name + " with rate of " + this.rate);
     }
 }

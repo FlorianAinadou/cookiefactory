@@ -21,4 +21,5 @@ public class CustomerManager {
         registeredCustomers.add(newCustomer);
         System.out.println("A model.customer №" + id +" has been registered!");
     }
+
 }

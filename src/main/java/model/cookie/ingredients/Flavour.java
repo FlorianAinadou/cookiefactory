@@ -4,7 +4,8 @@ package model.cookie.ingredients;
  * @author Lydia BARAUKOVA
  */
 public enum Flavour {
-    vanilla("Vanilla", 0.03), cinnamon("Cinnamon", 0.05), chili("Chili", 0.15), chocolate("Chocolate", 0.08),
+    vanilla("Vanilla", 0.03), cinnamon("Cinnamon", 0.05),
+    chili("Chili", 0.15), chocolate("Chocolate", 0.08),
     cherry("Cherry", 0.10);
 
     private final String type;
