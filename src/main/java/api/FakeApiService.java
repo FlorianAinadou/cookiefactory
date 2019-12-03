@@ -213,8 +213,6 @@ public class FakeApiService implements ApiService {
 
     }
 
-
-
     /**
      * used to get an order with a discount
      * @param order
@@ -231,17 +229,38 @@ public class FakeApiService implements ApiService {
 
     }
 
+    /**
+     * Add a {@link Shop } from the {@link FakeApiService#shops} list.
+     * @param shop
+     */
     @Override
     public void addShop(Shop shop) {
         shops.add(shop);
         System.out.println(shop.getShopName() + ",nouveau Shop ajouté ");
     }
 
+    /**
+     * Delete a {@link Shop } from the {@link FakeApiService#shops} list.
+     * @param shop
+     */
     @Override
     public void deleteShop(Shop shop) {
         shops.remove(shop);
     }
 
+
+    /**
+     * change schedule of a {@link Shop }
+     * @param shop
+     * @param open
+     * @param close
+     */
+    @Override
+    public void changeHorairesShop(Shop shop, Date open, Date close) {
+        shop.setOpenShop(open);
+        shop.setCloseShop(close);
+        System.out.println("Le shop: " + shop.getShopName() + " sera ouvert de" + shop.getOpenShop() + " à "+ shop.getCloseShop());
+    }
 
     /**
      * used to give some discount to a customer for things he has bought

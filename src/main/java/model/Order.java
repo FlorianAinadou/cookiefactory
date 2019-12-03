@@ -26,7 +26,6 @@ public class Order {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-
         this.date = new Date();
         this.shop = shop;
         this.orderAmount= 0;

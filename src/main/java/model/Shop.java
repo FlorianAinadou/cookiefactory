@@ -18,7 +18,7 @@ public class Shop {
     protected Place city;
     protected Date openShop;
     protected Date closeShop;
-    protected static double taxe;
+    protected  double taxe;
     protected List<Order> orderHistoric = new ArrayList<>();
 
     public Shop(int id, String shopName, String adress, Place city, Date openShop, Date closeShop, double taxe) {
@@ -43,19 +43,12 @@ public class Shop {
         return city;
     }
 
-    public Date getOpenShop() {
-        return openShop;
-    }
-
-    public Date getCloseShop()  {
-        return closeShop;
-    }
-
+    public Date getOpenShop() { return openShop; }
+    public Date getCloseShop()  { return closeShop; }
     public void setOpenShop(Date openShop) {this.openShop = openShop; }
-
     public void setCloseShop(Date closeShop) {this.closeShop = closeShop; }
 
-    public static double getTaxe() {
+    public  double getTaxe() {
         return taxe;
     }
 
