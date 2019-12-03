@@ -1,6 +1,6 @@
 import di.Injection;
 import model.Recipe;
-import model.cookie.Cookie;
+import model.consumables.Cookie;
 
 import model.cookie.CookieComponent;
 import org.junit.jupiter.api.BeforeEach;

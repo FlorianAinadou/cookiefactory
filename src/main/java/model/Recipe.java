@@ -1,7 +1,7 @@
 package model;
 
 import model.cookie.CookieComponent;
-import model.cookie.Const;
+import utils.Lib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Recipe {
         name = n;
         composants.forEach(c -> {
             switch (c.getType()) {
-                case Const.TYPE_DOUGH:
+                case Lib.ComponentType.DOUGH:
                     if (dough == null) {
                         this.dough = c;
                         price += c.getPrice();
@@ -36,7 +36,7 @@ public class Recipe {
                         errorRecipe("dough");
                     }
                     break;
-                case Const.TYPE_FLAVOUR:
+                case Lib.ComponentType.FLAVOUR:
                     if (flavour == null) {
                         price += c.getPrice();
                         this.flavour = c;
@@ -44,7 +44,7 @@ public class Recipe {
                         errorRecipe("flavour");
                     }
                     break;
-                case Const.TYPE_MIX:
+                case Lib.ComponentType.MIX:
                     if (mix == null) {
                         price += c.getPrice();
                         this.mix = c;
@@ -52,7 +52,7 @@ public class Recipe {
                         errorRecipe("mix");
                     }
                     break;
-                case Const.TYPE_COOKING:
+                case Lib.ComponentType.COOKING:
                     if (cooking == null) {
                         price += c.getPrice();
                         this.cooking = c;
@@ -60,7 +60,7 @@ public class Recipe {
                         errorRecipe("cooking");
                     }
                     break;
-                case Const.TYPE_TOPPING:
+                case Lib.ComponentType.TOPPING:
                     toppings.add(c);
                     break;
                 default:

@@ -1,9 +1,8 @@
 package model;
 
 
-
-import com.sun.istack.internal.Nullable;
 import model.customer.Customer;
+//import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -22,12 +21,20 @@ public class Order {
     private final Shop shop; // the place where the order will be collected
     private double orderAmount; // the order amount
 
-    public Order(int id, Customer customer, Date date, Shop shop) {
+    public Order(int id, Customer customer, Shop shop) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-
         this.date = new Date();
+        this.shop = shop;
+        this.orderAmount= 0;
+    }
+
+    public Order(int id, Customer customer,Date date, Shop shop) {
+        this.id = id;
+        this.customer = customer;
+        this.cart = customer.getCart(); // we save the cart in the order
+        this.date = date;
         this.shop = shop;
         this.orderAmount= 0;
     }
@@ -61,7 +68,7 @@ public class Order {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
@@ -78,7 +85,7 @@ public class Order {
 
         DecimalFormat price = new DecimalFormat ( ) ;
         price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
-        return ("The order №" + this.getId() + " has been placed, for the shop at" + this.getShop().getAdress()+", "
+        return ("The order №" + this.getId() + " has been placed, for the shop at " + this.getShop().getAdress()+", "
                 +this.getShop().getCity() + ", final amount: " + price.format(this.getOrderAmount())+ " €");
     }
 

@@ -8,6 +8,7 @@ import model.cookie.CookieComponent;
 import model.Shop;
 import model.customer.Customer;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,8 @@ public interface ApiService {
     void addShop(Shop shop);
 
     void deleteShop(Shop shop);
+
+    void changeHorairesShop(Shop shop, Date open, Date close);
 
 
     void addDiscount(Customer customer, Discount discount);

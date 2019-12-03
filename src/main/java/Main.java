@@ -1,8 +1,9 @@
 import di.Injection;
 import model.Recipe;
 import model.Shop;
-import model.cookie.Cookie;
 import model.Order;
+import model.consumables.Cookie;
+import model.consumables.Drink;
 import model.customer.Customer;
 import repository.*;
 import utils.Lib;
@@ -51,15 +52,10 @@ public class Main {
         Shop placeToBe = Shop.random();
         userRepository.addUser(Paul);
 
-        Paul.addCookies(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
-        Paul.addCookies(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),26);
+        Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
+        Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
+        Paul.addConsumables(new Drink(0.5f, "Sprite"),1);
         Paul.showCart();
-
-        orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
-
-        Paul.addCookies(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
-        Paul.addCookies(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
-        Paul.showCart();
-        orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe), discountRepository.getDiscounts(Paul).get(0));
+        orderRepository.addOrder(new Order(orderRepository.getOrderNum(), Paul, placeToBe), discountRepository.getDiscounts(Paul).get(0));
     }
 }

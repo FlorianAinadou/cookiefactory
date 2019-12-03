@@ -2,7 +2,7 @@ package step_definitions;
 
 import di.Injection;
 import model.Recipe;
-import model.cookie.Cookie;
+import model.consumables.Cookie;
 import model.customer.Customer;
 import model.customer.UnregisteredCustomer;
 
@@ -10,6 +10,9 @@ import io.cucumber.java8.En;
 import repository.CookieRepository;
 
 import java.util.Map;
+import model.consumables.Cookie;
+
+import io.cucumber.java8.En;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,9 +36,11 @@ public class OrderStepdefs implements En {
 
 
 
+
         When("{string} adds {int} {string} to his cart",
-                (Integer quantity) -> customer.addCookies(cookie, quantity));
+                (Integer quantity) -> customer.addConsumables(cookie, quantity));
         Then("A new item named {string} appears in his cart",
+
                 () -> assertTrue(customer.getCart().getItems().containsKey(cookie)));
         And("The quantity of this item is {int}",
                 (Integer quantity) -> assertEquals(customer.getCart().getItems().get(cookie), quantity));
