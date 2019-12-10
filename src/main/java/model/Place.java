@@ -1,8 +1,9 @@
 package model;
 
+/**
+ * @author Lydia BARAUKOVA
+ */
 public enum Place {
-    Valbonne( "Valbonne"),
-    Antibes ( "Antibes"),
     Biot ( "Biot"),
     Cannes ( "Cannes"),
     Nice( "Nice");
@@ -11,5 +12,6 @@ public enum Place {
 
     Place(String t) { type = t; }
 
-    String getType() { return type; }
+    @Override
+    public String toString() { return type; }
 }

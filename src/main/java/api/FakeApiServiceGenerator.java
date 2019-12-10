@@ -21,10 +21,13 @@ import java.util.*;
 public abstract class FakeApiServiceGenerator {
 
     static List<Customer> generateUsers() {
-        return new ArrayList<>(FAKE_USERS);
+        List<Customer> c = new ArrayList<>(FAKE_REGISTERED_CUSTOMERS);
+        c.addAll(FAKE_UNREGISTERED_CUSTOMERS);
+        return c;
     }
+    static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS); }
     static Map<String, Recipe> generateCookieRecipes() {
-        return new HashMap<>(RECIPES_COOKIE);
+        return new HashMap<>(COOKIE_RECIPES);
     }
     static Map<String, CookieComponent> generateCookieDough() {
         return new HashMap<>(DOUGH_COOKIE);
@@ -38,46 +41,26 @@ public abstract class FakeApiServiceGenerator {
     static Map<Customer, ArrayList<Discount>> generateDiscounts() {
         return new HashMap<>(DISCOUNTS);
     }
-    static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS);}
-
-    static Map<String, Discount> getShopDiscounts() {
+    static Map<String, Discount> generateShopDiscounts() {
         return new HashMap<>(SHOP_DISCOUNTS);
     }
 
-    private static List<Customer> FAKE_USERS = Arrays.asList(
+    static List<Customer> FAKE_REGISTERED_CUSTOMERS = Arrays.asList(
             new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test", 2000.0),
-            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com", 2000.0),
-            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com", 2000.0),
+            new RegisteredCustomer(1, "Jean", "Pierre", 43, "0612343678", "jean@gmail.com", "test", 2000.0),
+            new RegisteredCustomer(2, "Pierre", "Martin", 35, "0632345678", "pierre@gmail.com", "test", 2000.0)
+    );
+    static List<Customer> FAKE_UNREGISTERED_CUSTOMERS = Arrays.asList(
             new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0),
-            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0)
+            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0),
+            new UnregisteredCustomer("Pauline", "Durand", "0645897556", "pauline@gmail.com", 2000.0)
     );
 
-    public static List<Customer> FAKE_USERS_RANDOM = Arrays.asList(
-            new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test", 2000.0),
-            new UnregisteredCustomer("Jean", "Pierre", "0612343678", "jean@gmail.com", 2000.0),
-            new UnregisteredCustomer("Pierre", "Martin", "0632345678", "pierre@gmail.com", 2000.0),
-            new UnregisteredCustomer("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0),
-            new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0)
-    );
-
-    private static SimpleDateFormat horaire = new SimpleDateFormat("HH:mm");
-
-    public static List<Shop> FAKE_SHOPS;
-
-    static {
-        try {
-            FAKE_SHOPS = Arrays.asList(
-                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, horaire.parse("08:00"), horaire.parse("18:30"),0.5),
-                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, horaire.parse("09:00"), horaire.parse("18:30"),0.05),
-                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, horaire.parse("09:00"), horaire.parse("19:00"),0.1)
-
-                );
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    private static Map<String, Recipe> COOKIE_RECIPES = new HashMap<String, Recipe>() {{
+        put(Lib.CookieName.CHERRY_BLOSSOM, new Recipe(Lib.CookieName.CHERRY_BLOSSOM, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
+        put(Lib.CookieName.CHOCOLALA, new Recipe(Lib.CookieName.CHOCOLALA, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
+        put(Lib.CookieName.DARK_TEMPTATION, new Recipe(Lib.CookieName.DARK_TEMPTATION, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
+    }};
 
     private static Map<String, CookieComponent> DOUGH_COOKIE = new HashMap<String, CookieComponent>() {
         {
@@ -120,7 +103,7 @@ public abstract class FakeApiServiceGenerator {
     };
 
     private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
-        put((RegisteredCustomer)FAKE_USERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
+        put((RegisteredCustomer) FAKE_REGISTERED_CUSTOMERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
     }};
 
     private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
@@ -129,10 +112,17 @@ public abstract class FakeApiServiceGenerator {
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
-    private static Map<String, Recipe> RECIPES_COOKIE = new HashMap<String, Recipe>() {{
-        put(Lib.CookieName.CHERRY_BLOSSOM, new Recipe(Lib.CookieName.CHERRY_BLOSSOM, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Cherry jam"), COOKING_COOKIE.get("Chewy"), FLAVOUR_COOKIE.get("Cherry"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Cherry syrup")))));
-        put(Lib.CookieName.CHOCOLALA, new Recipe(Lib.CookieName.CHOCOLALA, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
-        put(Lib.CookieName.DARK_TEMPTATION, new Recipe(Lib.CookieName.DARK_TEMPTATION, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
-    }};
-
+    static List<Shop> FAKE_SHOPS;
+    private static SimpleDateFormat hour = new SimpleDateFormat("HH:mm");
+    static {
+        try {
+            FAKE_SHOPS = Arrays.asList(
+                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, hour.parse("08:00"), hour.parse("18:30"),0.5, COOKIE_RECIPES.get(Lib.CookieName.CHOCOLALA)),
+                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, hour.parse("09:00"), hour.parse("18:30"),0.05, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
+                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, hour.parse("09:00"), hour.parse("19:00"),0.1, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
+            );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

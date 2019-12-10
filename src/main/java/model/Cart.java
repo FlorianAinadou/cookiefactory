@@ -1,48 +1,47 @@
 package model;
 
-import model.consumables.Consumable;
-import model.consumables.Cookie;
+import model.consumables.*;
 
 import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author Lydia BARAUKOVA
+ * @author Florian AINADOU
  */
 public class Cart {
     private Map<Consumable,Integer> items;
     private double totalPrice;
-    //Used to know how many cookies our cart could contain
-    private int cookiesNumber=0;
+    private int nbCookies; // to know how many cookies there are in the cart
 
     public Cart() {
         items = new HashMap<>();
         totalPrice = 0;
+        nbCookies = 0;
     }
 
-    public Map<Consumable, Integer> getItems(){ return items; } // returns all the items in the basket
+    public Map<Consumable, Integer> getItems() { return items; } // returns all the items in the basket
 
     public double getTotalPrice(){ return totalPrice; } // returns total price
 
-    public int getCookiesNumber(){
-        return cookiesNumber ;
-    } //returns cookies' number in the cart
+    public int getNbCookies(){
+        return nbCookies;
+    } // returns cookies' number in the cart
 
     public String toString() { // builds a String describing the contents of the cart
-        DecimalFormat price = new DecimalFormat ( ) ;
-        price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
+        DecimalFormat price = new DecimalFormat();
+        price.setMaximumFractionDigits(2);
         String s = "\nCart:\n";
         for(Map.Entry<Consumable, Integer> entry : items.entrySet()) {
             Consumable consumable = entry.getKey();
             Integer quantity = entry.getValue();
             s += consumable.getName() + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
-
         }
-        s+= "Total amount (HT):  " + price.format(this.totalPrice)+"€";
+        s += "Total price (HT):  " + price.format(totalPrice) + "€";
         return s;
     }
-
 
     public void addConsumables(Consumable consumable, Integer quantity) {
         if (items.containsKey(consumable)) { // if the model.consumables is already in the cart
@@ -51,7 +50,7 @@ public class Cart {
             items.put(consumable, quantity); // we add the new item
             totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
-        cookiesNumber+= quantity;
+        nbCookies += quantity; // ?????
     }
 
     private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
@@ -74,10 +73,8 @@ public class Cart {
     }
     public void emptyCart() { // empties the cart
         totalPrice=0;
-        cookiesNumber=0;
+        nbCookies =0;
         items.clear();
     }
-
-
 
 }

@@ -2,18 +2,22 @@ package model.customer;
 
 import model.discount.Discount;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
  * @author Lydia BARAUKOVA
+ * @author Florian AINADOU
  */
 public class RegisteredCustomer extends Customer {
+
     private int id; // every registered model.customer has an id
     private int cookieCount; // nb of cookies bought during all the time
-    // additional information that registered customers provide
+
+    // additional information for registered customers
     private int age;
     private String address;
-    private ArrayList<Discount> discountsList;
+    private List<Discount> discountsList;
 
     public RegisteredCustomer(int id, String firstName, String lastName, int age, String tel, String email, String address, double walletAmount) {
         super(firstName, lastName, tel, email, walletAmount);
@@ -21,40 +25,31 @@ public class RegisteredCustomer extends Customer {
         this.age = age;
         this.address = address;
         this.cookieCount = 0;
+        this.discountsList = new ArrayList<>();
     }
 
-    private ArrayList<Discount> getDiscountsList() {
+    private List<Discount> getDiscountsList() {
         return discountsList;
     }
-
     public int getId() {
         return id;
     }
-
     public int getAge() {
         return age;
     }
-
-    public String getAdress() {
+    public String getAddress() {
         return address;
     }
-
-    public void setAdress(String a) {
+    public void setAddress(String a) {
         address = a;
     }
-
     public int getCookieCount() {
         return cookieCount;
     }
-
     public void increaseCookieCount(int c) {
         cookieCount += c;
     }
 
     @Override
-    public boolean isRegistered() {
-        return true;
-    }
-
-
+    public boolean isRegistered() { return true; }
 }

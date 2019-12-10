@@ -1,4 +1,4 @@
-Feature: interaction with the cinema
+Feature: customer interaction with the cinema
 
   Background: cinema visitor
     Given I have a cinema ticket for today

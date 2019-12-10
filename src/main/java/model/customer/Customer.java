@@ -1,16 +1,8 @@
 package model.customer;
 
-
-//import com.sun.istack.internal.Nullable;
-
 import model.Cart;
 import model.consumables.Consumable;
-//import org.jetbrains.annotations.Nullable;
-
 import java.util.Objects;
-import java.util.Random;
-
-import static api.FakeApiServiceGenerator.FAKE_USERS_RANDOM;
 
 /**
  * @author Aldric DUCREUX
@@ -18,21 +10,14 @@ import static api.FakeApiServiceGenerator.FAKE_USERS_RANDOM;
  * @author Virgile FANTAUZZI
  */
 public abstract class Customer {
-    private Cart cart; // every model.customer has a cart
-    // basic information that even unregistered users need to provide
+
+    private Cart cart; // every customer has a cart
+
+    // basic information for all users
     private String firstName;
     private String lastName;
     private String tel;
     private String email;
-
-    public double getWalletAmount() {
-        return walletAmount;
-    }
-
-    public void setWalletAmount(double walletAmount) {
-        this.walletAmount = walletAmount;
-    }
-
     private double walletAmount;
 
     Customer(String firstName, String lastName, String tel, String email, double walletAmount) {
@@ -50,22 +35,23 @@ public abstract class Customer {
     public void setTel(String t) { tel = t; }
     public String getEmail() { return email; }
     public void setEmail(String e) { email = e; }
-    public Cart getCart() { return cart; }
 
+    public double getWalletAmount() {
+        return walletAmount;
+    }
+    public void setWalletAmount(double walletAmount) {
+        this.walletAmount = walletAmount;
+    }
+
+    public Cart getCart() { return cart; }
     public void addConsumables(Consumable consumable, Integer quantity) {
         cart.addConsumables(consumable, quantity);
     }
     public void showCart(){
         System.out.println(cart.toString());
     }
-
-
     public void emptyCart() {
         cart.emptyCart();
-    }
-
-    public static Customer random(){
-        return FAKE_USERS_RANDOM.get(new Random().nextInt(FAKE_USERS_RANDOM.size()));
     }
 
     @Override
@@ -81,10 +67,5 @@ public abstract class Customer {
         return Objects.hash(firstName, lastName);
     }
 
-    /**
-     * Want to know if the customer is registered
-     */
     public abstract boolean isRegistered();
-
-
 }

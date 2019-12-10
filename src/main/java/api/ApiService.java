@@ -8,62 +8,45 @@ import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author Virgile FANTAUZZI
+ * @author Lydia BARAUKOVA
  */
-
 public interface ApiService {
-    List<Customer> getUsers();
 
-    List<Order> getOrders();
+    List<Customer> getCustomers();
+    Customer getRandomRegisteredCustomer();
+    Customer getRandomUnregisteredCustomer();
+    void addCustomer(Customer username);
+    void deleteCustomer(Customer username);
 
     List<Shop> getShops();
-
-    int getOrderNum();
-
-    void generateRandomUser();
-
-    void deleteUser(Customer username);
-
-    void addUser(Customer username);
-
-    void deleteOrder(Order orderNum);
-
-    void addOrder(Order orderNum);
-
-    Map<String, Recipe> getCookieRecipes();
-
-    Map<String, CookieComponent> getCookieDough();
-
-    Map<String, CookieComponent> getCookieTopping();
-
-    Map<String, CookieComponent> getCookieMix();
-
-    Map<String, CookieComponent> getCookieCooking();
-
-    Map<String, CookieComponent> getCookieFlavour();
-
-    void addOrder(Order order, Discount discount);
-
-    void payOrder(Order order, Customer customer);
-
+    Shop getRandomShop();
     void addShop(Shop shop);
-
     void deleteShop(Shop shop);
 
-    void changeMarginRecipes(String name, double value);
+    List<Order> getOrders();
+    int getOrderNum();
+    void addOrder(Order orderNum);
+    void deleteOrder(Order orderNum);
+    void addOrder(Order order, Discount discount);
+    void payOrder(Order order, Customer customer);
 
-    void changeHorairesShop(Shop shop, Date open, Date close);
+    Map<String, Recipe> getCookieRecipes();
+    void addCookieRecipe(String name, Recipe recipe);
+    void changeRecipesMargin(String recipeName, double value);
 
-    void addDiscount(Customer customer, Discount discount);
+    Map<String, CookieComponent> getCookieDough();
+    Map<String, CookieComponent> getCookieTopping();
+    Map<String, CookieComponent> getCookieMix();
+    Map<String, CookieComponent> getCookieCooking();
+    Map<String, CookieComponent> getCookieFlavour();
 
     List<Discount> getDiscounts(Customer customer);
-
+    void addDiscount(Customer customer, Discount discount);
     double applyDiscount(Customer customer, Shop shop, Discount discount);
-
     float askForADiscountApplying(Customer customer, Discount discount);
 }

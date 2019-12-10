@@ -17,47 +17,34 @@ import java.util.Map;
  * @author Virgile FANTAUZZI
  */
 public class Main {
-    private static UserRepository userRepository;
+    private static CustomerRepository customerRepository;
     private static OrderRepository orderRepository;
     private static CookieRepository cookieRepository;
     private static DiscountRepository discountRepository;
+    private static ShopRepository shopRepository;
 
-    private static UserRepository getUserRepository() {
-        if (userRepository == null) userRepository = Injection.createUserRepository();
-        return userRepository;
-    }
-
-    private static OrderRepository getOrderRepository() {
-        if (orderRepository == null) orderRepository = Injection.createOrderRepository();
-        return orderRepository;
-    }
-    private static CookieRepository getCookieRepository() {
+    private static void initRepositories() {
         if (cookieRepository == null) cookieRepository = Injection.createCookieRepository();
-        return cookieRepository;
-    }
-    private static DiscountRepository getDiscountRepository() {
+        if (shopRepository == null) shopRepository = Injection.createShopRepository();
+        if (customerRepository == null) customerRepository = Injection.createCustomerRepository();
+        if (orderRepository == null) orderRepository = Injection.createOrderRepository();
         if (discountRepository == null) discountRepository = Injection.createDiscountRepository();
-        return discountRepository;
     }
 
     public static void main(String[] args) {
-        orderRepository = getOrderRepository();
-        userRepository = getUserRepository();
-        cookieRepository = getCookieRepository();
-        discountRepository = getDiscountRepository();
+        initRepositories();
 
-        Map<String, Recipe> recipes = getCookieRepository().getCookieRecipes();
+        Map<String, Recipe> recipes = cookieRepository.getCookieRecipes();
 
-        Customer Paul = userRepository.getUsers().get(0);
-        Shop placeToBe = Shop.random();
-        userRepository.addUser(Paul);
+        Customer customer = customerRepository.getRandomRegisteredCustomer();
+        Shop shop = shopRepository.getRandomShop();
 
-        Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
-        Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
-        Paul.addConsumables(new Drink(0.5f, "Sprite"),1);
-        Paul.showCart();
-        Order order = new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe);
-        orderRepository.addOrder(order, discountRepository.getDiscounts(Paul).get(0));
-        orderRepository.payOrder(order, Paul);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
+        customer.addConsumables(new Drink(0.5f, "Sprite"),1);
+        customer.showCart();
+        Order order = new Order(orderRepository.getOrderNum(), customer, new Date(), shop);
+        orderRepository.addOrder(order, discountRepository.getDiscounts(customer).get(0));
+        orderRepository.payOrder(order, customer);
     }
 }

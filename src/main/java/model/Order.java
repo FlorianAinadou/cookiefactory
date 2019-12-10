@@ -1,6 +1,5 @@
 package model;
 
-
 import model.customer.Customer;
 import model.discount.Discount;
 
@@ -8,52 +7,40 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Objects;
 
-//import org.jetbrains.annotations.Nullable;
-
 /**
  * @author Florian AINADOU
  * @author Lydia BARAUKOVA
  * @author Virgile FANTAUZZI
  */
 public class Order {
-    private final int id;  // just a  random number given to every order
+    private final int id; // just a  random number given to every order
     private final Cart cart;
     private final Customer customer;
     private final Date date; // the order date and hour
     private final Shop shop; // the place where the order will be collected
-    private double orderAmount; // the order amount
-
-    public int getOrderStatu() {
-        return orderStatu;
-    }
-
-    public void setOrderStatu(int orderStatu) {
-        this.orderStatu = orderStatu;
-    }
-
-    private int orderStatu; // statu of the order
+    private double totalPrice; // the order amount
+    private int orderStatus; // status of the order
 
     public Order(int id, Customer customer, Date date, Shop shop) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
-        this.orderStatu = 0;
+        this.orderStatus = 0;
         this.date = new Date();
         this.shop = shop;
-        this.orderAmount= 0;
+        this.totalPrice = 0;
     }
 
-
-    public double getOrderAmount() {
-        return orderAmount;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public double getOrderAmount(Discount discount) {
-        return orderAmount-orderAmount*discount.getRate();
+    public double getTotalPrice(Discount discount) {
+        return totalPrice - totalPrice * discount.getRate();
     }
 
-    public void setOrderAmount(double orderAmount) {
-        this.orderAmount = orderAmount;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
@@ -76,28 +63,32 @@ public class Order {
         return shop;
     }
 
+    public int getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
-        return (((Order) obj).getId() == (this.getId()));
+        return (((Order) obj).getId() == id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDate());
+        return Objects.hash(this);
     }
 
     @Override
     public String toString(){
-
-        DecimalFormat price = new DecimalFormat ( ) ;
-        price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
-        return ("The order №" + this.getId() + " has been placed, for the shop at " + this.getShop().getAdress()+", "
-                +this.getShop().getCity() + ", final amount: " + price.format(this.getOrderAmount())+ " €");
+        DecimalFormat price = new DecimalFormat();
+        price.setMaximumFractionDigits(2);
+        return ("The order №" + id + " has been placed, for the shop at " + shop.getAddress() + ", "
+                + shop.getCity() + ", final price: " + price.format(totalPrice) + " €");
     }
-
-
-
 }

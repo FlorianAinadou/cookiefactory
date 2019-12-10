@@ -1,59 +1,41 @@
 package model;
 
+import java.util.*;
 
-//import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import static api.FakeApiServiceGenerator.FAKE_SHOPS;
-
+/**
+ * @author Aldric DUCREUX
+ * @author Lydia BARAUKOVA
+ */
 public class Shop {
-    public final int id;  // just a  random number given to every order
-    protected String shopName;
-    protected String adress;
-    protected Place city;
-    protected Date openShop;
-    protected Date closeShop;
-    protected  double taxe;
-    protected List<Order> orderHistoric = new ArrayList<>();
+    private final int id;  // just a  random number given to every shop
+    private String name, address;
+    private Place city;
+    private Date openingAt, closingAt;
+    private double tax;
+    private List<Order> orderHistory;
+    private Recipe recipeOfTheMonth;
 
-    public Shop(int id, String shopName, String adress, Place city, Date openShop, Date closeShop, double taxe) {
-        this.id =id;
-        this.shopName = shopName;
-        this.adress = adress;
+    public Shop(int id, String name, String address, Place city, Date openingAt, Date closingAt, double tax, Recipe recipeOfTheMonth) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
         this.city = city;
-        this.openShop = openShop;
-        this.closeShop = closeShop;
-        this.taxe = taxe;
+        this.openingAt = openingAt;
+        this.closingAt = closingAt;
+        this.tax = tax;
+        this.orderHistory = new ArrayList<>();
+        this.recipeOfTheMonth = recipeOfTheMonth;
     }
 
-    public int getId() {return id;}
+    public int getId() { return id; }
+    public String getName() { return name;}
+    public String getAddress() { return address; }
+    public Place getCity() { return city; }
+    public Date getOpeningHour() { return openingAt; }
+    public Date getClosingHour() { return closingAt; }
+    public  double getTax() { return tax; }
 
-    public String getShopName() { return shopName;}
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public Place getCity() {
-        return city;
-    }
-
-    public Date getOpenShop() { return openShop; }
-    public Date getCloseShop()  { return closeShop; }
-    public void setOpenShop(Date openShop) {this.openShop = openShop; }
-    public void setCloseShop(Date closeShop) {this.closeShop = closeShop; }
-
-    public  double getTaxe() {
-        return taxe;
-    }
-
-    public static Shop random(){
-        return FAKE_SHOPS.get(new Random().nextInt(FAKE_SHOPS.size()));
-    }
+    public void setOpenHours(Date openingAt, Date closingAt) { this.openingAt = openingAt; this.closingAt = closingAt; }
 
     @Override
     public boolean equals( Object obj) {
@@ -61,5 +43,10 @@ public class Shop {
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;
         return (((Order) obj).getId() == (this.getId()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this);
     }
 }
