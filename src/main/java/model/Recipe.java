@@ -4,6 +4,7 @@ package model;
 import model.consumables.CookieComponent;
 import utils.Lib;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +18,23 @@ public class Recipe {
     private CookieComponent mix = null;
     private double price = 0;
     private double marginPrice = 0;
+
+
     // ingrédients
     private CookieComponent dough = null;
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
 
+    public Recipe(String name, CookieComponent cooking, CookieComponent mix, double price, double marginPrice, CookieComponent dough, CookieComponent flavour, ArrayList<CookieComponent> toppings) {
+        this.name = name;
+        this.cooking = cooking;
+        this.mix = mix;
+        this.price = price;
+        this.marginPrice = marginPrice;
+        this.dough = dough;
+        this.flavour = flavour;
+        this.toppings = toppings;
+    }
     private void errorRecipe(String name) {
         System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
     }
@@ -69,9 +82,9 @@ public class Recipe {
                     System.out.println("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
                     break;
             }
-            marginPrice = mp;
-            price+=mp;
         });
+        marginPrice = mp;
+        price += mp;
     }
 
     public String getName() {
@@ -99,7 +112,9 @@ public class Recipe {
     }
 
     public double getPrice() {
-        return price;
+        DecimalFormat price = new DecimalFormat ( ) ;
+        price.setMaximumFractionDigits (2) ; //arrondi à 2 chiffres apres la virgules
+        return this.price;
     }
 
     public void setPrice(double price) {

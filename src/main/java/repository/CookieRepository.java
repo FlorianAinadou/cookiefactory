@@ -22,23 +22,23 @@ public class CookieRepository {
         return apiService.getCookieRecipes();
     }
 
-    Map<String, CookieComponent> getCookieDough(){
+    public Map<String, CookieComponent> getCookieDough() {
         return apiService.getCookieDough();
     }
 
-    Map<String, CookieComponent> getCookieTopping(){
+    public Map<String, CookieComponent> getCookieTopping() {
         return apiService.getCookieTopping();
     }
 
-    Map<String, CookieComponent> getCookieMix(){
+    public Map<String, CookieComponent> getCookieMix() {
         return apiService.getCookieMix();
     }
 
-    Map<String, CookieComponent> getCookieCooking(){
+    public Map<String, CookieComponent> getCookieCooking() {
         return apiService.getCookieCooking();
     }
 
-    Map<String, CookieComponent> getCookieFlavour(){
+    public Map<String, CookieComponent> getCookieFlavour() {
         return apiService.getCookieFlavour();
     }
 }

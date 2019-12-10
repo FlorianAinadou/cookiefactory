@@ -199,7 +199,7 @@ public class FakeApiService implements ApiService {
     }
 
     /**
-     * Change a margin of {@link RecipeCookie} from the {@link FakeApiService#recipes} list.
+     * Change a margin of {@link Recipe} from the {@link FakeApiService#recipes} list.
      */
     @Override
     public void changeMarginRecipes(String name, double value) {
