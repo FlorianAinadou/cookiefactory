@@ -4,6 +4,7 @@ package model;
 import model.consumables.CookieComponent;
 import utils.Lib;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,31 @@ public class Recipe {
     private CookieComponent cooking = null;
     private CookieComponent mix = null;
     private double price = 0;
+
+    public void setMarginPrice(double marginPrice) {
+        this.price -= this.marginPrice;
+        this.marginPrice = marginPrice;
+        this.price += this.marginPrice;
+    }
+
     private double marginPrice = 0;
+
+
     // ingrédients
     private CookieComponent dough = null;
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
+
+    public Recipe(String name, CookieComponent cooking, CookieComponent mix, double price, double marginPrice, CookieComponent dough, CookieComponent flavour, ArrayList<CookieComponent> toppings) {
+        this.name = name;
+        this.cooking = cooking;
+        this.mix = mix;
+        this.price = price;
+        this.marginPrice = marginPrice;
+        this.dough = dough;
+        this.flavour = flavour;
+        this.toppings = toppings;
+    }
 
     private void errorRecipe(String name) {
         System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
@@ -69,9 +90,9 @@ public class Recipe {
                     System.out.println("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
                     break;
             }
-            marginPrice = mp;
-            price+=mp;
         });
+        marginPrice = mp;
+        price += mp;
     }
 
     public String getName() {
@@ -86,20 +107,26 @@ public class Recipe {
         return cooking;
     }
 
-    public void setCooking(CookieComponent cooking) {
-        this.cooking = cooking;
-    }
-
     public CookieComponent getMix() {
         return mix;
     }
 
-    public void setMix(CookieComponent mix) {
-        this.mix = mix;
+    public double getPrice() {
+        DecimalFormat price = new DecimalFormat();
+        price.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
+        return this.price;
     }
 
-    public double getPrice() {
-        return price;
+    public void setCooking(CookieComponent cooking) {
+        price -= this.cooking.getPrice();
+        this.cooking = cooking;
+        price -= this.cooking.getPrice();
+    }
+
+    public void setMix(CookieComponent mix) {
+        price -= this.mix.getPrice();
+        this.mix = mix;
+        price -= this.mix.getPrice();
     }
 
     public void setPrice(double price) {
@@ -111,7 +138,9 @@ public class Recipe {
     }
 
     public void setDough(CookieComponent dough) {
+        price -= this.dough.getPrice();
         this.dough = dough;
+        price -= this.dough.getPrice();
     }
 
     public CookieComponent getFlavour() {
@@ -119,7 +148,9 @@ public class Recipe {
     }
 
     public void setFlavour(CookieComponent flavour) {
+        price -= this.flavour.getPrice();
         this.flavour = flavour;
+        price -= this.flavour.getPrice();
     }
 
     public ArrayList<CookieComponent> getToppings() {
@@ -127,6 +158,8 @@ public class Recipe {
     }
 
     public void setToppings(ArrayList<CookieComponent> toppings) {
+        this.toppings.forEach(c -> price -= c.getPrice());
         this.toppings = toppings;
+        this.toppings.forEach(c -> price += c.getPrice());
     }
 }

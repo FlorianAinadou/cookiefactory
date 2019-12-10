@@ -198,13 +198,6 @@ public class FakeApiService implements ApiService {
         users.add(user);
     }
 
-    /**
-     * Change a margin of {@link } from the {@link FakeApiService#recipes} list.
-     */
-    @Override
-    public void changeMarginRecipes(String name, double value) {
-
-    }
 
     /**
      * Delete a {@link Order} from the {@link FakeApiService#users} list.
@@ -280,6 +273,66 @@ public class FakeApiService implements ApiService {
     @Override
     public void deleteShop(Shop shop) {
         shops.remove(shop);
+    }
+
+    @Override
+    public void addRecipe(String name, Recipe recipe) {
+        recipes.put(name, recipe);
+    }
+
+    @Override
+    public void deleteRecipe(String name) {
+        recipes.remove(name);
+    }
+
+    @Override
+    public void addMix(String name, CookieComponent mix) {
+        this.mix.put(name, mix);
+    }
+
+    @Override
+    public void deleteMix(String name) {
+        this.mix.remove(name);
+    }
+
+    @Override
+    public void addTopping(String name, CookieComponent topping) {
+        this.topping.put(name, topping);
+    }
+
+    @Override
+    public void deleteTopping(String name) {
+        this.topping.remove(name);
+    }
+
+    @Override
+    public void addDough(String name, CookieComponent dough) {
+        this.doughs.put(name, dough);
+    }
+
+    @Override
+    public void deleteDough(String name) {
+        this.doughs.remove(name);
+    }
+
+    @Override
+    public void addCooking(String name, CookieComponent cooking) {
+        this.cooking.put(name, cooking);
+    }
+
+    @Override
+    public void deleteCooking(String name) {
+        this.cooking.remove(name);
+    }
+
+    @Override
+    public void addFlavour(String name, CookieComponent flavour) {
+        this.flavours.put(name, flavour);
+    }
+
+    @Override
+    public void deleteFlavour(String name) {
+        this.flavours.remove(name);
     }
 
 

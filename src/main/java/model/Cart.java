@@ -37,7 +37,7 @@ public class Cart {
         for(Map.Entry<Consumable, Integer> entry : items.entrySet()) {
             Consumable consumable = entry.getKey();
             Integer quantity = entry.getValue();
-            s += consumable.getName() + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
+            s += (!consumable.getName().equals("")?consumable.getName(): "Cookie perso :") + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
 
         }
         s+= "Total amount (HT):  " + price.format(this.totalPrice)+"€";

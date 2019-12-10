@@ -17,22 +17,61 @@ public class Shop {
     protected Place city;
     protected Date openShop;
     protected Date closeShop;
-    protected  double taxe;
+    protected double taxe;
+    protected double taxeCod;
     protected List<Order> orderHistoric = new ArrayList<>();
 
-    public Shop(int id, String shopName, String adress, Place city, Date openShop, Date closeShop, double taxe) {
-        this.id =id;
+    public Shop(int id, String shopName, String adress, Place city, Date openShop, Date closeShop, double taxe, double taxeCod) {
+        this.id = id;
         this.shopName = shopName;
         this.adress = adress;
         this.city = city;
         this.openShop = openShop;
         this.closeShop = closeShop;
         this.taxe = taxe;
+        this.taxeCod = taxeCod;
     }
 
-    public int getId() {return id;}
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 
-    public String getShopName() { return shopName;}
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setCity(Place city) {
+        this.city = city;
+    }
+
+    public void setTaxe(double taxe) {
+        this.taxe = taxe;
+    }
+
+    public double getTaxeCod() {
+        return taxeCod;
+    }
+
+    public void setTaxeCod(double taxeCod) {
+        this.taxeCod = taxeCod;
+    }
+
+    public List<Order> getOrderHistoric() {
+        return orderHistoric;
+    }
+
+    public void setOrderHistoric(List<Order> orderHistoric) {
+        this.orderHistoric = orderHistoric;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
 
     public String getAdress() {
         return adress;
@@ -42,21 +81,32 @@ public class Shop {
         return city;
     }
 
-    public Date getOpenShop() { return openShop; }
-    public Date getCloseShop()  { return closeShop; }
-    public void setOpenShop(Date openShop) {this.openShop = openShop; }
-    public void setCloseShop(Date closeShop) {this.closeShop = closeShop; }
+    public Date getOpenShop() {
+        return openShop;
+    }
 
-    public  double getTaxe() {
+    public Date getCloseShop() {
+        return closeShop;
+    }
+
+    public void setOpenShop(Date openShop) {
+        this.openShop = openShop;
+    }
+
+    public void setCloseShop(Date closeShop) {
+        this.closeShop = closeShop;
+    }
+
+    public double getTaxe() {
         return taxe;
     }
 
-    public static Shop random(){
+    public static Shop random() {
         return FAKE_SHOPS.get(new Random().nextInt(FAKE_SHOPS.size()));
     }
 
     @Override
-    public boolean equals( Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Order)) return false;

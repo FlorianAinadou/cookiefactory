@@ -1,12 +1,12 @@
 package api;
 
 
-import model.discount.Discount;
 import model.Order;
 import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
+import model.discount.Discount;
 import model.discount.DiscountStrategy;
 
 import java.util.Date;
@@ -56,7 +56,29 @@ public interface ApiService {
 
     void deleteShop(Shop shop);
 
-    void changeMarginRecipes(String name, double value);
+    void addRecipe(String name, Recipe recipe);
+
+    void deleteRecipe(String name);
+
+    void addMix(String name, CookieComponent mix);
+
+    void deleteMix(String name);
+
+    void addTopping(String name, CookieComponent topping);
+
+    void deleteTopping(String name);
+
+    void addDough(String name, CookieComponent dough);
+
+    void deleteDough(String name);
+
+    void addCooking(String name, CookieComponent cooking);
+
+    void deleteCooking(String name);
+
+    void addFlavour(String name, CookieComponent flavour);
+
+    void deleteFlavour(String name);
 
     void changeHorairesShop(Shop shop, Date open, Date close);
 
