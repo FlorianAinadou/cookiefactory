@@ -7,7 +7,6 @@ import repository.*;
  * @author Virgile FANTAUZZI
  * @author Lydia BARAUKOVA
  */
-
 public class Injection {
 
     private static FakeApiService fakeApiService = new FakeApiService();

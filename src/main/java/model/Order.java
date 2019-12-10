@@ -5,6 +5,7 @@ import model.discount.Discount;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,8 +21,9 @@ public class Order {
     private final Shop shop; // the place where the order will be collected
     private double totalPrice; // the order amount
     private int orderStatus; // status of the order
+    private List<Discount> discountsYouCouldApply;
 
-    public Order(int id, Customer customer, Date date, Shop shop) {
+    public Order(int id, Customer customer, Date date, Shop shop, List<Discount> discounts) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
@@ -29,16 +31,15 @@ public class Order {
         this.date = new Date();
         this.shop = shop;
         this.totalPrice = 0;
+        discountsYouCouldApply= discounts;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
-
     public double getTotalPrice(Discount discount) {
         return totalPrice - totalPrice * discount.getRate();
     }
-
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -46,19 +47,15 @@ public class Order {
     public int getId() {
         return id;
     }
-
     public Cart getCart() {
         return cart;
     }
-
     public Customer getCustomer() {
         return customer;
     }
-
     public Date getDate() {
         return date;
     }
-
     public Shop getShop() {
         return shop;
     }
@@ -66,10 +63,9 @@ public class Order {
     public int getOrderStatus() {
         return orderStatus;
     }
+    public void setOrderStatus(int orderStatus) { this.orderStatus = orderStatus; }
 
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+    public List<Discount> getDiscountsYouCouldApply() { return discountsYouCouldApply; }
 
     @Override
     public boolean equals(Object obj) {

@@ -7,6 +7,7 @@ public class UnregisteredCustomer extends Customer {
 
     public UnregisteredCustomer(String firstName, String lastName, String tel, String email, double walletAmount) {
         super(firstName, lastName, tel, email, walletAmount);
+        this.seniority=0;
     }
 
     @Override

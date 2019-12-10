@@ -30,6 +30,6 @@ class CookieTest {
 
    @Test
    void CookieCreated() {
-      assertEquals(cookie, new Cookie(Injection.createCookieRepository().getCookieRecipes().get(Lib.CookieName.CHOCOLALA)));
+      assertEquals(cookie, new Cookie(Injection.createCookieRepository().getRecipes().get(Lib.CookieName.CHOCOLALA)));
    }
 }

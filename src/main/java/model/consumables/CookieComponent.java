@@ -7,7 +7,7 @@ public class CookieComponent {
 
     private int type;
     private String name;
-    private float price;
+    private double price;
 
     public CookieComponent(int type, String name) {
         this.type = type;
@@ -31,15 +31,15 @@ public class CookieComponent {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public CookieComponent(int type, String name, float price) {
+    public CookieComponent(int type, String name, double price) {
         this.type = type;
         this.name = name;
         this.price = price;

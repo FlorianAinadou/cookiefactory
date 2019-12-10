@@ -15,6 +15,7 @@ public class Cart {
     private Map<Consumable,Integer> items;
     private double totalPrice;
     private int nbCookies; // to know how many cookies there are in the cart
+    private boolean codeEvent;
 
     public Cart() {
         items = new HashMap<>();
@@ -37,7 +38,7 @@ public class Cart {
         for(Map.Entry<Consumable, Integer> entry : items.entrySet()) {
             Consumable consumable = entry.getKey();
             Integer quantity = entry.getValue();
-            s += consumable.getName() + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
+            s += (!consumable.getName().equals("")?consumable.getName(): "Personalized cookie") + " " + price.format(consumable.getPrice()) + "€ x" + quantity +"\n";
         }
         s += "Total price (HT):  " + price.format(totalPrice) + "€";
         return s;

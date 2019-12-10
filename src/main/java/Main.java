@@ -1,13 +1,16 @@
 import di.Injection;
-import model.Recipe;
-import model.Shop;
-import model.Order;
+import model.*;
+import model.builders.RecipeBuilder;
 import model.consumables.Cookie;
+import model.consumables.CookieComponent;
 import model.consumables.Drink;
 import model.customer.Customer;
+import model.discount.EntrepriseCodePriority;
 import repository.*;
 import utils.Lib;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
@@ -17,9 +20,9 @@ import java.util.Map;
  * @author Virgile FANTAUZZI
  */
 public class Main {
+    private static CookieRepository cookieRepository;
     private static CustomerRepository customerRepository;
     private static OrderRepository orderRepository;
-    private static CookieRepository cookieRepository;
     private static DiscountRepository discountRepository;
     private static ShopRepository shopRepository;
 
@@ -34,17 +37,40 @@ public class Main {
     public static void main(String[] args) {
         initRepositories();
 
-        Map<String, Recipe> recipes = cookieRepository.getCookieRecipes();
+        Map<String, Recipe> recipes = cookieRepository.getRecipes();
+
+        Map<String, CookieComponent> MIX_COOKIE = cookieRepository.getMix();
+        Map<String, CookieComponent> COOKING_COOKIE = cookieRepository.getCooking();
+        Map<String, CookieComponent> FLAVOUR_COOKIE = cookieRepository.getFlavour();
+        Map<String, CookieComponent> DOUGH_COOKIE = cookieRepository.getDough();
+        Map<String, CookieComponent> TOPPING_COOKIE = cookieRepository.getTopping();
 
         Customer customer = customerRepository.getRandomRegisteredCustomer();
         Shop shop = shopRepository.getRandomShop();
 
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)),4);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
-        customer.addConsumables(new Drink(0.5f, "Sprite"),1);
+        Recipe cherryBlossom = recipes.get(Lib.CookieName.CHERRY_BLOSSOM);
+
+        Recipe cod = new RecipeBuilder(shop.getCodTax())
+                .cooking(COOKING_COOKIE.get(Lib.Cooking.CHEWY))
+                .dough(DOUGH_COOKIE.get(Lib.Dough.CHERRY_JAM))
+                .flavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHERRY))
+                .mix(MIX_COOKIE.get(Lib.Mix.TOPPED))
+                .toppings(new ArrayList<>(Collections.singletonList(TOPPING_COOKIE.get(Lib.Topping.CHERRY_SYRUP))))
+                .marginPrice(2.00)
+                .buildRecipe();
+
+
+        customer.addConsumables(new Cookie(cherryBlossom), 1);
+        customer.addConsumables(new Cookie(cod), 1);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 4);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 6);
+        customer.addConsumables(new Drink(0.5f, "Sprite"), 1);
         customer.showCart();
-        Order order = new Order(orderRepository.getOrderNum(), customer, new Date(), shop);
-        orderRepository.addOrder(order, discountRepository.getDiscounts(customer).get(0));
+
+        Order order = new Order(orderRepository.getOrderNum(), customer, new Date(), shop, discountRepository.getDiscounts(customer));
+        orderRepository.addOrder(order, new EntrepriseCodePriority());
+
         orderRepository.payOrder(order, customer);
+        System.out.println(order.getOrderStatus());
     }
 }

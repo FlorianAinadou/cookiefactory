@@ -5,7 +5,7 @@ package model.consumables;
  */
 public abstract class Consumable {
 
-    protected String name;
+    protected String name = "";
 
     public abstract double getPrice();
 

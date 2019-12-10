@@ -2,6 +2,7 @@ package model.customer;
 
 import model.Cart;
 import model.consumables.Consumable;
+
 import java.util.Objects;
 
 /**
@@ -18,6 +19,8 @@ public abstract class Customer {
     private String lastName;
     private String tel;
     private String email;
+
+    protected int seniority;
     private double walletAmount;
 
     Customer(String firstName, String lastName, String tel, String email, double walletAmount) {
@@ -52,6 +55,10 @@ public abstract class Customer {
     }
     public void emptyCart() {
         cart.emptyCart();
+    }
+
+    public int getSeniority() {
+        return this.seniority;
     }
 
     @Override

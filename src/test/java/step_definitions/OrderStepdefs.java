@@ -23,10 +23,10 @@ public class OrderStepdefs implements En {
     private Cookie cookie;
 
     private CookieRepository cookieRepository = Injection.createCookieRepository();
-    private Map<String, Recipe> recipes = cookieRepository.getCookieRecipes();
+    private Map<String, Recipe> recipes = cookieRepository.getRecipes();
 
     public OrderStepdefs() {
-        Given("a client named {string}",
+        /*Given("a client named {string}",
                 (String firstName, String lastName, String tel, String email) ->
                     customer = new UnregisteredCustomer(firstName, lastName, tel, email, 2.00));
         And("a cookie named {string}",
