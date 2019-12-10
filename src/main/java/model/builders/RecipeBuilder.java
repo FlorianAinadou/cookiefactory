@@ -20,17 +20,19 @@ public class RecipeBuilder {
     private CookieComponent cooking = null;
     private CookieComponent mix = null;
     private double price = 0;
+    private double rate = 1;
     private double marginPrice = 0;
     // ingrédients
     private CookieComponent dough = null;
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
 
-    public RecipeBuilder() {
+    public RecipeBuilder(double rate) {
+        this.rate = rate;
     }
 
     public Recipe buildRecipe() {
-        return new Recipe(name, cooking, mix, price * MARGIN_COD, marginPrice, dough, flavour, toppings);
+        return new Recipe(name, cooking, mix, price * rate, marginPrice, dough, flavour, toppings);
     }
 
     private void errorRecipe(String name) {

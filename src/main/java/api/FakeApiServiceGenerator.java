@@ -67,9 +67,9 @@ public abstract class FakeApiServiceGenerator {
     static {
         try {
             FAKE_SHOPS = Arrays.asList(
-                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, horaire.parse("08:00"), horaire.parse("18:30"),0.5),
-                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, horaire.parse("09:00"), horaire.parse("18:30"),0.05),
-                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, horaire.parse("09:00"), horaire.parse("19:00"),0.1)
+                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, horaire.parse("08:00"), horaire.parse("18:30"),0.5, 1.2),
+                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, horaire.parse("09:00"), horaire.parse("18:30"),0.05, 1.2),
+                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, horaire.parse("09:00"), horaire.parse("19:00"),0.1, 1.2)
 
                 );
         } catch (ParseException e) {

@@ -103,16 +103,14 @@ public class FakeApiService implements ApiService {
     /**
      * Used to apply a discount asked by a customer
      * If the customer is not registered, return the total price of his cart
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      *
      * @param customer
      * @param discount
-     * @return
-=======
      * @param customer active customer
      * @param discount discount he wants to apply
      * @return total price after discount application
->>>>>>> 303efee5d25b8ed71a8d181c3100665e1695e566
+     * >>>>>>> 303efee5d25b8ed71a8d181c3100665e1695e566
      */
     @Override
     public double applyDiscount(Customer customer, Shop shop, Discount discount) {
@@ -198,13 +196,6 @@ public class FakeApiService implements ApiService {
         users.add(user);
     }
 
-    /**
-     * Change a margin of {@link Recipe} from the {@link FakeApiService#recipes} list.
-     */
-    @Override
-    public void changeMarginRecipes(String name, double value) {
-
-    }
 
     /**
      * Delete a {@link Order} from the {@link FakeApiService#users} list.
@@ -267,6 +258,7 @@ public class FakeApiService implements ApiService {
 
     /**
      * Add a {@link Shop } from the {@link FakeApiService#shops} list.
+     *
      * @param shop
      */
     @Override
@@ -277,6 +269,7 @@ public class FakeApiService implements ApiService {
 
     /**
      * Delete a {@link Shop } from the {@link FakeApiService#shops} list.
+     *
      * @param shop
      */
     @Override
@@ -284,9 +277,70 @@ public class FakeApiService implements ApiService {
         shops.remove(shop);
     }
 
+    @Override
+    public void addRecipe(String name, Recipe recipe) {
+        recipes.put(name, recipe);
+    }
+
+    @Override
+    public void deleteRecipe(String name) {
+        recipes.remove(name);
+    }
+
+    @Override
+    public void addMix(String name, CookieComponent mix) {
+        this.mix.put(name, mix);
+    }
+
+    @Override
+    public void deleteMix(String name) {
+        this.mix.remove(name);
+    }
+
+    @Override
+    public void addTopping(String name, CookieComponent topping) {
+        this.topping.put(name, topping);
+    }
+
+    @Override
+    public void deleteTopping(String name) {
+        this.topping.remove(name);
+    }
+
+    @Override
+    public void addDough(String name, CookieComponent dough) {
+        this.doughs.put(name, dough);
+    }
+
+    @Override
+    public void deleteDough(String name) {
+        this.doughs.remove(name);
+    }
+
+    @Override
+    public void addCooking(String name, CookieComponent cooking) {
+        this.cooking.put(name, cooking);
+    }
+
+    @Override
+    public void deleteCooking(String name) {
+        this.cooking.remove(name);
+    }
+
+    @Override
+    public void addFlavour(String name, CookieComponent flavour) {
+        this.flavours.put(name, flavour);
+    }
+
+    @Override
+    public void deleteFlavour(String name) {
+        this.flavours.remove(name);
+    }
+
 
     /**
      * change schedule of a {@link Shop }
+     *
      * @param shop
      * @param open
      * @param close
@@ -295,7 +349,7 @@ public class FakeApiService implements ApiService {
     public void changeHorairesShop(Shop shop, Date open, Date close) {
         shop.setOpenShop(open);
         shop.setCloseShop(close);
-        System.out.println("Le shop: " + shop.getShopName() + " sera ouvert de" + shop.getOpenShop() + " à "+ shop.getCloseShop());
+        System.out.println("Le shop: " + shop.getShopName() + " sera ouvert de" + shop.getOpenShop() + " à " + shop.getCloseShop());
     }
 
     /**
@@ -305,8 +359,8 @@ public class FakeApiService implements ApiService {
      */
     public void giveDiscount(Order order) {
 
-        int cookiesNumber=order.getCart().getCookiesNumber();
-        if (order.getCustomer().isRegistered()){
+        int cookiesNumber = order.getCart().getCookiesNumber();
+        if (order.getCustomer().isRegistered()) {
 
             if (cookiesNumber >= shopDiscounts.get("LOYALTY_PROGRAM").getMinimumCookiesRequired()) {
                 addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));

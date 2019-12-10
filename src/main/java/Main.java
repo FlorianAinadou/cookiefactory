@@ -64,7 +64,7 @@ public class Main {
 
         Recipe cherry_blossom = recipes.get(Lib.CookieName.CHERRY_BLOSSOM);
 
-        Recipe codPaul = new RecipeBuilder()
+        Recipe codPaul = new RecipeBuilder(placeToBe.getTaxeCod())
                 .cooking(COOKING_COOKIE.get(Lib.Cooking.CHEWY))
                 .dough(DOUGH_COOKIE.get(Lib.Dough.CHERRY_JAM))
                 .flavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHERRY))
