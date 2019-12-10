@@ -6,6 +6,7 @@ import model.discount.Discount;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 //import org.jetbrains.annotations.Nullable;
@@ -22,6 +23,7 @@ public class Order {
     private final Date date; // the order date and hour
     private final Shop shop; // the place where the order will be collected
     private double orderAmount; // the order amount
+    private List<Discount> discountsYouCouldApply;
 
     public int getOrderStatu() {
         return orderStatu;
@@ -33,7 +35,7 @@ public class Order {
 
     private int orderStatu; // statu of the order
 
-    public Order(int id, Customer customer, Date date, Shop shop) {
+    public Order(int id, Customer customer, Date date, Shop shop, List<Discount> discounts) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
@@ -41,6 +43,7 @@ public class Order {
         this.date = new Date();
         this.shop = shop;
         this.orderAmount= 0;
+        discountsYouCouldApply= discounts;
     }
 
 
@@ -74,6 +77,10 @@ public class Order {
 
     public Shop getShop() {
         return shop;
+    }
+
+    public List<Discount> getDiscountsYouCouldApply() {
+        return discountsYouCouldApply;
     }
 
     @Override

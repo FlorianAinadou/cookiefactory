@@ -15,6 +15,7 @@ public class Cart {
     private double totalPrice;
     //Used to know how many cookies our cart could contain
     private int cookiesNumber=0;
+    protected boolean codeEvent;
 
     public Cart() {
         items = new HashMap<>();

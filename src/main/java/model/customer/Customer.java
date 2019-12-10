@@ -5,12 +5,13 @@ package model.customer;
 
 import model.Cart;
 import model.consumables.Consumable;
-//import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Random;
 
 import static api.FakeApiServiceGenerator.FAKE_USERS_RANDOM;
+
+//import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Aldric DUCREUX
@@ -24,6 +25,7 @@ public abstract class Customer {
     private String lastName;
     private String tel;
     private String email;
+    protected int seniority;
 
     public double getWalletAmount() {
         return walletAmount;
@@ -87,4 +89,7 @@ public abstract class Customer {
     public abstract boolean isRegistered();
 
 
+    public int getSeniority() {
+        return this.seniority;
+    }
 }

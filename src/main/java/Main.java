@@ -1,11 +1,15 @@
 import di.Injection;
+import model.Order;
 import model.Recipe;
 import model.Shop;
-import model.Order;
 import model.consumables.Cookie;
 import model.consumables.Drink;
 import model.customer.Customer;
-import repository.*;
+import model.discount.EntrepriseCodePriority;
+import repository.CookieRepository;
+import repository.DiscountRepository;
+import repository.OrderRepository;
+import repository.UserRepository;
 import utils.Lib;
 
 import java.util.Date;
@@ -56,8 +60,8 @@ public class Main {
         Paul.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),6);
         Paul.addConsumables(new Drink(0.5f, "Sprite"),1);
         Paul.showCart();
-        Order order = new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe);
-        orderRepository.addOrder(order, discountRepository.getDiscounts(Paul).get(0));
+        Order order = new Order(orderRepository.getOrderNum(), Paul, new Date(), placeToBe, getDiscountRepository().getDiscounts(Paul));
+        orderRepository.addOrder(order, new EntrepriseCodePriority());
         orderRepository.payOrder(order, Paul);
     }
 }

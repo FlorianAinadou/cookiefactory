@@ -6,6 +6,8 @@ import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
+import model.discount.DiscountStrategy;
+import model.discount.SeniorityPriority;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -103,16 +105,14 @@ public class FakeApiService implements ApiService {
     /**
      * Used to apply a discount asked by a customer
      * If the customer is not registered, return the total price of his cart
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      *
      * @param customer
      * @param discount
-     * @return
-=======
      * @param customer active customer
      * @param discount discount he wants to apply
      * @return total price after discount application
->>>>>>> 303efee5d25b8ed71a8d181c3100665e1695e566
+     * >>>>>>> 303efee5d25b8ed71a8d181c3100665e1695e566
      */
     @Override
     public double applyDiscount(Customer customer, Shop shop, Discount discount) {
@@ -199,7 +199,7 @@ public class FakeApiService implements ApiService {
     }
 
     /**
-     * Change a margin of {@link RecipeCookie} from the {@link FakeApiService#recipes} list.
+     * Change a margin of {@link } from the {@link FakeApiService#recipes} list.
      */
     @Override
     public void changeMarginRecipes(String name, double value) {
@@ -215,28 +215,24 @@ public class FakeApiService implements ApiService {
 
     }
 
-    /**
-     * Add a {@link Order} from the {@link FakeApiService#users} list.
-     */
-    @Override
-    public void addOrder(Order order) {
-        giveDiscount(order);
-        order.setOrderAmount(order.getCart().getTotalPrice() + order.getCart().getTotalPrice() * order.getShop().getTaxe());
-        orders.add(order);
-        System.out.println(order.toString());
-        order.getCustomer().emptyCart(); // and empty the model.customer's cart
-
-    }
 
     /**
      * used to get an order with a discount
      *
      * @param order
-     * @param discount
+     * @param discountStrategy
      */
     @Override
-    public void addOrder(Order order, Discount discount) {
+    public void addOrder(Order order, DiscountStrategy discountStrategy) {
         giveDiscount(order);
+        Discount discount=new Discount();
+        if (discountStrategy != null) {
+            discountStrategy.setDiscountList(order.getDiscountsYouCouldApply());
+            discount = discountStrategy.applyStrategy();
+        } else {
+            discount = new SeniorityPriority(order.getCustomer());
+        }
+
         DecimalFormat totalFinalPrice = new DecimalFormat();
         totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
 
@@ -267,6 +263,7 @@ public class FakeApiService implements ApiService {
 
     /**
      * Add a {@link Shop } from the {@link FakeApiService#shops} list.
+     *
      * @param shop
      */
     @Override
@@ -277,6 +274,7 @@ public class FakeApiService implements ApiService {
 
     /**
      * Delete a {@link Shop } from the {@link FakeApiService#shops} list.
+     *
      * @param shop
      */
     @Override
@@ -287,6 +285,7 @@ public class FakeApiService implements ApiService {
 
     /**
      * change schedule of a {@link Shop }
+     *
      * @param shop
      * @param open
      * @param close
@@ -295,7 +294,7 @@ public class FakeApiService implements ApiService {
     public void changeHorairesShop(Shop shop, Date open, Date close) {
         shop.setOpenShop(open);
         shop.setCloseShop(close);
-        System.out.println("Le shop: " + shop.getShopName() + " sera ouvert de" + shop.getOpenShop() + " à "+ shop.getCloseShop());
+        System.out.println("Le shop: " + shop.getShopName() + " sera ouvert de" + shop.getOpenShop() + " à " + shop.getCloseShop());
     }
 
     /**
@@ -305,18 +304,14 @@ public class FakeApiService implements ApiService {
      */
     public void giveDiscount(Order order) {
 
-        int cookiesNumber=order.getCart().getCookiesNumber();
-        if (order.getCustomer().isRegistered()){
+        int cookiesNumber = order.getCart().getCookiesNumber();
+        if (order.getCustomer().isRegistered()) {
 
             if (cookiesNumber >= shopDiscounts.get("LOYALTY_PROGRAM").getMinimumCookiesRequired()) {
                 addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));
                 System.out.println("Great news! you get the Loyalty_program discount (10% discount). Use it next time)");
             }
 
-            /*if (cookiesNumber >= shopDiscounts.get("CE")) {
-
-            }
-        }*/
         }
     }
 }

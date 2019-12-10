@@ -7,6 +7,7 @@ import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
+import model.discount.DiscountStrategy;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,7 @@ public interface ApiService {
 
     void deleteOrder(Order orderNum);
 
-    void addOrder(Order orderNum);
+    //void addOrder(Order orderNum);
 
     Map<String, Recipe> getCookieRecipes();
 
@@ -47,7 +48,7 @@ public interface ApiService {
 
     Map<String, CookieComponent> getCookieFlavour();
 
-    void addOrder(Order order, Discount discount);
+    void addOrder(Order order, DiscountStrategy discountStrategy);
 
     void payOrder(Order order, Customer customer);
 

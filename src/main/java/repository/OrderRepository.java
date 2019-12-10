@@ -2,9 +2,9 @@ package repository;
 
 
 import api.ApiService;
-import model.discount.Discount;
 import model.Order;
 import model.customer.Customer;
+import model.discount.DiscountStrategy;
 
 import java.util.List;
 
@@ -24,17 +24,17 @@ public class OrderRepository {
         return apiService.getOrders();
     }
 
-    public void addOrder(Order order) {
-        apiService.addOrder(order);
+    public void addOrder(Order order, DiscountStrategy discountStrategy) {
+        apiService.addOrder(order, discountStrategy);
     }
 
     public void payOrder(Order order, Customer customer){
         apiService.payOrder(order, customer);
     }
 
-    public void addOrder(Order order, Discount discount) {
+   /* public void addOrder(Order order, Discount discount) {
         apiService.addOrder(order, discount);
-    }
+    }*/
 
     public int getOrderNum() {
         return apiService.getOrderNum();

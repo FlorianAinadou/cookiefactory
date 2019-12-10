@@ -11,14 +11,21 @@ import java.util.Objects;
  */
 public class Discount {
 
-    private float rate;
+    protected float rate;
     private String name;
     private final int minimumCookiesRequired;
+
 
     public Discount(float rate, String name, int minimumCookiesRequired) {
         this.rate = rate;
         this.name = name;
         this.minimumCookiesRequired= minimumCookiesRequired;
+    }
+
+    public Discount(){
+        rate=0;
+        name="";
+        minimumCookiesRequired=0;
     }
 
     public Discount(float rate, String name) {

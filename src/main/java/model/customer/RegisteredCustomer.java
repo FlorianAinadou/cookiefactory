@@ -1,9 +1,5 @@
 package model.customer;
 
-import model.discount.Discount;
-
-import java.util.ArrayList;
-
 /**
  * @author Lydia BARAUKOVA
  */
@@ -13,7 +9,7 @@ public class RegisteredCustomer extends Customer {
     // additional information that registered customers provide
     private int age;
     private String address;
-    private ArrayList<Discount> discountsList;
+    private int seniority;
 
     public RegisteredCustomer(int id, String firstName, String lastName, int age, String tel, String email, String address, double walletAmount) {
         super(firstName, lastName, tel, email, walletAmount);
@@ -21,10 +17,12 @@ public class RegisteredCustomer extends Customer {
         this.age = age;
         this.address = address;
         this.cookieCount = 0;
+        this.seniority=0;
     }
 
-    private ArrayList<Discount> getDiscountsList() {
-        return discountsList;
+
+    public int getSeniority() {
+        return seniority;
     }
 
     public int getId() {
@@ -49,6 +47,10 @@ public class RegisteredCustomer extends Customer {
 
     public void increaseCookieCount(int c) {
         cookieCount += c;
+    }
+
+    public void increaseSeniority(){
+        seniority++;
     }
 
     @Override
