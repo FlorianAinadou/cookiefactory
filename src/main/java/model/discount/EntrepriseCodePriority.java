@@ -23,5 +23,12 @@ public class EntrepriseCodePriority extends DiscountStrategy{
         return new Discount(0.0f,"No company code");
     }
 
+    @Override
+    public String toString(){
+        return ( applyStrategy().getName() + " with rate of " + this.rate);
+    }
+
+
+
 
 }

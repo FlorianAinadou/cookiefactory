@@ -18,4 +18,9 @@ public class Drink extends Consumable {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean isCookie() {
+        return false;
+    }
 }

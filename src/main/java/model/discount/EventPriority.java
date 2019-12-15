@@ -24,5 +24,9 @@ public class EventPriority extends DiscountStrategy {
         return new Discount(0.0f,"No special event code");
     }
 
+    @Override
+    public String toString(){
+        return ( applyStrategy().getName() + " with rate of " + this.rate);
+    }
 
 }

@@ -26,4 +26,9 @@ public class Cookie extends Consumable {
     public String getName() {
         return this.toString();
     }
+
+    @Override
+    public boolean isCookie() {
+        return true;
+    }
 }

@@ -1,19 +1,17 @@
 package api;
 
 import model.Cart;
-import model.consumables.Consumable;
-import model.discount.Discount;
 import model.Order;
 import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
 import model.customer.Customer;
+import model.discount.Discount;
 import model.discount.DiscountStrategy;
 import model.discount.SeniorityPriority;
 
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static api.FakeApiServiceGenerator.*;
 
@@ -201,9 +199,7 @@ public class FakeApiService implements ApiService {
         if (customer.isRegistered()) {
             return discount.getRate();
         }
-
         return 0.0f;
-
     }
 
     public void giveDiscount(Order order) {

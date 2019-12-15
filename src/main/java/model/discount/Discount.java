@@ -73,6 +73,6 @@ public class Discount {
 
     @Override
     public String toString(){
-        return ( this.name + " with rate of " + this.rate);
+        return this.name + " with a rate of " + this.rate;
     }
 }

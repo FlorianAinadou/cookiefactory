@@ -1,12 +1,11 @@
 package model;
 
-import model.consumables.*;
+import model.consumables.Consumable;
+import model.consumables.Cookie;
 
 import java.text.DecimalFormat;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -54,7 +53,9 @@ public class Cart implements Cloneable{
             items.put(consumable, quantity); // we add the new item
             totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
-        nbCookies += quantity; // ?????
+        if (consumable.isCookie()) {
+            nbCookies += quantity; // ?????
+        }
     }
 
     private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
