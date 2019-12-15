@@ -7,6 +7,7 @@ import model.consumables.Cookie;
 import model.consumables.Drink;
 import repository.OrderRepository;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,12 @@ public class Stats {
     private static int somme = 0;
     private static String name = "Aucunes Informations";
 
+
+
     public static void showStat() {
         System.out.println("Ensemble des Statistiques Nationnal : ");
         System.out.println("\tNombre de Cookie vendu : " + numberofCookieSell());
+        System.out.println("\t% de cookie sur mesure : " + numberofCookieOnDemandSell() +"%");
         System.out.println("\tNombre de Boisson vendu : " + numberofDrinkSell());
         System.out.println("\tNombre de commande passé  : " + numberofOrder());
         System.out.println("\tNombre de commande avec réduction  : " + numberofOderWithDiscount());
@@ -31,6 +35,7 @@ public class Stats {
     public static void showStat(Shop shop) {
         System.out.println("Ensemble des Statistiques du Magasin " + shop.getName()+" : ");
         System.out.println("\tNombre de Cookie vendu : " + numberofCookieSell(shop));
+        System.out.println("\t% de cookie sur mesure : " + numberofCookieOnDemandSell(shop) +"%");
         System.out.println("\tNombre de Boisson vendu : " + numberofDrinkSell(shop));
         System.out.println("\tNombre de commande passé  : " + numberofOrder(shop));
         System.out.println("\tNombre de commande avec réduction  : " + numberofOderWithDiscount(shop));
@@ -65,6 +70,21 @@ public class Stats {
         }
         return somme;
     }
+
+    public static float numberofCookieOnDemandSell() {
+        somme = 0;
+        for (int i = 0; i < allOrders.size(); i++) {
+            for (Map.Entry mapentry : allOrders.get(i).getCart().getItems().entrySet()) {
+                if (mapentry.getKey()instanceof Cookie) {
+                    if(((Cookie) mapentry.getKey()).getName().equals(""))
+                        somme += mapentry.getValue().hashCode();
+                }
+            }
+        }
+        float res = (float) somme*100/numberofCookieSell();
+        return res;
+    }
+
     public static int numberofOrder() {
         return orderRepository.getOrderNum();
     }
@@ -176,6 +196,23 @@ public class Stats {
         }
         return somme;
     }
+
+    public static float numberofCookieOnDemandSell(Shop shop) {
+        somme = 0;
+        for (int i = 0; i < allOrders.size(); i++) {
+            if( allOrders.get(i).getShop().equals(shop)) {
+                for (Map.Entry mapentry : allOrders.get(i).getCart().getItems().entrySet()) {
+                    if (mapentry.getKey() instanceof Cookie) {
+                        if (((Cookie) mapentry.getKey()).getName().equals(""))
+                            somme += mapentry.getValue().hashCode();
+                    }
+                }
+            }
+        }
+        float res = (float) somme*100/numberofCookieSell(shop);
+        return res;
+    }
+
     public static int numberofOrder(Shop shop) {
         somme = 0;
         for (int i = 0; i < allOrders.size(); i++) {
