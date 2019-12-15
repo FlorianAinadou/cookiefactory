@@ -17,6 +17,7 @@ import java.util.*;
 /**
  * @author Virgile FANTAUZZI
  * @author Lydia BARAUKOVA
+ * @author Aldric Ducreux
  */
 public abstract class FakeApiServiceGenerator {
 

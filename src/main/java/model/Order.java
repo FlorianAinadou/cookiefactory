@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class Order {
     private final int id; // just a  random number given to every order
-    private final Cart cart;
+    private  Cart cart;
     private final Customer customer;
     private final Date date; // the order date and hour
     private final Shop shop; // the place where the order will be collected
@@ -50,6 +50,7 @@ public class Order {
     public Cart getCart() {
         return cart;
     }
+    public void setCart(Cart newCart) { this.cart = newCart;}
     public Customer getCustomer() {
         return customer;
     }

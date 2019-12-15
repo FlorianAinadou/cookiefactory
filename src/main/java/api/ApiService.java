@@ -1,5 +1,6 @@
 package api;
 
+import model.Cart;
 import model.Order;
 import model.Recipe;
 import model.Shop;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * @author Virgile FANTAUZZI
  * @author Lydia BARAUKOVA
+ * @author Aldric Ducreux
  */
 public interface ApiService {
 
@@ -30,10 +32,15 @@ public interface ApiService {
 
     List<Order> getOrders();
     int getOrderNum();
-    void addOrder(Order orderNum);
+    void addOrder(Order orderNum) throws CloneNotSupportedException;
     void deleteOrder(Order orderNum);
-    void addOrder(Order order, DiscountStrategy discountStrategy);
+    void addOrder(Order order, DiscountStrategy discountStrategy) throws CloneNotSupportedException;
     void payOrder(Order order, Customer customer);
+
+    /*List<Cart> getCarts();
+    void addcart(Cart cartNum);
+    void deletecart(Cart cartNum);*/
+
 
     Map<String, Recipe> getRecipes();
     void addRecipe(String name, Recipe recipe);

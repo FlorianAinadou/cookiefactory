@@ -3,15 +3,18 @@ package model;
 import model.consumables.*;
 
 import java.text.DecimalFormat;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Lydia BARAUKOVA
  * @author Florian AINADOU
+ * @author Aldric DUCREUX
  */
-public class Cart {
+public class Cart implements Cloneable{
     private Map<Consumable,Integer> items;
     private double totalPrice;
     private int nbCookies; // to know how many cookies there are in the cart
@@ -24,7 +27,7 @@ public class Cart {
     }
 
     public Map<Consumable, Integer> getItems() { return items; } // returns all the items in the basket
-
+    public void setItems(Map<Consumable, Integer> newItems) { this.items = newItems; } // returns all the items in the basket
     public double getTotalPrice(){ return totalPrice; } // returns total price
 
     public int getNbCookies(){
@@ -76,6 +79,20 @@ public class Cart {
         totalPrice=0;
         nbCookies =0;
         items.clear();
+    }
+
+    public static<K,V> Map<K,V> cloneMap(Map<K,V> original) {
+        return original.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue));
+    }
+
+    @Override
+    public Cart clone() throws CloneNotSupportedException {
+        Cart cloneCart = (Cart) super.clone();
+        cloneCart.items = cloneMap(items);
+        return cloneCart;
     }
 
 }

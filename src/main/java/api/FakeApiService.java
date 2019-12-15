@@ -1,5 +1,7 @@
 package api;
 
+import model.Cart;
+import model.consumables.Consumable;
 import model.discount.Discount;
 import model.Order;
 import model.Recipe;
@@ -11,12 +13,14 @@ import model.discount.SeniorityPriority;
 
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static api.FakeApiServiceGenerator.*;
 
 /**
  * @author Virgile FANTAUZZI
  * @author Lydia BARAUKOVA
+ * @author Aldric Ducreux
  */
 public class FakeApiService implements ApiService {
 
@@ -106,16 +110,17 @@ public class FakeApiService implements ApiService {
     @Override public int getOrderNum() {
         return orders.size();
     }
-    @Override public void addOrder(Order order) {
+    @Override public void addOrder(Order order) throws CloneNotSupportedException {
         giveDiscount(order);
         order.setTotalPrice(order.getCart().getTotalPrice() + order.getCart().getTotalPrice() * order.getShop().getTax());
-        orders.add(order);
         System.out.println(order.toString());
+        order.setCart(order.getCustomer().getCart().clone()); //clone du panier pour la garder en mémoire car on le supprime de l'utilisateur après
+        orders.add(order);
         order.getCustomer().emptyCart(); // and empty the customer's cart
     }
     @Override public void deleteOrder(Order order) { orders.remove(order); }
     @Override
-    public void addOrder(Order order, DiscountStrategy discountStrategy) {
+    public void addOrder(Order order, DiscountStrategy discountStrategy) throws CloneNotSupportedException {
         giveDiscount(order);
         Discount discount=new Discount();
         if (discountStrategy != null) {
@@ -135,6 +140,8 @@ public class FakeApiService implements ApiService {
         order.setTotalPrice(totalPrice);
         System.out.println(order.toString());
         order.setOrderStatus(order.getOrderStatus() + 1);
+        Cart cloneCart = order.getCart().clone();
+        order.setCart(cloneCart);
         orders.add(order);
         order.getCustomer().emptyCart(); // and empty the model.customer's cart
     }

@@ -20,8 +20,8 @@ public class OrderRepository {
 
     public List<Order> getOrders() { return apiService.getOrders(); }
     public int getOrderNum() { return apiService.getOrderNum(); }
-    public void addOrder(Order order) { apiService.addOrder(order); }
-    public void addOrder(Order order, DiscountStrategy discountStrategy) { apiService.addOrder(order, discountStrategy); }
+    public void addOrder(Order order) throws CloneNotSupportedException { apiService.addOrder(order); }
+    public void addOrder(Order order, DiscountStrategy discountStrategy) throws CloneNotSupportedException { apiService.addOrder(order, discountStrategy); }
 
     //public void addOrder(Order order, Discount discount) { apiService.addOrder(order, discount); }
 

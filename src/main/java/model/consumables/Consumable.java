@@ -1,9 +1,11 @@
 package model.consumables;
 
+import java.util.Map;
+
 /**
  * Cause both cookies and drinks are consumables
  */
-public abstract class Consumable {
+public abstract class Consumable{
 
     protected String name = "";
 
@@ -15,4 +17,5 @@ public abstract class Consumable {
     }
 
     public abstract String getName();
+
 }
