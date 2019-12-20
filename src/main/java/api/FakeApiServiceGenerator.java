@@ -148,6 +148,7 @@ public abstract class FakeApiServiceGenerator {
     private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
         put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM", 30));
         put("CE_AMADEUS",new Discount(0.05f, "CE_AMADEUS"));
+        put("LAST_HOUR", new Discount(0.3f, "LAST_HOUR"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
@@ -171,6 +172,8 @@ public abstract class FakeApiServiceGenerator {
             new Shop(1,"NiceCookies"," 9 Rue Alberti, 06000 Nice", Place.Nice, 9, 20,0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
             new Shop(2,"CannesCookies","39 Rue Hoche, 06400 Cannes", Place.Cannes, 9, 19,0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
     );
+
+
 
     static List<Order> FAKE_ORDERS = Arrays.asList(
             new Order(0, FAKE_REGISTERED_CUSTOMERS.get(0), new Date(), FAKE_SHOPS.get(0), Arrays.asList(new Discount((float) 0.2,"",0))),

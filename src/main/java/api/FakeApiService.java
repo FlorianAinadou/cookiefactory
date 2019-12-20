@@ -5,7 +5,9 @@ import model.Order;
 import model.Recipe;
 import model.Shop;
 import model.consumables.Consumable;
+
 import model.consumables.Cookie;
+
 import model.consumables.CookieComponent;
 import model.consumables.PackComposition;
 import model.customer.Customer;
@@ -383,6 +385,18 @@ public class FakeApiService implements ApiService {
             if (nbCookies >= shopDiscounts.get("LOYALTY_PROGRAM").getMinimumCookiesRequired()) {
                 addDiscount(order.getCustomer(), shopDiscounts.get("LOYALTY_PROGRAM"));
                 System.out.println("Great news! you get the Loyalty_program discount (10% discount). Use it next time)");
+            }
+        }
+
+
+    }
+
+    public void lastHourReduction(Order order, Discount discount){
+        if(order.getShop().inTheLastHour(order.getDate().getHours())){
+            for (Consumable consumable :  order.getCart().getItems().keySet()) {
+                if(consumable.isCookie() && consumable.getName().equals("Personalized cookie")){
+                    order.getCart().applyReductionOnConsumable(discount,consumable);
+                }
             }
         }
     }

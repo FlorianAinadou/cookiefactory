@@ -2,6 +2,7 @@ package model;
 
 import model.consumables.Consumable;
 import model.consumables.Cookie;
+import model.discount.Discount;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class Cart implements Cloneable{
         items = new HashMap<>();
         totalPrice = 0;
         nbCookies = 0;
+        nbCookiesDirectlyInTheCart=0;
     }
 
     public Map<Consumable, Integer> getItems() { return items; } // returns all the items in the basket
@@ -55,9 +57,9 @@ public class Cart implements Cloneable{
             totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
         if (consumable.isCookie()){
-        nbCookies += quantity; // ?????
-        nbCookiesDirectlyInTheCart +=quantity;
-            }
+            nbCookies += quantity; // ?????
+            nbCookiesDirectlyInTheCart +=quantity;
+        }
     }
 
     private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
@@ -114,4 +116,11 @@ public class Cart implements Cloneable{
         return nbCookiesDirectlyInTheCart;
     }
 
+
+    public void applyReductionOnConsumable(Discount discount, Consumable consumable){
+        if (items.containsKey(consumable)) {
+            totalPrice -= (consumable.getPrice()) * (items.get(consumable));
+            totalPrice += (consumable.getPrice()) * (items.get(consumable)) * (1 - discount.getRate());
+        }
+    }
 }
