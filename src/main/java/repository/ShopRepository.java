@@ -25,6 +25,10 @@ public class ShopRepository {
         });
     }
 
+    public void changeMarginCod(Shop shop, double margin) {
+        apiService.changeCodMargin(shop, margin);
+    }
+
     public Map<String, Integer> getStock(Shop shop) {
         return apiService.getStocks(shop);
     }

@@ -16,6 +16,8 @@ import model.discount.DiscountStrategy;
 import model.discount.SeniorityPriority;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static api.FakeApiServiceGenerator.*;
@@ -155,6 +157,11 @@ public class FakeApiService implements ApiService {
     @Override
     public void changeRecipeMargin(String name, double value) {
         recipes.get(name).setPriceMargin(value);
+    }
+
+    @Override
+    public void changeCodMargin(Shop shop, double margin) {
+        shops.get(shops.indexOf(shop)).setCodTax(margin);
     }
 
     @Override
@@ -328,7 +335,12 @@ public class FakeApiService implements ApiService {
         }
     }
 
-    // discount related methods
+    // discount related methods*
+    @Override
+    public void pickUpOrder(Order order, Shop shop){
+            shop.shopPickUp(order);
+            System.out.println("This order can be pick up now");
+    }
 
     @Override
     public List<Discount> getDiscounts(Customer customer) {

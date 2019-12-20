@@ -56,6 +56,8 @@ public interface ApiService {
 
     void payOrder(Order order, Customer customer);
 
+    void pickUpOrder(Order order, Shop shop);
+
     /*List<Cart> getCarts();
     void addcart(Cart cartNum);
     void deletecart(Cart cartNum);*/
@@ -68,6 +70,8 @@ public interface ApiService {
     void deleteRecipe(String name);
 
     void changeRecipeMargin(String name, double margin);
+
+    void changeCodMargin(Shop shop, double margin);
 
     Map<String, CookieComponent> getDough();
 
