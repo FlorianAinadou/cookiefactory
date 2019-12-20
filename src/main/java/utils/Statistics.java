@@ -52,14 +52,15 @@ public class Statistics {
         Log.print("\tBest selling drink: " + bestSellingDrink);
         Log.print("\tWorst selling drink: " + worstSellingDrink);
         Log.print("\tMoney earned: " + moneyEarned + " €");
+
     }
 
     // ---- general statistics ----
 
     public static int nbCookiesSold() {
         int res = 0;
-        for (Shop shop: allShops) {
-            res += nbCookiesSoldInShop(shop);
+        for (Order order: allOrders) {
+            res += order.getCart().getNbCookies();
         }
         return res;
     }
@@ -97,11 +98,23 @@ public class Statistics {
         int quantity = 0;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey() instanceof Cookie) {
+                System.out.println(mapEntry.getKey().getClass().getName());
+                if (mapEntry.getKey().isCookie()) {
                     if (quantity < mapEntry.getValue()) {
                         quantity = mapEntry.getValue();
                         cookie = mapEntry.getKey().getName();
                     }
+                }
+                if(mapEntry.getKey().isCookiePack()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack :mapEntry.getKey().getItemPack().entrySet()) {
+                        if (mapEntryPack.getKey().isCookie()) {
+                            if (quantity < mapEntryPack.getValue()) {
+                                quantity = mapEntryPack.getValue();
+                                cookie = mapEntryPack.getKey().getName();
+                            }
+                        }
+                    }
+
                 }
             }
         }
@@ -113,7 +126,7 @@ public class Statistics {
         int quantity = -1;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey() instanceof Cookie) {
+                if (mapEntry.getKey().isCookie()) {
                     if ((quantity > mapEntry.getValue() || quantity < 0) && !mapEntry.getKey().getName().equals("")) { // we don't count personalized cookies (they have no names)
                         quantity = mapEntry.getValue();
                         recipe = mapEntry.getKey().getName();
@@ -129,7 +142,7 @@ public class Statistics {
         int quantity = 0;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey() instanceof Drink) {
+                if (!mapEntry.getKey().isCookie()) {
                     if (quantity < mapEntry.getValue()) {
                         quantity = mapEntry.getValue();
                         drink = mapEntry.getKey().getName();
@@ -145,7 +158,7 @@ public class Statistics {
         int quantity = -1;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey() instanceof Drink) {
+                if (!mapEntry.getKey().isCookie()) {
                     if ((quantity > mapEntry.getValue() || quantity < 0)) {
                         quantity = mapEntry.getValue();
                         drink = mapEntry.getKey().getName();
@@ -171,7 +184,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Cookie) {
+                    if (mapEntry.getKey().isCookie()) {
                         res += mapEntry.getValue();
                     }
                 }
@@ -185,7 +198,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Cookie) {
+                    if (mapEntry.getKey().isCookie()) {
                         if (mapEntry.getKey().getName().equals("")) {
                             res += mapEntry.getValue();
                         }
@@ -201,7 +214,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Drink) {
+                    if (!mapEntry.getKey().isCookie()) {
                         res += mapEntry.getValue();
                     }
                 }
@@ -238,7 +251,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Cookie) {
+                    if (mapEntry.getKey().isCookie()) {
                         if (quantity < mapEntry.getValue()) {
                             quantity = mapEntry.getValue();
                             cookie = mapEntry.getKey().getName();
@@ -256,7 +269,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Cookie) {
+                    if (mapEntry.getKey().isCookie()) {
                         if ((quantity > mapEntry.getValue() || quantity < 0) && !mapEntry.getKey().getName().equals("")) { // we don't count personalized cookies (they have no names)
                             quantity = mapEntry.getValue();
                             cookie = mapEntry.getKey().getName();
@@ -274,7 +287,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Drink) {
+                    if (!mapEntry.getKey().isCookie()) {
                         if (quantity < mapEntry.getValue()) {
                             quantity = mapEntry.getValue();
                             drink = mapEntry.getKey().getName();
@@ -292,7 +305,7 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey() instanceof Drink) {
+                    if (!mapEntry.getKey().isCookie()) {
                         if ((quantity > mapEntry.getValue() || quantity < 0)) {
                             quantity = mapEntry.getValue();
                             drink = mapEntry.getKey().getName();

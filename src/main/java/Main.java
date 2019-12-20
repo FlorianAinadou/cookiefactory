@@ -66,16 +66,24 @@ public class Main {
                 .marginPrice(2.00)
                 .buildRecipe();
 
+        Recipe cod2 = new RecipeBuilder(shop.getCodTax())
+                .cooking(COOKING_COOKIE.get(Lib.Cooking.CRUNCHY))
+                .dough(DOUGH_COOKIE.get(Lib.Dough.PEANUT_BUTTER))
+                .flavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHOCOLATE))
+                .mix(MIX_COOKIE.get(Lib.Mix.MIXED))
+                .toppings(new ArrayList<>(Collections.singletonList(TOPPING_COOKIE.get(Lib.Topping.MNMS))))
+                .marginPrice(2.00)
+                .buildRecipe();
 
-        customer.addConsumables(new Cookie(cherryBlossom), 21);
-        customer.addConsumables(new Cookie(cod), 1);
+
+        customer.addConsumables(new Cookie(cherryBlossom), 10);
+        customer.addConsumables(new Cookie(cod), 2);
+        customer.addConsumables(new Cookie(cod2), 1);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
-        customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
-        customer2.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 1);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
+        customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 1);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
 
-
-        System.out.println("Cookies number: " + customer.getCart().getNbCookies());
         CookiesPackCreator creator = new CookiesPackCreator();
         creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
         customer.showCart();
@@ -96,14 +104,16 @@ public class Main {
 
         System.out.println("");
 
-        shopRepository.showStock(shop2);
+        //shopRepository.showStock(shop2);
 
-
+        customer2.addConsumables(new Cookie(cherryBlossom),45 );
+        creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
+        customer2.showCart();
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
         orderRepository.addOrder(order2);
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
-        shopRepository.showStock(shop2);
+        //shopRepository.showStock(shop2);
 
         //stat
 

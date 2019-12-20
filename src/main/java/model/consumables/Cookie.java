@@ -2,6 +2,8 @@ package model.consumables;
 
 import model.Recipe;
 
+import java.util.Map;
+
 /**
  * @author Lydia Baraukova
  */
@@ -31,4 +33,11 @@ public class Cookie extends Consumable {
     public boolean isCookie() {
         return true;
     }
+
+    @Override
+    public boolean isCookiePack() {
+        return false;
+    }
+    @Override
+    public Map<Consumable, Integer> getItemPack() {return null;}
 }
