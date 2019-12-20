@@ -10,10 +10,9 @@ import model.consumables.CookiesPack;
 import model.customer.Customer;
 import model.discount.DiscountStrategy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Virgile FANTAUZZI
@@ -91,6 +90,15 @@ public class OrderRepository {
         } else {
             System.out.println("This order can't be placed due to lack of ingredients in the stock");
         }
+    }
+
+    public void pickUpOrder(Order order, Shop shop){
+        if(new Date(System.currentTimeMillis() - 3600 * 1000).after(order.getDate())) {
+            apiService.pickUpOrder(order, shop);
+        } else {
+            System.out.println("This order can't be pick up now, come back later");
+        }
+
     }
 
     public void addOrder(Order order, DiscountStrategy discountStrategy) throws CloneNotSupportedException {

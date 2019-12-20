@@ -13,6 +13,7 @@ public class Shop {
     private Place city;
     private int openingAt, closingAt;
     private double tax, codTax;
+    private List<Order> waitOrder;
     private List<Order> orderHistory;
     private Recipe recipeOfTheMonth;
 
@@ -25,6 +26,7 @@ public class Shop {
         this.closingAt = closingAt;
         this.tax = tax;
         this.codTax = codTax;
+        this.waitOrder = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
         this.recipeOfTheMonth = recipeOfTheMonth;
     }
@@ -48,6 +50,12 @@ public class Shop {
 
     public int getOpeningHour() { return openingAt; }
     public int getClosingHour() { return closingAt; }
+    public void setOpeningHour(int newOpeningAt) {
+        this.openingAt = newOpeningAt;
+    }
+    public void setClosingHour(int newClosingAt) {
+        this.closingAt = newClosingAt;
+    }
     public void setWorkingHours(int openingAt, int closingAt) { this.openingAt = openingAt; this.closingAt = closingAt; }
 
     public  double getTax() { return tax; }
@@ -70,6 +78,11 @@ public class Shop {
 
     public Recipe getRecipeOfTheMonth() { return recipeOfTheMonth; }
     public void setRecipeOfTheMonth(Recipe r) { this.recipeOfTheMonth = r; }
+
+    public void shopPickUp(Order order) {
+        waitOrder.remove(order);
+        orderHistory.add(order);
+    }
 
     @Override
     public boolean equals(Object obj) {
