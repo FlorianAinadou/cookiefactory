@@ -7,6 +7,7 @@ import utils.Lib;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Lydia BARAUKOVA
@@ -159,5 +160,18 @@ public class Recipe {
         this.toppings.forEach(c -> price -= c.getPrice());
         this.toppings = toppings;
         this.toppings.forEach(c -> price += c.getPrice());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Recipe)) return false;
+        return name.equals(((Recipe) obj).getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this);
     }
 }
