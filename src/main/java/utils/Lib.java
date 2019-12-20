@@ -16,6 +16,10 @@ public class Lib {
         public static final String CRUNCHY = "Crunchy",
                 CHEWY = "Chewy";
     }
+    public static class Drink {
+        public static final String COCA_ZERO = "Coca Zero",
+                SPRITE = "Sprite";
+    }
 
     public static class Flavour {
         public static final String VANILLA = "Vanilla",

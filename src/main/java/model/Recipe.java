@@ -6,6 +6,7 @@ import utils.Lib;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,6 +35,13 @@ public class Recipe {
         this.dough = dough;
         this.flavour = flavour;
         this.toppings = toppings;
+    }
+
+    public List<CookieComponent> getIngredients() {
+        ArrayList<CookieComponent> ing = toppings;
+        ing.add(dough);
+        ing.add(flavour);
+        return ing;
     }
 
     private void errorRecipe(String name) {
