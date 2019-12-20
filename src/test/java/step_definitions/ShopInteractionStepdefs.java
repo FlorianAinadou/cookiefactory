@@ -5,9 +5,9 @@ import io.cucumber.java8.En;
 /**
  * @author Lydia BARAUKOVA
  */
-public class ShopForCustomerStepdefs implements En {
+public class ShopInteractionStepdefs implements En {
 
-    public ShopForCustomerStepdefs() {
+    public ShopInteractionStepdefs() {
 
 
 

@@ -1,7 +1,7 @@
-Feature: discounts
+Feature: Discounts on orders
 
   Background:
-    Given A customer
+    Given I am a registered customer
 
   #Je peux bénéficier des 10% tous les 30 cookies (for registered customers only)
   Scenario: get a 10% discount after ordering 30 cookies

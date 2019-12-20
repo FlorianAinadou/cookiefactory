@@ -9,8 +9,8 @@ public class CinemaStepdefs implements En {
 
     public CinemaStepdefs() {
 
-        //Je peux bénéficier de cookies gratuits avec mon ticket de cinéma du Paté-Poorsha
+        // I can get free cookies thanks to my cinema ticket
 
-        //Je peux interagir avec le système du cinéma à partir d’un simulateur de son API
+        // I can interact with the cinema ticket through its API simulator
     }
 }

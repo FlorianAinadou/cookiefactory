@@ -5,17 +5,14 @@ import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.Drink;
 import model.customer.Customer;
-import model.discount.EntrepriseCodePriority;
 import repository.*;
 import utils.Lib;
-import utils.Stats;
+import utils.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-
-import static utils.Stats.showStat;
 
 /**
  * @author Florian AINADOU
@@ -89,7 +86,7 @@ public class Main {
         System.out.println(order2.getOrderStatus());
 
         //stat
-        showStat();
-        showStat(shop2);
+        Statistics.showGeneralStatistics();
+        Statistics.showShopStatistics(shop2);
     }
 }

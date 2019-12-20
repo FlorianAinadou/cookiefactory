@@ -1,8 +1,7 @@
-Feature: order cookies
+Feature: Ordering cookies
 
   Background:
-    Given a client named "Jeff"
-    And a cookie named "Chocolala"
+    Given I am an unregistered customer
 
   Scenario: Jeff adds 20 Chocolalas to his cart
     When Jeff adds 20 Chocolalas to his cart

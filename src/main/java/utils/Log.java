@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Lydia BARAUKOVA
  * Class for printing out stuff without using System.out.println
  */
 public class Log {
@@ -21,7 +20,7 @@ public class Log {
         activateLogger();
     }
 
-    public static void print(String msg) { logger.severe(msg + "\n"); }
+    public static void print(String msg) { logger.info(msg + "\n"); }
 
     public static void activateLogger() { logger.setLevel(Level.ALL); }
 

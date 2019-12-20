@@ -1,7 +1,7 @@
-Feature: customer interaction with the shop
+Feature: Customer interaction with the shop
 
   Background:
-    Given a customer
+    Given I am a customer
 
   #Je ne peux pas commander en dehors des horaires d'ouverture
 

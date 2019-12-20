@@ -1,5 +1,7 @@
 package api;
 
+import model.Order;
+import model.consumables.Cookie;
 import model.discount.Discount;
 import model.Place;
 import model.Recipe;
@@ -10,8 +12,6 @@ import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
 import utils.Lib;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -114,17 +114,14 @@ public abstract class FakeApiServiceGenerator {
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
-    static List<Shop> FAKE_SHOPS;
-    private static SimpleDateFormat hour = new SimpleDateFormat("HH:mm");
-    static {
-        try {
-            FAKE_SHOPS = Arrays.asList(
-                    new Shop(0,"The Place to Be Sophia"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, hour.parse("08:00"), hour.parse("18:30"),0.5, 0.6, COOKIE_RECIPES.get(Lib.CookieName.CHOCOLALA)),
-                    new Shop(1,"The Place to Be Nice"," 9 Rue Alberti, 06000 Nice", Place.Nice, hour.parse("09:00"), hour.parse("18:30"),0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
-                    new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, hour.parse("09:00"), hour.parse("19:00"),0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
-            );
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+    static List<Shop> FAKE_SHOPS = Arrays.asList(
+            new Shop(0,"SophiaCookies"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, 8, 18,0.5, 0.6, COOKIE_RECIPES.get(Lib.CookieName.CHOCOLALA)),
+            new Shop(1,"NiceCookies"," 9 Rue Alberti, 06000 Nice", Place.Nice, 9, 20,0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
+            new Shop(2,"CannesCookies","39 Rue Hoche, 06400 Cannes", Place.Cannes, 9, 19,0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
+    );
+
+    static List<Order> FAKE_ORDERS = Arrays.asList(
+            new Order(0, FAKE_REGISTERED_CUSTOMERS.get(0), new Date(), FAKE_SHOPS.get(0), Arrays.asList(new Discount((float) 0.2,"",0))),
+            new Order(1, FAKE_REGISTERED_CUSTOMERS.get(1), new Date(), FAKE_SHOPS.get(1), new ArrayList<>())
+    );
 }

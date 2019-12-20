@@ -11,12 +11,12 @@ public class Shop {
     private final int id;  // just a  random number given to every shop
     private String name, address;
     private Place city;
-    private Date openingAt, closingAt;
+    private int openingAt, closingAt;
     private double tax, codTax;
     private List<Order> orderHistory;
     private Recipe recipeOfTheMonth;
 
-    public Shop(int id, String name, String address, Place city, Date openingAt, Date closingAt, double tax, double codTax, Recipe recipeOfTheMonth) {
+    public Shop(int id, String name, String address, Place city, int openingAt, int closingAt, double tax, double codTax, Recipe recipeOfTheMonth) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -46,9 +46,9 @@ public class Shop {
         this.city = city;
     }
 
-    public Date getOpeningHour() { return openingAt; }
-    public Date getClosingHour() { return closingAt; }
-    public void setOpenHours(Date openingAt, Date closingAt) { this.openingAt = openingAt; this.closingAt = closingAt; }
+    public int getOpeningHour() { return openingAt; }
+    public int getClosingHour() { return closingAt; }
+    public void setWorkingHours(int openingAt, int closingAt) { this.openingAt = openingAt; this.closingAt = closingAt; }
 
     public  double getTax() { return tax; }
     public void setTax(double tax) {
