@@ -78,10 +78,10 @@ public class Main {
 
         customer.addConsumables(new Cookie(cherryBlossom), 10);
         customer.addConsumables(new Cookie(cod), 2);
-        customer.addConsumables(new Cookie(cod2), 1);
+        customer.addConsumables(new Cookie(cod2), 2);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
-        customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 1);
+        customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
 
         CookiesPackCreator creator = new CookiesPackCreator();
