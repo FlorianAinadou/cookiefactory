@@ -298,6 +298,8 @@ public class FakeApiService implements ApiService {
             discount = new SeniorityPriority(order.getCustomer());
         }
 
+        lastHourReduction(order, shopDiscounts.get("LAST_HOUR"));
+
         DecimalFormat totalFinalPrice = new DecimalFormat();
         totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
 
@@ -365,11 +367,13 @@ public class FakeApiService implements ApiService {
                     discounts.get(customer).remove(discount);
                     return (customer.getCart().getTotalPrice() + customer.getCart().getTotalPrice() * shop.getTax()) * (1.f - discount.getRate());
                 } catch (Throwable e) {
-                    System.out.println("You don't have the right to this discount ");
+                    System.out.println("You don't have the right to this discount");
                 }
 
             }
         }
+
+
         return customer.getCart().getTotalPrice();
     }
 
