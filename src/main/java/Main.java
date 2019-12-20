@@ -12,6 +12,7 @@ import repository.*;
 import utils.Lib;
 import utils.Statistics;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class Main {
         if (discountRepository == null) discountRepository = Injection.createDiscountRepository();
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException, ParseException {
         initRepositories();
 
         Map<String, Recipe> recipes = cookieRepository.getRecipes();
@@ -67,7 +68,7 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom),21 );
+        customer.addConsumables(new Cookie(cherryBlossom),400 );
         customer.addConsumables(new Cookie(cod), 1);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
@@ -106,5 +107,10 @@ public class Main {
 
         Statistics.showGeneralStatistics();
         Statistics.showShopStatistics(shop2);
+
+       // SimpleDateFormat s=new SimpleDateFormat();
+        //  SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
+        //Date date= s.parse("Friday, Jun 7, 2013 12:10:56 PM");
+        //System.out.println(date);
     }
 }

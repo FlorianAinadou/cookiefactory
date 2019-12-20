@@ -25,6 +25,7 @@ public class Cart implements Cloneable{
         items = new HashMap<>();
         totalPrice = 0;
         nbCookies = 0;
+        nbCookiesDirectlyInTheCart=0;
     }
 
     public Map<Consumable, Integer> getItems() { return items; } // returns all the items in the basket
@@ -56,9 +57,9 @@ public class Cart implements Cloneable{
             totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
         if (consumable.isCookie()){
-        nbCookies += quantity; // ?????
-        nbCookiesDirectlyInTheCart +=quantity;
-            }
+            nbCookies += quantity; // ?????
+            nbCookiesDirectlyInTheCart +=quantity;
+        }
     }
 
     private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
