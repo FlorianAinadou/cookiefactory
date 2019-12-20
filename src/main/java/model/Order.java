@@ -28,7 +28,7 @@ public class Order {
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
         this.orderStatus = 0;
-        this.date = new Date();
+        this.date = date;
         this.shop = shop;
         this.totalPrice = 0;
         discountsYouCouldApply= discounts;
