@@ -1,5 +1,6 @@
 package api;
 
+import model.consumables.PackComposition;
 import model.discount.Discount;
 import model.Place;
 import model.Recipe;
@@ -45,6 +46,7 @@ public abstract class FakeApiServiceGenerator {
     static Map<String, Discount> generateShopDiscounts() {
         return new HashMap<>(SHOP_DISCOUNTS);
     }
+    static ArrayList<PackComposition> generatePacksComposition(){ return new ArrayList<>(FAKE_PACKS);}
 
     static List<Customer> FAKE_REGISTERED_CUSTOMERS = Arrays.asList(
             new RegisteredCustomer(0, "Paul", "Dupont", 20, "0612345678", "paul@gmail.com", "test", 2000.0),
@@ -124,6 +126,20 @@ public abstract class FakeApiServiceGenerator {
                     new Shop(2,"The Place to Be Cannes","39 Rue Hoche, 06400 Cannes", Place.Cannes, hour.parse("09:00"), hour.parse("19:00"),0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
             );
         } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static List<PackComposition> FAKE_PACKS;
+    static {
+        try {
+            FAKE_PACKS = Arrays.asList(
+                    new PackComposition(40, 15.0f),
+                    new PackComposition(80, 25.0f),
+                    new PackComposition(120, 35.0f)
+            );
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }

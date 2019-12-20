@@ -5,6 +5,7 @@ import model.Order;
 import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
+import model.consumables.PackComposition;
 import model.customer.Customer;
 import model.discount.Discount;
 import model.discount.DiscountStrategy;
@@ -32,6 +33,7 @@ public class FakeApiService implements ApiService {
     private HashMap<String, CookieComponent> flavours = new HashMap<>(generateCookieFlavour());
     private HashMap<Customer, ArrayList<Discount>> discounts = new HashMap<>(generateDiscounts());
     private HashMap<String, Discount> shopDiscounts = new HashMap<>(generateShopDiscounts());
+    private ArrayList<PackComposition> packCompositions= new ArrayList<>(generatePacksComposition());
     private List<Order> orders = new ArrayList<>();
 
     // customer related methods
@@ -99,6 +101,8 @@ public class FakeApiService implements ApiService {
     @Override public void addFlavour(String name, CookieComponent flavour) { this.flavours.put(name, flavour); }
     @Override public void deleteFlavour(String name) { this.flavours.remove(name); }
     @Override public void changeFlavourPrice(String name, double price) { flavours.get(name).setPrice(price); }
+
+
 
     // order related methods
 
@@ -200,6 +204,11 @@ public class FakeApiService implements ApiService {
             return discount.getRate();
         }
         return 0.0f;
+    }
+
+    @Override
+    public ArrayList<PackComposition> getPacksComposition() {
+        return packCompositions ;
     }
 
     public void giveDiscount(Order order) {
