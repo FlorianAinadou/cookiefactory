@@ -83,4 +83,11 @@ public class Shop {
     public int hashCode() {
         return Objects.hash(this);
     }
+
+    public boolean inTheLastHour(int currentHour){
+        if(currentHour< closingAt && currentHour>closingAt-1){
+            return true;
+        }
+        return false;
+    }
 }

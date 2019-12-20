@@ -2,6 +2,7 @@ package model;
 
 import model.consumables.Consumable;
 import model.consumables.Cookie;
+import model.discount.Discount;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -114,4 +115,11 @@ public class Cart implements Cloneable{
         return nbCookiesDirectlyInTheCart;
     }
 
+
+    public void applyReductionOnConsumable(Discount discount, Consumable consumable){
+        if (items.containsKey(consumable)) {
+            totalPrice -= (consumable.getPrice()) * (items.get(consumable));
+            totalPrice += (consumable.getPrice()) * (items.get(consumable)) * (1 - discount.getRate());
+        }
+    }
 }

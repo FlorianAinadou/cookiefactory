@@ -15,6 +15,8 @@ public class Cookie extends Consumable {
 
     public Recipe getRecipe() { return recipe; }
 
+
+
     public double getPrice() { return  recipe.getPrice(); }
 
     @Override

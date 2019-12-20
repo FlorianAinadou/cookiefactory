@@ -139,7 +139,7 @@ public abstract class FakeApiServiceGenerator {
     );
 
 
-    
+
     static List<Order> FAKE_ORDERS = Arrays.asList(
             new Order(0, FAKE_REGISTERED_CUSTOMERS.get(0), new Date(), FAKE_SHOPS.get(0), Arrays.asList(new Discount((float) 0.2,"",0))),
             new Order(1, FAKE_REGISTERED_CUSTOMERS.get(1), new Date(), FAKE_SHOPS.get(1), new ArrayList<>())

@@ -92,6 +92,8 @@ public class Main {
         System.out.println(order.getOrderStatus());
 
 
+
+
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
         orderRepository.addOrder(order2);
         orderRepository.payOrder(order2, customer2);
