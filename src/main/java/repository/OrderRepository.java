@@ -6,6 +6,7 @@ import model.Shop;
 import model.consumables.Consumable;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
+import model.consumables.CookiesPack;
 import model.customer.Customer;
 import model.discount.DiscountStrategy;
 
@@ -34,37 +35,46 @@ public class OrderRepository {
     }
 
 
-    public boolean canMakeOrder(Order order) {
+    private boolean canMakeOrder(Order order) {
         Map<String, Integer> stock = apiService.getStocks(order.getShop());
-        HashMap<String, Integer> tmp = new HashMap<>();
+        Map<String, Integer> stockNeed = new HashMap<>();
         for (Consumable c : order.getCart().getItems().keySet()) {
-            int val = 1;
-            if (tmp.containsKey(c.getName())) {
-                val = tmp.get(c.getName()) + 1;
-                tmp.put(c.getName(), val);
-            } else {
-                tmp.put(c.getName(), val);
-            }
             if (c.isCookie()) {
                 for (CookieComponent cc : ((Cookie) c).getRecipe().getIngredients()) {
-                    if (tmp.containsKey(cc.getName())) {
-                        val = tmp.get(cc.getName()) + 1;
-                        tmp.put(cc.getName(), val);
+                    if (stockNeed.containsKey(cc.getName())) {
+                        stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
                     } else {
-                        tmp.put(cc.getName(), val);
+                        stockNeed.put(cc.getName(), 1);
                     }
-                    if (stock.get(cc.getName()) == null || stock.get(cc.getName()) < val) {
-                        System.out.println("The stock doesn't have enough " + c.getName());
-                        return false;
+                }
+            } else if (c.isCookiePack()) {
+                for (Consumable cookie : c.getItemPack().keySet()) {
+                    for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
+
+                        if (stockNeed.containsKey(cc.getName())) {
+                            stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
+                        } else {
+                            stockNeed.put(cc.getName(), 1);
+                        }
                     }
                 }
             } else {
-                if (stock.get(c.getName()) == null || stock.get(c.getName()) < val) {
-                    System.out.println("The stock doesn't have enough " + c.getName());
-                    return false;
+                if (stockNeed.containsKey(c.getName())) {
+                    stockNeed.put(c.getName(), stockNeed.get(c.getName()) + 1);
+                } else {
+                    stockNeed.put(c.getName(), 1);
                 }
             }
         }
+
+        for (String name : stockNeed.keySet()) {
+            if (stock.get(name) == null || stock.get(name) < stockNeed.get(name)) {
+                System.out.println("The stock doesn't have enough " + name);
+                return false;
+            }
+        }
+
+
         return true;
     }
 

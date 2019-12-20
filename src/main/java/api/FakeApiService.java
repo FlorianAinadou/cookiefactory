@@ -96,12 +96,40 @@ public class FakeApiService implements ApiService {
 
     @Override
     public void removeFromStock(Shop shop, Consumable consumable) {
+
+        Map<String, Integer> stockNeed = new HashMap<>();
+
         if (consumable.isCookie()) {
             for (CookieComponent cc : ((Cookie) consumable).getRecipe().getIngredients()) {
-                stocks.get(shop.getName()).put(cc.getName(), stocks.get(shop.getName()).get(cc.getName()) - 1);
+                if (stockNeed.containsKey(cc.getName())) {
+                    stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
+                } else {
+                    stockNeed.put(cc.getName(), 1);
+                }
+            }
+        } else if (consumable.isCookiePack()) {
+            for (Consumable cookie : consumable.getItemPack().keySet()) {
+                for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
+
+                    if (stockNeed.containsKey(cc.getName())) {
+                        stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
+                    } else {
+                        stockNeed.put(cc.getName(), 1);
+                    }
+                }
             }
         } else {
-            stocks.get(shop.getName()).put(consumable.getName(), stocks.get(shop.getName()).get(consumable.getName()) - 1);
+            if (stockNeed.containsKey(consumable.getName())) {
+                stockNeed.put(consumable.getName(), stockNeed.get(consumable.getName()) + 1);
+            } else {
+                stockNeed.put(consumable.getName(), 1);
+            }
+        }
+
+        for (String name : stockNeed.keySet()) {
+            if (stocks.get(name) == null || stocks.get(shop.getName()).get(name) < stockNeed.get(name)) {
+                stocks.get(shop.getName()).put(name, stocks.get(shop.getName()).get(name) - stockNeed.get(name));
+            }
         }
     }
 

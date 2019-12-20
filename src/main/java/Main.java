@@ -104,7 +104,7 @@ public class Main {
 
         System.out.println("");
 
-        //shopRepository.showStock(shop2);
+        shopRepository.showStock(shop2);
 
         customer2.addConsumables(new Cookie(cherryBlossom),45 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
@@ -113,7 +113,7 @@ public class Main {
         orderRepository.addOrder(order2);
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
-        //shopRepository.showStock(shop2);
+        shopRepository.showStock(shop2);
 
         //stat
 
