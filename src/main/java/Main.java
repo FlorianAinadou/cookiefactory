@@ -13,6 +13,9 @@ import utils.Lib;
 import utils.Statistics;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -42,6 +45,9 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException, ParseException {
         initRepositories();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
 
         Map<String, Recipe> recipes = cookieRepository.getRecipes();
 
@@ -92,38 +98,39 @@ public class Main {
         //System.out.println("Cookies number: " + customer.getCart().getNbCookies());
         //customer.showCart();
 
-        shopRepository.showStock(shop);
+        //shopRepository.showStock(shop);
 
-        Order order = new Order(orderRepository.getOrderNum(), customer, new Date(), shop, discountRepository.getDiscounts(customer));
+        Order order = new Order(orderRepository.getOrderNum(), customer,new Date(System.currentTimeMillis() - 3600 * 1000) , shop, discountRepository.getDiscounts(customer));
         //orderRepository.addOrder(order, new EntrepriseCodePriority());
         orderRepository.addOrder(order);
 
         orderRepository.payOrder(order, customer);
         System.out.println(order.getOrderStatus());
 
-        shopRepository.showStock(shop);
+        //shopRepository.showStock(shop);
 
 
         System.out.println("");
 
-        shopRepository.showStock(shop2);
+        //shopRepository.showStock(shop2);
 
         customer2.addConsumables(new Cookie(cherryBlossom),7 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
-        Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
+        Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(System.currentTimeMillis() - 3600 * 1000), shop2, discountRepository.getDiscounts(customer2));
         orderRepository.addOrder(order2);
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
-        shopRepository.showStock(shop2);
+        //shopRepository.showStock(shop2);
 
 
         customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
-        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
+        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(System.currentTimeMillis() - 7200 * 1000), shop2, discountRepository.getDiscounts(customer2));
         orderRepository.addOrder(order3);
         orderRepository.payOrder(order3, customer2);
+        orderRepository.pickUpOrder(order3, shop2);
         System.out.println(order3.getOrderStatus());
         //shopRepository.showStock(shop2);
 

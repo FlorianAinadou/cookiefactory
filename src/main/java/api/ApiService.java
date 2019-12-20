@@ -56,6 +56,8 @@ public interface ApiService {
 
     void payOrder(Order order, Customer customer);
 
+    void pickUpOrder(Order order, Shop shop);
+
     /*List<Cart> getCarts();
     void addcart(Cart cartNum);
     void deletecart(Cart cartNum);*/
