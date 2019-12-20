@@ -158,6 +158,11 @@ public class FakeApiService implements ApiService {
     }
 
     @Override
+    public void changeCodMargin(Shop shop, double margin) {
+        shops.get(shops.indexOf(shop)).setCodTax(margin);
+    }
+
+    @Override
     public Map<String, CookieComponent> getDough() {
         return doughs;
     }
