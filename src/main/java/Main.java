@@ -76,10 +76,10 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom), 10);
+        customer.addConsumables(new Cookie(cherryBlossom), 11);
         customer.addConsumables(new Cookie(cod), 2);
         customer.addConsumables(new Cookie(cod2), 2);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 12);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
@@ -106,7 +106,7 @@ public class Main {
 
         shopRepository.showStock(shop2);
 
-        customer2.addConsumables(new Cookie(cherryBlossom),45 );
+        customer2.addConsumables(new Cookie(cherryBlossom),7 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
@@ -114,6 +114,16 @@ public class Main {
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
         shopRepository.showStock(shop2);
+
+
+        customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
+        creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
+        customer2.showCart();
+        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
+        orderRepository.addOrder(order3);
+        orderRepository.payOrder(order3, customer2);
+        System.out.println(order3.getOrderStatus());
+        //shopRepository.showStock(shop2);
 
         //stat
 
