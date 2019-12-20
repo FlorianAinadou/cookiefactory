@@ -41,7 +41,8 @@ public class CookiesPack extends Consumable {
         cookiePack.put(consumable, cookiePack.get(consumable)+quantity); // we update the quantity
     }
 
-
+    @Override
+    public Map<Consumable, Integer> getItemPack() {return cookiePack;} // returns all the items in the pack
 
     @Override
     public double getPrice() {
@@ -56,5 +57,13 @@ public class CookiesPack extends Consumable {
     @Override
     public boolean isCookie() {
         return false;
+    }
+    @Override
+    public boolean isDrink() {
+        return false;
+    }
+    @Override
+    public boolean isCookiePack() {
+        return true;
     }
 }

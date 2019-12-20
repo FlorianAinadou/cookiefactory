@@ -46,6 +46,9 @@ public abstract class FakeApiServiceGenerator {
     static Map<String, Discount> generateShopDiscounts() {
         return new HashMap<>(SHOP_DISCOUNTS);
     }
+    static Map<String, HashMap<String, Integer>> generateStocks() {
+        return new HashMap<>(STOCKS);
+    }
     static ArrayList<PackComposition> generatePacksComposition(){ return new ArrayList<>(FAKE_PACKS);}
 
     static List<Customer> FAKE_REGISTERED_CUSTOMERS = Arrays.asList(
@@ -104,6 +107,38 @@ public abstract class FakeApiServiceGenerator {
         put(Lib.CookieName.CHOCOLALA, new Recipe(Lib.CookieName.CHOCOLALA, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Topped"), TOPPING_COOKIE.get("Milk chocolate")))));
         put(Lib.CookieName.DARK_TEMPTATION, new Recipe(Lib.CookieName.DARK_TEMPTATION, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate")))));
     }};
+
+    private static Map<String, Integer> STOCKS_SAMPLE = new HashMap<String, Integer>() {{
+        put(Lib.Topping.CHERRY_SYRUP, 100);
+        put(Lib.Topping.MILK_CHOCOLATE, 100);
+        put(Lib.Topping.DARK_CHOCOLATE, 100);
+        put(Lib.Topping.MNMS, 100);
+        put(Lib.Topping.WHITE_CHOCOLATE, 100);
+
+        put(Lib.Flavour.CHERRY, 100);
+        put(Lib.Flavour.CHILI, 100);
+        put(Lib.Flavour.CINNAMON, 100);
+        put(Lib.Flavour.VANILLA, 100);
+
+        put(Lib.Dough.CHERRY_JAM, 100);
+        put(Lib.Dough.CHOCOLATE, 100);
+        put(Lib.Dough.OATMEAL, 100);
+        put(Lib.Dough.PEANUT_BUTTER, 100);
+        put(Lib.Dough.PLAIN, 100);
+
+        put(Lib.Drink.COCA_ZERO, 100);
+        put(Lib.Drink.SPRITE, 100);
+
+    }};
+
+
+    private static Map<String, HashMap<String, Integer>> STOCKS = new HashMap<String, HashMap<String, Integer>>() {{
+        put("SophiaCookies", new HashMap<>(STOCKS_SAMPLE));
+        put("NiceCookies", new HashMap<>(STOCKS_SAMPLE));
+        put("CannesCookies", new HashMap<>(STOCKS_SAMPLE));
+    }};
+
+
 
     private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
         put((RegisteredCustomer)FAKE_REGISTERED_CUSTOMERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
