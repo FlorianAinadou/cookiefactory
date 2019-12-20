@@ -109,6 +109,8 @@ public class Main {
         shopRepository.showStock(shop2);
 
         customer2.addConsumables(new Cookie(cherryBlossom),40 );
+        customer2.addConsumables(new Cookie(cherryBlossom),7 );
+
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
@@ -116,6 +118,16 @@ public class Main {
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
         shopRepository.showStock(shop2);
+
+
+        customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
+        creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
+        customer2.showCart();
+        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
+        orderRepository.addOrder(order3);
+        orderRepository.payOrder(order3, customer2);
+        System.out.println(order3.getOrderStatus());
+        //shopRepository.showStock(shop2);
 
         //stat
 
