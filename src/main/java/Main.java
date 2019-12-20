@@ -106,7 +106,7 @@ public class Main {
 
         shopRepository.showStock(shop2);
 
-        customer2.addConsumables(new Cookie(cherryBlossom),45 );
+        customer2.addConsumables(new Cookie(cherryBlossom),200 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
