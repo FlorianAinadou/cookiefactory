@@ -11,6 +11,7 @@ import repository.CookieRepository;
 
 import java.util.Map;
 import model.consumables.Cookie;
+import repository.OrderRepository;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,8 @@ public class OrderStepdefs implements En {
     private Cookie cookie;
 
     private CookieRepository cookieRepository = Injection.createCookieRepository();
+    private OrderRepository orderRepository = Injection.createOrderRepository();
+
     private Map<String, Recipe> recipes = cookieRepository.getRecipes();
 
     public OrderStepdefs() {

@@ -17,6 +17,7 @@ public class Cart implements Cloneable{
     private Map<Consumable,Integer> items;
     private double totalPrice;
     private int nbCookies; // to know how many cookies there are in the cart
+    private int nbCookiesDirectlyInTheCart;
     private boolean codeEvent;
 
     public Cart() {
@@ -53,9 +54,10 @@ public class Cart implements Cloneable{
             items.put(consumable, quantity); // we add the new item
             totalPrice += quantity*consumable.getPrice(); // and update the total price
         }
-        if (consumable.isCookie()) {
-            nbCookies += quantity; // ?????
-        }
+        if (consumable.isCookie()){
+        nbCookies += quantity; // ?????
+        nbCookiesDirectlyInTheCart +=quantity;
+            }
     }
 
     private void increaseCookiesQuantityBy(Consumable consumable, Integer quantity) {
@@ -94,6 +96,22 @@ public class Cart implements Cloneable{
         Cart cloneCart = (Cart) super.clone();
         cloneCart.items = cloneMap(items);
         return cloneCart;
+    }
+
+    public void setNbCookiesDirectlyInTheCart(int cookies) {
+        this.nbCookiesDirectlyInTheCart=cookies;
+    }
+
+    public void recalculateFinalPrice(){
+        double price=0;
+        for (Consumable consumable : items.keySet()  ) {
+            price+= items.get(consumable) * consumable.getPrice();
+        }
+        this.totalPrice= price;
+    }
+
+    public int getNbCookiesDirectlyInTheCart() {
+        return nbCookiesDirectlyInTheCart;
     }
 
 }

@@ -1,14 +1,15 @@
 package api;
 
-import model.Cart;
 import model.Order;
 import model.Recipe;
 import model.Shop;
 import model.consumables.CookieComponent;
+import model.consumables.PackComposition;
 import model.customer.Customer;
 import model.discount.Discount;
 import model.discount.DiscountStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -76,4 +77,6 @@ public interface ApiService {
     void addDiscount(Customer customer, Discount discount);
     double applyDiscount(Customer customer, Shop shop, Discount discount);
     float askForADiscountApplying(Customer customer, Discount discount);
+
+    ArrayList<PackComposition> getPacksComposition();
 }

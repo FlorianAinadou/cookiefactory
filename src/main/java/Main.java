@@ -1,21 +1,21 @@
 import di.Injection;
-import model.*;
+import model.Order;
+import model.Recipe;
+import model.Shop;
 import model.builders.RecipeBuilder;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
+import model.consumables.CookiesPackCreator;
 import model.consumables.Drink;
 import model.customer.Customer;
-import model.discount.EntrepriseCodePriority;
 import repository.*;
 import utils.Lib;
-import utils.Stats;
+import utils.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-
-import static utils.Stats.showStat;
 
 /**
  * @author Florian AINADOU
@@ -67,13 +67,22 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom), 2);
+        customer.addConsumables(new Cookie(cherryBlossom),21 );
         customer.addConsumables(new Cookie(cod), 1);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 4);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 6);
-        customer.addConsumables(new Drink(0.5f, "Sprite"), 2);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
+        customer.addConsumables(new Drink(0.5f, "Sprite"), 1);
         customer.addConsumables(new Drink(0.5f, "Coca"), 1);
+
+
+        System.out.println("Cookies number: " + customer.getCart().getNbCookies());
+        CookiesPackCreator creator = new CookiesPackCreator();
+        creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition() );
         customer.showCart();
+        //creator.createPack(customer.getCart(), 30, 3);
+        //System.out.println("Cookies number: " + customer.getCart().getNbCookies());
+        //customer.showCart();
+
 
         Order order = new Order(orderRepository.getOrderNum(), customer, new Date(), shop, discountRepository.getDiscounts(customer));
         //orderRepository.addOrder(order, new EntrepriseCodePriority());
@@ -89,7 +98,11 @@ public class Main {
         System.out.println(order2.getOrderStatus());
 
         //stat
-        showStat();
-        showStat(shop2);
+
+
+
+
+        Statistics.showGeneralStatistics();
+        Statistics.showShopStatistics(shop2);
     }
 }

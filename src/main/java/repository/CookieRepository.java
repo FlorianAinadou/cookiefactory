@@ -3,7 +3,9 @@ package repository;
 import api.ApiService;
 import model.Recipe;
 import model.consumables.CookieComponent;
+import model.consumables.PackComposition;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -57,4 +59,6 @@ public class CookieRepository {
     public void addFlavour(String name, CookieComponent flavour) { apiService.addFlavour(name, flavour); }
     public void deleteFlavour(String name) { apiService.deleteFlavour(name); }
     public void changeFlavourPrice(String name, double price) { apiService.changeFlavourPrice(name, price); }
+
+    public ArrayList<PackComposition> getPacksComposition(){ return apiService.getPacksComposition();}
 }
