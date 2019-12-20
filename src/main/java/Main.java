@@ -77,7 +77,7 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom), 300  );
+        customer.addConsumables(new Cookie(cherryBlossom), 301  );
         customer.addConsumables(new Cookie(cod), 1);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
