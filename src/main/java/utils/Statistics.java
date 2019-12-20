@@ -2,6 +2,7 @@ package utils;
 
 import di.Injection;
 import model.consumables.Consumable;
+import model.consumables.CookieComponent;
 import repository.OrderRepository;
 import model.Order;
 import model.Shop;
@@ -10,6 +11,7 @@ import model.consumables.Drink;
 import repository.ShopRepository;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,7 @@ public class Statistics {
         decimal.setMaximumFractionDigits(2);
 
         Log.print("\tCookies sold: " + nbCookiesSold);
+        Log.print("\tNumber of personalized cookies sold: " + (int)nbCodSold);
         Log.print("\t% of personalized cookies: " +( nbCookiesSold==0 ? 0 : decimal.format(nbCodSold*100/nbCookiesSold)) + "%");
         Log.print("\tDrinks sold: " + nbDrinksSold);
         Log.print("\tNumber of orders: " + nbOrders);
@@ -55,7 +58,7 @@ public class Statistics {
         Log.print("\tWorst selling recipe: " + worstSellingCookie);
         Log.print("\tBest selling drink: " + bestSellingDrink);
         Log.print("\tWorst selling drink: " + worstSellingDrink);
-        Log.print("\tMoney earned: " + decimal.format(moneyEarned) + " €");
+        Log.print("\tMoney earned: " + decimal.format(moneyEarned) + " €\n");
 
     }
 
@@ -100,25 +103,11 @@ public class Statistics {
     public static String bestSellingCookie() {
         String cookie = noData;
         int quantity = 0;
-        for (Order order: allOrders) {
-            for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                System.out.println(mapEntry.getKey().getClass().getName());
-                if (mapEntry.getKey().isCookie()) {
-                    if (quantity < mapEntry.getValue()) {
-                        quantity = mapEntry.getValue();
-                        cookie = mapEntry.getKey().getName();
-                    }
-                }
-                if(mapEntry.getKey().isCookiePack()) {
-                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                        if (mapEntryPack.getKey().isCookie()) {
-                            if (quantity < mapEntryPack.getValue()) {
-                                quantity = mapEntryPack.getValue();
-                                cookie = mapEntryPack.getKey().getName();
-                            }
-                        }
-                    }
-                }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity();
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            if (quantity < mapEntry.getValue() && !mapEntry.getKey().equals("")) {
+                quantity = mapEntry.getValue();
+                cookie = mapEntry.getKey();
             }
         }
         return cookie;
@@ -127,24 +116,11 @@ public class Statistics {
     public static String worstSellingCookie() {
         String recipe = noData;
         int quantity = -1;
-        for (Order order: allOrders) {
-            for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey().isCookie()) {
-                    if ((quantity > mapEntry.getValue() || quantity < 0) && !mapEntry.getKey().getName().equals("")) { // we don't count personalized cookies (they have no names)
-                        quantity = mapEntry.getValue();
-                        recipe = mapEntry.getKey().getName();
-                    }
-                }
-                if(mapEntry.getKey().isCookiePack()) {
-                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                        if (mapEntryPack.getKey().isCookie()) {
-                            if ((quantity > mapEntryPack.getValue() || quantity < 0) && !mapEntryPack.getKey().getName().equals("")) {
-                                quantity = mapEntryPack.getValue();
-                                recipe = mapEntryPack.getKey().getName();
-                            }
-                        }
-                    }
-                }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity();
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            if ((quantity > mapEntry.getValue() || quantity < 0) && !mapEntry.getKey().equals("")) { // we don't count personalized cookies (they have no names)
+                quantity = mapEntry.getValue();
+                recipe = mapEntry.getKey();
             }
         }
         return recipe;
@@ -153,52 +129,26 @@ public class Statistics {
     public static String bestSellingDrink() {
         String drink = noData;
         int quantity = 0;
-        for (Order order: allOrders) {
-            for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey().isDrink()) {
-                    if (quantity < mapEntry.getValue()) {
-                        quantity = mapEntry.getValue();
-                        drink = mapEntry.getKey().getName();
-                    }
-                }
-                if(mapEntry.getKey().isCookiePack()) {
-                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                        if (mapEntryPack.getKey().isDrink()) {
-                            if (quantity < mapEntryPack.getValue()) {
-                                quantity = mapEntryPack.getValue();
-                                drink = mapEntryPack.getKey().getName();
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllDrinkWithQuantity();
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+                if (quantity < mapEntry.getValue()) {
+                    quantity = mapEntry.getValue();
+                    drink = mapEntry.getKey();
                 }
             }
-        }
         return drink;
     }
 
     public static String worstSellingDrink() {
         String drink = noData;
         int quantity = -1;
-        for (Order order: allOrders) {
-            for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (mapEntry.getKey().isDrink()) {
-                    if ((quantity > mapEntry.getValue() || quantity < 0)) {
-                        quantity = mapEntry.getValue();
-                        drink = mapEntry.getKey().getName();
-                    }
-                }
-                if(mapEntry.getKey().isCookiePack()) {
-                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                        if (mapEntryPack.getKey().isDrink()) {
-                            if ((quantity > mapEntryPack.getValue() || quantity < 0)) {
-                                quantity = mapEntryPack.getValue();
-                                drink = mapEntryPack.getKey().getName();
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllDrinkWithQuantity();
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+                if ((quantity > mapEntry.getValue() || quantity < 0)) {
+                    quantity = mapEntry.getValue();
+                    drink = mapEntry.getKey();
                 }
             }
-        }
         return drink;
     }
 
@@ -224,44 +174,20 @@ public class Statistics {
 
     public static float nbCodSoldInShop(Shop shop) {
         int res = 0;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isCookie()) {
-                        if (mapEntry.getKey().getName().equals("")) {
-                            res += mapEntry.getValue();
-                        }
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isCookie() && mapEntryPack.getKey().getName().equals("")) {
-                                    res += mapEntryPack.getValue();
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+                if (mapEntry.getKey().equals("")) {
+                    res += mapEntry.getValue();
                 }
             }
-        }
         return res;
     }
 
     public static int nbDrinksSoldInShop(Shop shop) {
         int res = 0;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isDrink()) {
-                        res += mapEntry.getValue();
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isDrink()) {
-                                res += mapEntryPack.getValue();
-                            }
-                        }
-                    }
-                }
-            }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            res += mapEntry.getValue();
         }
         return res;
     }
@@ -291,25 +217,12 @@ public class Statistics {
     public static String bestSellingCookieInShop(Shop shop) {
         String cookie = noData;
         int quantity = 0;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isCookie()) {
-                        if (quantity < mapEntry.getValue()) {
-                            quantity = mapEntry.getValue();
-                            cookie = mapEntry.getKey().getName();
-                        }
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isCookie()) {
-                                if (quantity < mapEntryPack.getValue()) {
-                                    quantity = mapEntryPack.getValue();
-                                    cookie = mapEntryPack.getKey().getName();
-                                }
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            if (!mapEntry.getKey().equals("")) {
+                if (quantity < mapEntry.getValue()) {
+                    quantity = mapEntry.getValue();
+                    cookie = mapEntry.getKey();
                 }
             }
         }
@@ -319,25 +232,12 @@ public class Statistics {
     public static String worstSellingCookieInShop(Shop shop) {
         String cookie = noData;
         int quantity = -1;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isCookie()) {
-                        if ((quantity > mapEntry.getValue() || quantity < 0) && !mapEntry.getKey().getName().equals("")) { // we don't count personalized cookies (they have no names)
-                            quantity = mapEntry.getValue();
-                            cookie = mapEntry.getKey().getName();
-                        }
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isCookie()) {
-                                if ((quantity > mapEntryPack.getValue() || quantity < 0) && !mapEntryPack.getKey().getName().equals("")) {
-                                    quantity = mapEntryPack.getValue();
-                                    cookie = mapEntryPack.getKey().getName();
-                                }
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            if (!mapEntry.getKey().equals("")) {
+                if (quantity > mapEntry.getValue() || quantity < 0) {
+                    quantity = mapEntry.getValue();
+                    cookie = mapEntry.getKey();
                 }
             }
         }
@@ -347,26 +247,11 @@ public class Statistics {
     public static String bestSellingDrinkInShop(Shop shop) {
         String drink = noData;
         int quantity = 0;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isDrink()) {
-                        if (quantity < mapEntry.getValue()) {
-                            quantity = mapEntry.getValue();
-                            drink = mapEntry.getKey().getName();
-                        }
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isDrink()) {
-                                if (quantity < mapEntryPack.getValue()) {
-                                    quantity = mapEntryPack.getValue();
-                                    drink = mapEntryPack.getKey().getName();
-                                }
-                            }
-                        }
-                    }
-                }
+        HashMap<String, Integer> allConsumable = getAllDrinkWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+            if (quantity < mapEntry.getValue()) {
+                quantity = mapEntry.getValue();
+                drink = mapEntry.getKey();
             }
         }
         return drink;
@@ -375,28 +260,13 @@ public class Statistics {
     public static String worstSellingDrinkInShop(Shop shop) {
         String drink = noData;
         int quantity = -1;
-        for (Order order: allOrders) {
-            if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (!mapEntry.getKey().isCookie()) {
-                        if ((quantity > mapEntry.getValue() || quantity < 0)) {
-                            quantity = mapEntry.getValue();
-                            drink = mapEntry.getKey().getName();
-                        }
-                    }
-                    if(mapEntry.getKey().isCookiePack()) {
-                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
-                            if (mapEntryPack.getKey().isDrink()) {
-                                if ((quantity > mapEntryPack.getValue() || quantity < 0)) {
-                                    quantity = mapEntryPack.getValue();
-                                    drink = mapEntryPack.getKey().getName();
-                                }
-                            }
-                        }
-                    }
+        HashMap<String, Integer> allConsumable = getAllDrinkWithQuantity(shop);
+        for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
+                if (quantity > mapEntry.getValue() || quantity < 0) {
+                    quantity = mapEntry.getValue();
+                    drink = mapEntry.getKey();
                 }
             }
-        }
         return drink;
     }
 
@@ -409,4 +279,115 @@ public class Statistics {
         }
         return res;
     }
+
+
+//Builder map consummable
+    private static HashMap<String, Integer> getAllCookieWithQuantity() {
+        HashMap<String, Integer> consumableWithQuantity = new HashMap<>();
+        for (Order order: allOrders) {
+            for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
+                if(mapEntry.getKey().isCookie()) {
+                        if (consumableWithQuantity.containsKey(mapEntry.getKey().getName())) { // if the model.consumables is already in the cart
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), consumableWithQuantity.get(mapEntry.getKey().getName()) + mapEntry.getValue()); // we increase the quantity of this item
+                        } else {
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), mapEntry.getValue()); // we add the new item
+                        }
+                }else if(mapEntry.getKey().isCookiePack()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                        if(mapEntryPack.getKey().isCookie()) {
+                            if (consumableWithQuantity.containsKey(mapEntryPack.getKey().getName())) { // if the model.consumables is already in the cart
+                                consumableWithQuantity.put(mapEntryPack.getKey().getName(), consumableWithQuantity.get(mapEntryPack.getKey().getName()) + mapEntryPack.getValue()); // we increase the quantity of this item
+                            } else {
+                                consumableWithQuantity.put(mapEntryPack.getKey().getName(), mapEntryPack.getValue()); // we add the new item
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return consumableWithQuantity;
+    }
+    private static HashMap<String, Integer> getAllCookieWithQuantity(Shop shop) {
+        HashMap<String, Integer> consumableWithQuantity = new HashMap<>();
+        for (Order order: allOrders) {
+            if(order.getShop().equals(shop)) {
+                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
+                    if (mapEntry.getKey().isCookie()) {
+                        if (consumableWithQuantity.containsKey(mapEntry.getKey().getName())) { // if the model.consumables is already in the cart
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), consumableWithQuantity.get(mapEntry.getKey().getName()) + mapEntry.getValue()); // we increase the quantity of this item
+                        } else {
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), mapEntry.getValue()); // we add the new item
+                        }
+                    } else if (mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isCookie()) {
+                                if (consumableWithQuantity.containsKey(mapEntryPack.getKey().getName())) { // if the model.consumables is already in the cart
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), consumableWithQuantity.get(mapEntryPack.getKey().getName()) + mapEntryPack.getValue()); // we increase the quantity of this item
+                                } else {
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), mapEntryPack.getValue()); // we add the new item
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return consumableWithQuantity;
+    }
+    private static HashMap<String, Integer> getAllDrinkWithQuantity() {
+        HashMap<String, Integer> consumableWithQuantity = new HashMap<>();
+        for (Order order: allOrders) {
+                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
+                    if (mapEntry.getKey().isDrink()) {
+                        if (consumableWithQuantity.containsKey(mapEntry.getKey().getName())) { // if the model.consumables is already in the cart
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), consumableWithQuantity.get(mapEntry.getKey().getName()) + mapEntry.getValue()); // we increase the quantity of this item
+                        } else {
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), mapEntry.getValue()); // we add the new item
+                        }
+                    } else if (mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntry.getKey().isDrink()) {
+                                if (consumableWithQuantity.containsKey(mapEntryPack.getKey().getName())) { // if the model.consumables is already in the cart
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), consumableWithQuantity.get(mapEntryPack.getKey().getName()) + mapEntryPack.getValue()); // we increase the quantity of this item
+                                } else {
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), mapEntryPack.getValue()); // we add the new item
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        return consumableWithQuantity;
+    }
+
+    private static HashMap<String, Integer> getAllDrinkWithQuantity(Shop shop) {
+        HashMap<String, Integer> consumableWithQuantity = new HashMap<>();
+        for (Order order : allOrders) {
+            if (order.getShop().equals(shop)) {
+                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
+                    if (mapEntry.getKey().isDrink()) {
+                        if (consumableWithQuantity.containsKey(mapEntry.getKey().getName())) { // if the model.consumables is already in the cart
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), consumableWithQuantity.get(mapEntry.getKey().getName()) + mapEntry.getValue()); // we increase the quantity of this item
+                        } else {
+                            consumableWithQuantity.put(mapEntry.getKey().getName(), mapEntry.getValue()); // we add the new item
+                        }
+                    } else if (mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isDrink()) {
+                                if (consumableWithQuantity.containsKey(mapEntryPack.getKey().getName())) { // if the model.consumables is already in the cart
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), consumableWithQuantity.get(mapEntryPack.getKey().getName()) + mapEntryPack.getValue()); // we increase the quantity of this item
+                                } else {
+                                    consumableWithQuantity.put(mapEntryPack.getKey().getName(), mapEntryPack.getValue()); // we add the new item
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return consumableWithQuantity;
+    }
+
 }

@@ -12,6 +12,7 @@ import repository.*;
 import utils.Lib;
 import utils.Statistics;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class Main {
         if (discountRepository == null) discountRepository = Injection.createDiscountRepository();
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException, ParseException {
         initRepositories();
 
         Map<String, Recipe> recipes = cookieRepository.getRecipes();
@@ -76,13 +77,13 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom), 10);
-        customer.addConsumables(new Cookie(cod), 2);
-        customer.addConsumables(new Cookie(cod2), 2);
+        customer.addConsumables(new Cookie(cherryBlossom), 300);
+        customer.addConsumables(new Cookie(cod), 1);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 16);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
         customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
+        System.out.println(customer.getCart().getNbCookiesDirectlyInTheCart());
 
         CookiesPackCreator creator = new CookiesPackCreator();
         creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
@@ -102,11 +103,14 @@ public class Main {
 
         shopRepository.showStock(shop);
 
+
         System.out.println("");
 
         shopRepository.showStock(shop2);
 
-        customer2.addConsumables(new Cookie(cherryBlossom),200 );
+        customer2.addConsumables(new Cookie(cherryBlossom),40 );
+        customer2.addConsumables(new Cookie(cherryBlossom),7 );
+
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
         Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
@@ -115,10 +119,25 @@ public class Main {
         System.out.println(order2.getOrderStatus());
         shopRepository.showStock(shop2);
 
+
+        customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
+        creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
+        customer2.showCart();
+        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(), shop2, discountRepository.getDiscounts(customer2));
+        orderRepository.addOrder(order3);
+        orderRepository.payOrder(order3, customer2);
+        System.out.println(order3.getOrderStatus());
+        //shopRepository.showStock(shop2);
+
         //stat
 
 
         Statistics.showGeneralStatistics();
         Statistics.showShopStatistics(shop2);
+
+       // SimpleDateFormat s=new SimpleDateFormat();
+        //  SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
+        //Date date= s.parse("Friday, Jun 7, 2013 12:10:56 PM");
+        //System.out.println(date);
     }
 }
