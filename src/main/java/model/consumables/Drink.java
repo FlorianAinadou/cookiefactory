@@ -26,6 +26,10 @@ public class Drink extends Consumable {
         return false;
     }
     @Override
+    public boolean isDrink() {
+        return true;
+    }
+    @Override
     public boolean isCookiePack() {
         return false;
     }

@@ -9,6 +9,7 @@ import model.consumables.Cookie;
 import model.consumables.Drink;
 import repository.ShopRepository;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -39,19 +40,22 @@ public class Statistics {
                 moneyEarnedByShop(shop));
     }
 
-    public static void showStatistics(int nbCookiesSold, int nbCodSold, int nbDrinksSold, int nbOrders,
-                                      int nbOrdersWithDiscount, String bestSellingCookie, String worstSellingCookie,
+    public static void showStatistics(int nbCookiesSold, float nbCodSold, int nbDrinksSold, int nbOrders,
+                                      float nbOrdersWithDiscount, String bestSellingCookie, String worstSellingCookie,
                                       String bestSellingDrink, String worstSellingDrink, double moneyEarned) {
+        DecimalFormat decimal = new DecimalFormat();
+        decimal.setMaximumFractionDigits(2);
+
         Log.print("\tCookies sold: " + nbCookiesSold);
-        Log.print("\t% of personalized cookies: " + ( nbCookiesSold==0 ? 0 : nbCodSold/nbCookiesSold*100 ) + "%");
+        Log.print("\t% of personalized cookies: " +( nbCookiesSold==0 ? 0 : decimal.format(nbCodSold*100/nbCookiesSold)) + "%");
         Log.print("\tDrinks sold: " + nbDrinksSold);
         Log.print("\tNumber of orders: " + nbOrders);
-        Log.print("\t% of orders with discount: " + ( nbOrders==0 ? 0 : nbOrdersWithDiscount/nbOrders*100 ) + "%");
+        Log.print("\t% of orders with discount: " + ( nbOrders==0 ? 0 : decimal.format(nbOrdersWithDiscount*100/nbOrders) ) + "%");
         Log.print("\tBest selling recipe: " + bestSellingCookie);
         Log.print("\tWorst selling recipe: " + worstSellingCookie);
         Log.print("\tBest selling drink: " + bestSellingDrink);
         Log.print("\tWorst selling drink: " + worstSellingDrink);
-        Log.print("\tMoney earned: " + moneyEarned + " €");
+        Log.print("\tMoney earned: " + decimal.format(moneyEarned) + " €");
 
     }
 
@@ -65,7 +69,7 @@ public class Statistics {
         return res;
     }
 
-    public static int nbCodSold() {
+    public static float nbCodSold() {
         int res = 0;
         for (Shop shop: allShops) {
             res += nbCodSoldInShop(shop);
@@ -85,7 +89,7 @@ public class Statistics {
         return allOrders.size();
     }
 
-    public static int nbOrdersWithDiscount() {
+    public static float nbOrdersWithDiscount() {
         int res = 0;
         for (Shop shop: allShops) {
             res += nbOrdersWithDiscountInShop(shop);
@@ -106,7 +110,7 @@ public class Statistics {
                     }
                 }
                 if(mapEntry.getKey().isCookiePack()) {
-                    for (Map.Entry<Consumable, Integer> mapEntryPack :mapEntry.getKey().getItemPack().entrySet()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
                         if (mapEntryPack.getKey().isCookie()) {
                             if (quantity < mapEntryPack.getValue()) {
                                 quantity = mapEntryPack.getValue();
@@ -114,7 +118,6 @@ public class Statistics {
                             }
                         }
                     }
-
                 }
             }
         }
@@ -132,6 +135,16 @@ public class Statistics {
                         recipe = mapEntry.getKey().getName();
                     }
                 }
+                if(mapEntry.getKey().isCookiePack()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                        if (mapEntryPack.getKey().isCookie()) {
+                            if ((quantity > mapEntryPack.getValue() || quantity < 0) && !mapEntryPack.getKey().getName().equals("")) {
+                                quantity = mapEntryPack.getValue();
+                                recipe = mapEntryPack.getKey().getName();
+                            }
+                        }
+                    }
+                }
             }
         }
         return recipe;
@@ -142,10 +155,20 @@ public class Statistics {
         int quantity = 0;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (!mapEntry.getKey().isCookie()) {
+                if (mapEntry.getKey().isDrink()) {
                     if (quantity < mapEntry.getValue()) {
                         quantity = mapEntry.getValue();
                         drink = mapEntry.getKey().getName();
+                    }
+                }
+                if(mapEntry.getKey().isCookiePack()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                        if (mapEntryPack.getKey().isDrink()) {
+                            if (quantity < mapEntryPack.getValue()) {
+                                quantity = mapEntryPack.getValue();
+                                drink = mapEntryPack.getKey().getName();
+                            }
+                        }
                     }
                 }
             }
@@ -158,10 +181,20 @@ public class Statistics {
         int quantity = -1;
         for (Order order: allOrders) {
             for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                if (!mapEntry.getKey().isCookie()) {
+                if (mapEntry.getKey().isDrink()) {
                     if ((quantity > mapEntry.getValue() || quantity < 0)) {
                         quantity = mapEntry.getValue();
                         drink = mapEntry.getKey().getName();
+                    }
+                }
+                if(mapEntry.getKey().isCookiePack()) {
+                    for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                        if (mapEntryPack.getKey().isDrink()) {
+                            if ((quantity > mapEntryPack.getValue() || quantity < 0)) {
+                                quantity = mapEntryPack.getValue();
+                                drink = mapEntryPack.getKey().getName();
+                            }
+                        }
                     }
                 }
             }
@@ -183,17 +216,13 @@ public class Statistics {
         int res = 0;
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
-                for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (mapEntry.getKey().isCookie()) {
-                        res += mapEntry.getValue();
-                    }
-                }
+                res += order.getCart().getNbCookies();
             }
         }
         return res;
     }
 
-    public static int nbCodSoldInShop(Shop shop) {
+    public static float nbCodSoldInShop(Shop shop) {
         int res = 0;
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
@@ -201,6 +230,13 @@ public class Statistics {
                     if (mapEntry.getKey().isCookie()) {
                         if (mapEntry.getKey().getName().equals("")) {
                             res += mapEntry.getValue();
+                        }
+                    }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isCookie() && mapEntryPack.getKey().getName().equals("")) {
+                                    res += mapEntryPack.getValue();
+                            }
                         }
                     }
                 }
@@ -214,8 +250,15 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (!mapEntry.getKey().isCookie()) {
+                    if (mapEntry.getKey().isDrink()) {
                         res += mapEntry.getValue();
+                    }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isDrink()) {
+                                res += mapEntryPack.getValue();
+                            }
+                        }
                     }
                 }
             }
@@ -233,7 +276,7 @@ public class Statistics {
         return res;
     }
 
-    public static int nbOrdersWithDiscountInShop(Shop shop) {
+    public static float nbOrdersWithDiscountInShop(Shop shop) {
         int res = 0;
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
@@ -257,6 +300,16 @@ public class Statistics {
                             cookie = mapEntry.getKey().getName();
                         }
                     }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isCookie()) {
+                                if (quantity < mapEntryPack.getValue()) {
+                                    quantity = mapEntryPack.getValue();
+                                    cookie = mapEntryPack.getKey().getName();
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -275,6 +328,16 @@ public class Statistics {
                             cookie = mapEntry.getKey().getName();
                         }
                     }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isCookie()) {
+                                if ((quantity > mapEntryPack.getValue() || quantity < 0) && !mapEntryPack.getKey().getName().equals("")) {
+                                    quantity = mapEntryPack.getValue();
+                                    cookie = mapEntryPack.getKey().getName();
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -287,10 +350,20 @@ public class Statistics {
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
                 for (Map.Entry<Consumable, Integer> mapEntry : order.getCart().getItems().entrySet()) {
-                    if (!mapEntry.getKey().isCookie()) {
+                    if (mapEntry.getKey().isDrink()) {
                         if (quantity < mapEntry.getValue()) {
                             quantity = mapEntry.getValue();
                             drink = mapEntry.getKey().getName();
+                        }
+                    }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isDrink()) {
+                                if (quantity < mapEntryPack.getValue()) {
+                                    quantity = mapEntryPack.getValue();
+                                    drink = mapEntryPack.getKey().getName();
+                                }
+                            }
                         }
                     }
                 }
@@ -309,6 +382,16 @@ public class Statistics {
                         if ((quantity > mapEntry.getValue() || quantity < 0)) {
                             quantity = mapEntry.getValue();
                             drink = mapEntry.getKey().getName();
+                        }
+                    }
+                    if(mapEntry.getKey().isCookiePack()) {
+                        for (Map.Entry<Consumable, Integer> mapEntryPack : mapEntry.getKey().getItemPack().entrySet()) {
+                            if (mapEntryPack.getKey().isDrink()) {
+                                if ((quantity > mapEntryPack.getValue() || quantity < 0)) {
+                                    quantity = mapEntryPack.getValue();
+                                    drink = mapEntryPack.getKey().getName();
+                                }
+                            }
                         }
                     }
                 }

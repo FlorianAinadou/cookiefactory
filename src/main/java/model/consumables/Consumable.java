@@ -22,6 +22,8 @@ public abstract class Consumable{
 
     public abstract boolean isCookiePack();
 
+    public abstract boolean isDrink();
+
     public abstract Map<Consumable, Integer> getItemPack(); // returns all the items in the pack
 
 }
