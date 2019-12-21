@@ -7,6 +7,7 @@ import model.consumables.Consumable;
 import model.consumables.CookieComponent;
 import model.consumables.PackComposition;
 import model.customer.Customer;
+import model.customer.Manager;
 import model.discount.Discount;
 import model.discount.DiscountStrategy;
 
@@ -22,6 +23,8 @@ import java.util.Map;
 public interface ApiService {
 
     List<Customer> getCustomers();
+
+    Manager getManager();
 
     Customer getRandomRegisteredCustomer();
 

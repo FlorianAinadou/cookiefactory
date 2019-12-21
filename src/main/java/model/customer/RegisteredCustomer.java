@@ -49,4 +49,6 @@ public class RegisteredCustomer extends Customer {
 
     @Override
     public boolean isRegistered() { return true; }
+    @Override
+    public boolean isManager() { return false; }
 }

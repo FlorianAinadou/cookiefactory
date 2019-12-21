@@ -11,6 +11,7 @@ import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.PackComposition;
 import model.customer.Customer;
+import model.customer.Manager;
 import model.discount.Discount;
 import model.discount.DiscountStrategy;
 import model.discount.SeniorityPriority;
@@ -29,6 +30,7 @@ import static api.FakeApiServiceGenerator.*;
 public class FakeApiService implements ApiService {
 
     private List<Customer> customers = generateCustomers();
+    static List<Manager> manager = generateManagers();
     private List<Shop> shops = generateShops();
     private HashMap<String, Recipe> recipes = new HashMap<>(generateCookieRecipes());
     private HashMap<String, HashMap<String, Integer>> stocks = new HashMap<>(generateStocks());
@@ -49,7 +51,10 @@ public class FakeApiService implements ApiService {
     public List<Customer> getCustomers() {
         return customers;
     }
-
+    @Override
+    public Manager getManager() {
+        return FAKE_MANAGERS.get(0);
+    }
     @Override
     public Customer getRandomRegisteredCustomer() {
         return FAKE_REGISTERED_CUSTOMERS.get(new Random().nextInt(FAKE_REGISTERED_CUSTOMERS.size()));
@@ -335,7 +340,7 @@ public class FakeApiService implements ApiService {
         DecimalFormat totalFinalPrice = new DecimalFormat();
         totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
         if (customer.getWalletAmount() > order.getTotalPrice()) {
-            order.setOrderStatus(order.getOrderStatus() + 1);
+            order.setOrderStatus(2);
             customers.get(customers.indexOf(customer)).setWalletAmount((customer.getWalletAmount() - order.getTotalPrice()));
             System.out.println("Customer money : " + totalFinalPrice.format(customers.get(customers.indexOf(customer)).getWalletAmount()) + " €");
         } else {
@@ -347,6 +352,7 @@ public class FakeApiService implements ApiService {
     @Override
     public void pickUpOrder(Order order, Shop shop) {
         shop.shopPickUp(order);
+        order.setOrderStatus(3);
         System.out.println("This order can be pick up now");
     }
 

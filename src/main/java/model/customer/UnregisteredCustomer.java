@@ -14,4 +14,6 @@ public class UnregisteredCustomer extends Customer {
     public boolean isRegistered(){
         return false;
     }
+    @Override
+    public boolean isManager() { return false; }
 }
