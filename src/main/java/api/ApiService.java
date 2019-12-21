@@ -89,4 +89,5 @@ public interface ApiService {
     double applyDiscount(Customer customer, Shop shop, Discount discount);
 
     ArrayList<PackComposition> getPacksComposition();
+    void lastHourReduction(Order order, Discount discount);
 }

@@ -6,14 +6,15 @@ import model.Shop;
 import model.consumables.Consumable;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
-import model.consumables.CookiesPack;
 import model.customer.Customer;
+import model.discount.Discount;
 import model.discount.DiscountStrategy;
 import utils.Lib;
 
-import java.awt.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Virgile FANTAUZZI
@@ -33,6 +34,8 @@ public class OrderRepository {
     public int getOrderNum() {
         return apiService.getOrderNum();
     }
+
+    Discount discount= new Discount(0.3f, "LAST_HOUR");
 
 
     private boolean canMakeOrder(Order order) {
@@ -88,6 +91,7 @@ public class OrderRepository {
 
     public void addOrder(Order order) throws CloneNotSupportedException {
         if (canMakeOrder(order)) {
+           // lastHourReduction(order, discount);
             apiService.addOrder(order);
             removeOrderFromStock(order);
         } else {
@@ -113,6 +117,9 @@ public class OrderRepository {
         }
     }
 
+    public void lastHourReduction(Order order, Discount discount){
+        apiService.lastHourReduction(order, discount);
+    }
     //public void addOrder(Order order, Discount discount) { apiService.addOrder(order, discount); }
 
     public void payOrder(Order order, Customer customer) {

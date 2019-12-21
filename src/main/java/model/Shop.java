@@ -90,7 +90,7 @@ public class Shop {
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(currentDate);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        return currentHour < closingAt && currentHour > closingAt-1;
+        return (currentHour < closingAt && currentHour >= closingAt-1);
     }
 
     @Override

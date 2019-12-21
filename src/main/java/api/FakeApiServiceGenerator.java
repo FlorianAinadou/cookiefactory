@@ -177,9 +177,9 @@ public abstract class FakeApiServiceGenerator {
     }
 
     static List<Shop> FAKE_SHOPS = Arrays.asList(
-            new Shop(0,"SophiaCookies"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, 8, 18,0.5, 0.6, COOKIE_RECIPES.get(Lib.CookieName.CHOCOLALA)),
-            new Shop(1,"NiceCookies"," 9 Rue Alberti, 06000 Nice", Place.Nice, 9, 20,0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
-            new Shop(2,"CannesCookies","39 Rue Hoche, 06400 Cannes", Place.Cannes, 9, 19,0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
+            new Shop(0,"SophiaCookies"," 200 Avenue Roumanille, 06410 Biot", Place.Biot, 8, 10,0.5, 0.6, COOKIE_RECIPES.get(Lib.CookieName.CHOCOLALA)),
+            new Shop(1,"NiceCookies"," 9 Rue Alberti, 06000 Nice", Place.Nice, 9, 10,0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
+            new Shop(2,"CannesCookies","39 Rue Hoche, 06400 Cannes", Place.Cannes, 9, 10,0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
     );
 
 

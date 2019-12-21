@@ -286,11 +286,13 @@ public class FakeApiService implements ApiService {
     @Override
     public void addOrder(Order order) throws CloneNotSupportedException {
         giveDiscount(order);
+        lastHourReduction(order, shopDiscounts.get("LAST_HOUR"));
         order.setTotalPrice(order.getCart().getTotalPrice() + order.getCart().getTotalPrice() * order.getShop().getTax());
         System.out.println(order.toString());
         order.setCart(order.getCustomer().getCart().clone()); //clone du panier pour la garder en mémoire car on le supprime de l'utilisateur après
         orders.add(order);
         order.getCustomer().emptyCart(); // and empty the customer's cart
+
     }
 
     @Override
@@ -406,9 +408,10 @@ public class FakeApiService implements ApiService {
     }
 
     public void lastHourReduction(Order order, Discount discount) {
+
         if (order.getShop().theLastHour(order.getDate())) {
             for (Consumable consumable : order.getCart().getItems().keySet()) {
-                if (consumable.isCookie() && consumable.getName().equals("Personalized cookie")) {
+                if (consumable.isCookie() && !consumable.getName().equals("Personalized cookie")) {
                     order.getCart().applyReductionOnConsumable(discount, consumable);
                 }
             }

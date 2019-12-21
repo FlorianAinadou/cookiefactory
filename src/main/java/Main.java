@@ -1,12 +1,11 @@
 import di.Injection;
 import model.Order;
 import model.Recipe;
-import model.Shop;
 import model.RecipeBuilder;
+import model.Shop;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.CookiesPackCreator;
-import model.consumables.Drink;
 import model.customer.Customer;
 import repository.*;
 import utils.Lib;
@@ -78,37 +77,37 @@ public class Main {
                 .buildRecipe();
 
 
-        customer.addConsumables(new Cookie(cherryBlossom), 301  );
-        customer.addConsumables(new Cookie(cod), 1);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
-        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
-        customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
-        customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
-        System.out.println(customer.getCart().getNbCookiesDirectlyInTheCart());
+        //customer.addConsumables(new Cookie(cherryBlossom), 301  );
+        //customer.addConsumables(new Cookie(cod), 1);
+        //customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
+        //customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
+        //customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
+        //customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
+        //System.out.println(customer.getCart().getNbCookiesDirectlyInTheCart());
 
         CookiesPackCreator creator = new CookiesPackCreator();
-        creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
-        customer.showCart();
+        //creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
+        //customer.showCart();
         //creator.createPack(customer.getCart(), 30, 3);
         //System.out.println("Cookies number: " + customer.getCart().getNbCookies());
         //customer.showCart();
 
         //shopRepository.showStock(shop);
 
-        Order order = new Order(orderRepository.getOrderNum(), customer,new Date(System.currentTimeMillis() - 3600 * 1000) , shop, discountRepository.getDiscounts(customer));
+        //Order order = new Order(orderRepository.getOrderNum(), customer,new Date(System.currentTimeMillis() - 3600 * 1000) , shop, discountRepository.getDiscounts(customer));
         //orderRepository.addOrder(order, new EntrepriseCodePriority());
-        orderRepository.addOrder(order);
+        //orderRepository.addOrder(order);
 
-        orderRepository.payOrder(order, customer);
-        System.out.println(order.getOrderStatus());
+        //orderRepository.payOrder(order, customer);
+        //System.out.println(order.getOrderStatus());
 
         //shopRepository.showStock(shop);
 
 
-        System.out.println("");
+        //System.out.println("");
 
         //shopRepository.showStock(shop2);
-
+/*
         customer2.addConsumables(new Cookie(cherryBlossom),40 );
         customer2.addConsumables(new Cookie(cherryBlossom),7 );
 
@@ -119,13 +118,18 @@ public class Main {
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
         //shopRepository.showStock(shop2);
-
-
+*/
+        System.out.println("*****************");
         customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
+
         Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(System.currentTimeMillis() - 7200 * 1000), shop2, discountRepository.getDiscounts(customer2));
+        //orderRepository.lastHourReduction(order3, new Discount(0.3f, "LAST_HOUR"));
+        //customer2.showCart();
+
         orderRepository.addOrder(order3);
+        //customer2.showCart();
         orderRepository.payOrder(order3, customer2);
         orderRepository.pickUpOrder(order3, shop2);
         System.out.println(order3.getOrderStatus());
