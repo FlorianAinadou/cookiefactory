@@ -27,7 +27,8 @@ public class Order {
     public Order(int id, Customer customer, Date date, Date pickupDate, Shop shop, List<Discount> discounts) {
         this.id = id;
         this.customer = customer;
-        this.cart = customer.getCart(); // we save the cart in the order
+        this.cart = new Cart(customer.getCart()); // we save the cart in the order
+
         this.orderStatus = 0;
         this.date = date;
         this.pickupDate = pickupDate;
@@ -41,6 +42,11 @@ public class Order {
                 }
         }
         discountsYouCouldApply= discounts;
+        customer.emptyCart();
+    }
+
+    public boolean isPaid() {
+        return orderStatus == 2;
     }
 
     public double getTotalPrice() {

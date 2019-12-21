@@ -1,7 +1,10 @@
 Feature: Customer interaction with the shop
 
   Background:
-    Given I am a customer
+    Given I'm a customer
+
+  When I collect my order
+  Then My order is collected
 
   #Je ne peux pas commander en dehors des horaires d'ouverture
 

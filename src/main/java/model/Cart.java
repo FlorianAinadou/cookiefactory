@@ -28,6 +28,13 @@ public class Cart implements Cloneable{
         nbCookies = 0;
         nbCookiesDirectlyInTheCart=0;
     }
+    public Cart(Cart c) {
+        items = c.items;
+        totalPrice = c.totalPrice;
+        nbCookies = c.nbCookies;
+        nbCookiesDirectlyInTheCart = c.nbCookiesDirectlyInTheCart;
+        codeEvent = c.codeEvent;
+    }
 
     public Map<Consumable, Integer> getItems() { return items; } // returns all the items in the basket
     public void setItems(Map<Consumable, Integer> newItems) { this.items = newItems; } // returns all the items in the basket

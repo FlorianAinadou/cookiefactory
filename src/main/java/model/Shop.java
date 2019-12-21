@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import di.Injection;
 import model.customer.Customer;
 import utils.Log;
@@ -80,6 +81,7 @@ public class Shop {
     }
     public void setOrderHistory(List<Order> orderHistory) { this.orderHistory = orderHistory; }
     public void emptyOrderHistory() { orderHistory.clear(); }
+    public List<Order> getWaitOrder() { return waitOrder; }
 
     public Recipe getRecipeOfTheMonth() { return recipeOfTheMonth; }
     public void setRecipeOfTheMonth(Recipe r) { this.recipeOfTheMonth = r; }

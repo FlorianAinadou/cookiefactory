@@ -1,6 +1,7 @@
 package step_definitions;
 
 import di.Injection;
+import model.Order;
 import model.Recipe;
 import model.RecipeBuilder;
 import model.Shop;
@@ -12,6 +13,7 @@ import model.customer.Customer;
 import io.cucumber.java8.En;
 import repository.CookieRepository;
 
+import java.util.Date;
 import java.util.Map;
 
 import repository.CustomerRepository;
@@ -22,6 +24,7 @@ import utils.Lib;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * @author Lydia BARAUKOVA
@@ -41,7 +44,8 @@ public class OrderStepdefs implements En {
 
     private Drink drink;
 
-    private Shop shop;
+    private Shop shop = shopRepository.getRandomShop();
+    private Order order;
 
     public OrderStepdefs() {
 
@@ -126,19 +130,57 @@ public class OrderStepdefs implements En {
         // I can place an order with both predefined and personalized cookies
         // I know if the order has been paid
 
-        /*When("I place an order",
+        When("I place an order with both predefined and personalized cookies",
                 () -> {
-                    shop.pla
+                    predefinedCookie = new Cookie(cookieRepository.getRecipes().get(Lib.CookieName.CHOCOLALA));
+                    customer.addConsumables(predefinedCookie, 20);
+
+                    recipeBuilder = new RecipeBuilder();
+                    recipeBuilder.addDough(cookieRepository.getDough().get(Lib.Dough.OATMEAL));
+                    recipeBuilder.addCooking(cookieRepository.getCooking().get(Lib.Cooking.CHEWY));
+                    recipeBuilder.addMix(cookieRepository.getMix().get(Lib.Mix.MIXED));
+                    recipeBuilder.addFlavour(cookieRepository.getFlavour().get(Lib.Flavour.CHILI));
+                    recipeBuilder.addTopping(cookieRepository.getToppings().get(Lib.Topping.CHERRY_SYRUP));
+                    personalizedRecipe = recipeBuilder.buildRecipe();
+                    personalizedCookie = new Cookie(personalizedRecipe);
+                    customer.addConsumables(personalizedCookie, 10);
+
+                    order = shop.placeOrder(orderRepository.getNbOrders(),customer,new Date());
                 });
-        Then("My cart is emptied");
-        And("A new order is created");
-        And("It has not yet been paid");*/
+        Then("My cart is emptied",
+                () -> assertTrue(customer.getCart().getItems().isEmpty()));
+        And("A new order is created",
+                () -> assertTrue(shop.getWaitOrder().contains(order)));
+        And("It has not yet been paid",
+                () -> assertFalse(order.isPaid()));
+
+        // I can pay for my order with a credit card
+
+        When("I pay for my order",
+                () -> {
+                    predefinedCookie = new Cookie(cookieRepository.getRecipes().get(Lib.CookieName.CHOCOLALA));
+                    customer.addConsumables(predefinedCookie, 20);
+
+                    recipeBuilder = new RecipeBuilder();
+                    recipeBuilder.addDough(cookieRepository.getDough().get(Lib.Dough.OATMEAL));
+                    recipeBuilder.addCooking(cookieRepository.getCooking().get(Lib.Cooking.CHEWY));
+                    recipeBuilder.addMix(cookieRepository.getMix().get(Lib.Mix.MIXED));
+                    recipeBuilder.addFlavour(cookieRepository.getFlavour().get(Lib.Flavour.CHILI));
+                    recipeBuilder.addTopping(cookieRepository.getToppings().get(Lib.Topping.CHERRY_SYRUP));
+                    personalizedRecipe = recipeBuilder.buildRecipe();
+                    personalizedCookie = new Cookie(personalizedRecipe);
+                    customer.addConsumables(personalizedCookie, 10);
+
+                    order = shop.placeOrder(orderRepository.getNbOrders(),customer,new Date());
+                    orderRepository.addOrder(order);
+                    orderRepository.payOrder(order,customer);
+                });
+        Then("My order is paid",
+                () -> assertTrue(order.isPaid()));
 
 
 
-  //Je peux payer ma commande par carte bancaire
 
-  //Je peux passer une commande avec des cookies classiques et personnalisés
 
   //Je peux calculer un prix TTC à partir des ingrédients, des discounts et des taxes.
 

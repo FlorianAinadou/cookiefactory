@@ -24,3 +24,9 @@ Feature: Ordering cookies
     When I add 10 personalized cookies to my cart
     Then This personalized cookie is added to my cart
     And The quantity of this personalized cookie is 10
+
+  Scenario: I can place an order with both predefined and personalized cookies
+    When I place an order with both predefined and personalized cookies
+    Then My cart is emptied
+    And A new order is created
+    And It has not yet been paid
