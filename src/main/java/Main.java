@@ -8,6 +8,7 @@ import model.consumables.CookieComponent;
 import model.consumables.CookiesPackCreator;
 import model.consumables.Drink;
 import model.customer.Customer;
+import model.customer.Manager;
 import repository.*;
 import utils.Lib;
 import utils.Statistics;
@@ -56,6 +57,7 @@ public class Main {
         Map<String, CookieComponent> FLAVOUR_COOKIE = cookieRepository.getFlavour();
         Map<String, CookieComponent> DOUGH_COOKIE = cookieRepository.getDough();
         Map<String, CookieComponent> TOPPING_COOKIE = cookieRepository.getTopping();
+
 
         Customer customer = customerRepository.getRandomRegisteredCustomer();
         Customer customer2 = customerRepository.getRandomUnregisteredCustomer();

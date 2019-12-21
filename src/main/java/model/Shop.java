@@ -1,5 +1,7 @@
 package model;
 
+import model.customer.Manager;
+
 import java.util.*;
 
 /**
@@ -30,6 +32,7 @@ public class Shop {
         this.orderHistory = new ArrayList<>();
         this.recipeOfTheMonth = recipeOfTheMonth;
     }
+
 
     public int getId() { return id; }
 
@@ -78,6 +81,7 @@ public class Shop {
 
     public Recipe getRecipeOfTheMonth() { return recipeOfTheMonth; }
     public void setRecipeOfTheMonth(Recipe r) { this.recipeOfTheMonth = r; }
+
 
     public void shopPickUp(Order order) {
         waitOrder.remove(order);
