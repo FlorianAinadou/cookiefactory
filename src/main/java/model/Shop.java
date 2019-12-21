@@ -1,5 +1,9 @@
 package model;
 
+import di.Injection;
+import model.customer.Customer;
+import utils.Log;
+
 import java.util.*;
 
 /**
@@ -91,6 +95,16 @@ public class Shop {
         calendar.setTime(currentDate);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         return (currentHour < closingAt && currentHour >= closingAt-1);
+    }
+
+    public Order placeOrder(int id, Customer customer, Date pickupDate) {
+        if (customer.getCart().getItems().isEmpty()) {
+            Log.print("The cart is empty, cannot place an order");
+            return null;
+        }
+        Order order = new Order(id,customer,new Date(),pickupDate,this, Injection.createDiscountRepository().getDiscounts(customer));
+        waitOrder.add(order);
+        return order;
     }
 
     @Override

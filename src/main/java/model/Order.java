@@ -1,5 +1,6 @@
 package model;
 
+import model.consumables.Cookie;
 import model.customer.Customer;
 import model.discount.Discount;
 import utils.Utils;
@@ -17,20 +18,28 @@ public class Order {
     private final int id; // just a  random number given to every order
     private  Cart cart;
     private final Customer customer;
-    private final Date date; // the order date and hour
+    private final Date date, pickupDate; // date of the order and date of the pickup
     private final Shop shop; // the place where the order will be collected
     private double totalPrice; // the order amount
     private int orderStatus; // status of the order
     private List<Discount> discountsYouCouldApply;
 
-    public Order(int id, Customer customer, Date date, Shop shop, List<Discount> discounts) {
+    public Order(int id, Customer customer, Date date, Date pickupDate, Shop shop, List<Discount> discounts) {
         this.id = id;
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
         this.orderStatus = 0;
         this.date = date;
+        this.pickupDate = pickupDate;
         this.shop = shop;
-        this.totalPrice = 0;
+        this.totalPrice = cart.getTotalPrice();
+        // if the customer has a cinema ticket for today and has ordered 5 or more cookies, he gets 2 free cookies
+        if (customer.getCinemaTicket() != null) {
+                if (Utils.sameDay(date, customer.getCinemaTicket().getMovieDate()) &&
+                        cart.getNbCookies() >= 5) {
+                    cart.addConsumables(new Cookie(shop.getRecipeOfTheMonth()), 2);
+                }
+        }
         discountsYouCouldApply= discounts;
     }
 
@@ -57,6 +66,7 @@ public class Order {
     public Date getDate() {
         return date;
     }
+    public Date getPickupDate() { return pickupDate; }
     public Shop getShop() {
         return shop;
     }

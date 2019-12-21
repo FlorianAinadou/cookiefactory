@@ -113,7 +113,7 @@ public class Main {
 
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
-        Order order2 = new Order(orderRepository.getOrderNum(), customer2, new Date(System.currentTimeMillis() - 3600 * 1000), shop2, discountRepository.getDiscounts(customer2));
+        Order order2 = shop2.placeOrder(orderRepository.getNbOrders(), customer2, new Date(System.currentTimeMillis() - 3600 * 1000));
         orderRepository.addOrder(order2);
         orderRepository.payOrder(order2, customer2);
         System.out.println(order2.getOrderStatus());
@@ -123,8 +123,7 @@ public class Main {
         customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
-
-        Order order3 = new Order(orderRepository.getOrderNum(), customer2, new Date(System.currentTimeMillis() - 7200 * 1000), shop2, discountRepository.getDiscounts(customer2));
+        Order order3 = new Order(1, customer2, new Date(System.currentTimeMillis() - 7200 * 1000), new Date(System.currentTimeMillis() - 7200 * 1000), shop2, discountRepository.getDiscounts(customer2));
         //orderRepository.lastHourReduction(order3, new Discount(0.3f, "LAST_HOUR"));
         //customer2.showCart();
 

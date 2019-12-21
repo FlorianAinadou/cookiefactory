@@ -3,27 +3,24 @@ Feature: Ordering cookies
   Background:
     Given I am an unregistered customer
 
-  Scenario: Jeff adds 20 Chocolalas to his cart
-    When Jeff adds 20 Chocolalas to his cart
-    Then A new item named Chocolala appears in his cart
-    And The quantity of this item is 20
-    And The total sum to pay is updated
-  #Je sais que la commande a été payée
+  Scenario: I can add predefined cookies to my cart
+    When I add 20 predefined cookies named "Chocolala" to my cart
+    Then The cookie named "Chocolala" appears in my cart
+    And Its quantity is 20
 
-  #Je peux commander sans compte sur la plateforme CoD
+  Scenario: I can't create personalized cookies with too few ingredients
+    When I try to create a personalized recipe with too few ingredients
+    Then The recipe is not created
 
-  #Il n'est pas possible de commander quelque chose qu'on ne sait pas fabriquer
+  Scenario: I can't create personalized cookies with too many ingredients
+    When I try to add more than 3 toppings
+    Then The toppings that surpass the limit of 3 are not added
 
-  #Je peux payer ma commande par carte bancaire
+  Scenario: I can create personalized cookies
+    When I try to create a personalized recipe named "My cookie" with enough ingredients
+    Then The recipe named "My cookie" is created
 
-  #Je peux passer une commande avec des cookies classiques et personnalisés
-
-  #Je peux calculer un prix TTC à partir des ingrédients, des discounts et des taxes.
-
-  #Les cookies personnalisés respectent les contraintes de fabrication (mix, topping, etc.)
-
-  #Je dois payer un surcoût en cas de commande de cookies personnalisés
-
-  #Je peux recevoir des packs de cookies selon le nombre de cookies commandés
-
-  #Je peux associer des boissons à des packs de cookies
+  Scenario: I can add personalized cookies to my cart
+    When I add 10 personalized cookies to my cart
+    Then This personalized cookie is added to my cart
+    And Its quantity is 10
