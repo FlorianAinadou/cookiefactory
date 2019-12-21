@@ -1,6 +1,7 @@
 package model.customer;
 
 import model.Cart;
+import model.CinemaTicket;
 import model.consumables.Consumable;
 
 import java.util.Objects;
@@ -12,16 +13,17 @@ import java.util.Objects;
  */
 public abstract class Customer {
 
-    private Cart cart; // every customer has a cart
+    protected Cart cart; // every customer has a cart
 
     // basic information for all users
-    private String firstName;
-    private String lastName;
-    private String tel;
-    private String email;
+    protected String firstName;
+    protected String lastName;
+    protected String tel;
+    protected String email;
+    protected CinemaTicket cinemaTicket = null;
 
     protected int seniority;
-    private double walletAmount;
+    protected double walletAmount;
 
     Customer(String firstName, String lastName, String tel, String email, double walletAmount) {
         this.firstName = firstName;
@@ -38,6 +40,9 @@ public abstract class Customer {
     public void setTel(String t) { tel = t; }
     public String getEmail() { return email; }
     public void setEmail(String e) { email = e; }
+
+    public CinemaTicket getCinemaTicket() { return cinemaTicket; }
+    public void setCinemaTicket(CinemaTicket t) { cinemaTicket = t; }
 
     public double getWalletAmount() {
         return walletAmount;

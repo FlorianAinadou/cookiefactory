@@ -29,7 +29,7 @@ public class OrderRepository {
         return apiService.getOrders();
     }
 
-    public int getOrderNum() {
+    public int getNbOrders() {
         return apiService.getOrderNum();
     }
 

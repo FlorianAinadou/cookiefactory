@@ -19,7 +19,9 @@ import repository.OrderRepository;
 import repository.ShopRepository;
 import utils.Lib;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Lydia BARAUKOVA
@@ -75,7 +77,7 @@ public class OrderStepdefs implements En {
         Then("The recipe is not created",
                 () -> assertNull(personalizedRecipe));
 
-        When("I try to add more than {int} ingredients of one type",
+        When("I try to add more than {int} toppings",
                 (Integer limit) -> {
                     recipeBuilder = new RecipeBuilder();
                     Map<String, CookieComponent> toppings = cookieRepository.getToppings();
@@ -86,7 +88,7 @@ public class OrderStepdefs implements En {
                         i++;
                     }
                 });
-        Then("The ingredients that surpass the limit of {int} are not added",
+        Then("The toppings that surpass the limit of {int} are not added",
                 (Integer limit) -> assertEquals(limit, recipeBuilder.getToppings().size()));
 
         // Personalized cookies should have all the mandatory ingredients
@@ -121,7 +123,9 @@ public class OrderStepdefs implements En {
         // I know if the order has been paid
 
         /*When("I place an order",
-                () -> customer.o);
+                () -> {
+                    shop.pla
+                });
         Then("My cart is emptied");
         And("A new order is created");
         And("It has not yet been paid");*/
