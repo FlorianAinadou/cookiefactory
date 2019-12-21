@@ -48,7 +48,7 @@ public class Main {
         Map<String, CookieComponent> COOKING_COOKIE = cookieRepository.getCooking();
         Map<String, CookieComponent> FLAVOUR_COOKIE = cookieRepository.getFlavour();
         Map<String, CookieComponent> DOUGH_COOKIE = cookieRepository.getDough();
-        Map<String, CookieComponent> TOPPING_COOKIE = cookieRepository.getTopping();
+        Map<String, CookieComponent> TOPPING_COOKIE = cookieRepository.getToppings();
 
         Customer customer = customerRepository.getRandomRegisteredCustomer();
         Customer customer2 = customerRepository.getRandomUnregisteredCustomer();
@@ -57,13 +57,12 @@ public class Main {
 
         Recipe cherryBlossom = recipes.get(Lib.CookieName.CHERRY_BLOSSOM);
 
-        Recipe cod = new RecipeBuilder(shop.getCodTax())
-                .cooking(COOKING_COOKIE.get(Lib.Cooking.CHEWY))
-                .dough(DOUGH_COOKIE.get(Lib.Dough.CHERRY_JAM))
-                .flavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHERRY))
-                .mix(MIX_COOKIE.get(Lib.Mix.TOPPED))
-                .toppings(new ArrayList<>(Collections.singletonList(TOPPING_COOKIE.get(Lib.Topping.CHERRY_SYRUP))))
-                .marginPrice(2.00)
+        Recipe cod = new RecipeBuilder()
+                .addCooking(COOKING_COOKIE.get(Lib.Cooking.CHEWY))
+                .addDough(DOUGH_COOKIE.get(Lib.Dough.CHERRY_JAM))
+                .addFlavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHERRY))
+                .addMix(MIX_COOKIE.get(Lib.Mix.TOPPED))
+                .addTopping(TOPPING_COOKIE.get(Lib.Topping.CHERRY_SYRUP))
                 .buildRecipe();
 
 

@@ -1,8 +1,8 @@
 package model;
 
-
 import model.consumables.CookieComponent;
 import utils.Lib;
+import utils.Log;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -11,38 +11,24 @@ import java.util.Objects;
 
 /**
  * @author Lydia BARAUKOVA
+ * @author Virgile FANTAUZZI
  */
 public class Recipe {
-    // paramètres
+    // parameters
     private String name;
     private CookieComponent cooking = null;
     private CookieComponent mix = null;
-    private double price = 0;
-    private double marginPrice = 0;
-
-    // ingrédients
     private CookieComponent dough = null;
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
+    private double price = 0;
+    private double marginPrice = 0;
+    private boolean isPersonalized;
 
-    public Recipe(String name, CookieComponent cooking, CookieComponent mix, double price, double marginPrice, CookieComponent dough, CookieComponent flavour, ArrayList<CookieComponent> toppings) {
-        this.name = name;
-        this.cooking = cooking;
-        this.mix = mix;
-        this.price = price;
-        this.marginPrice = marginPrice;
-        this.dough = dough;
-        this.flavour = flavour;
-        this.toppings = toppings;
-    }
-
-    private void errorRecipe(String name) {
-        System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
-    }
-
-    public Recipe(String n, double mp, List<CookieComponent> composants) {
+    public Recipe(String n, double mp, List<CookieComponent> components, boolean isPersonalized) {
+        this.isPersonalized = isPersonalized;
         name = n;
-        composants.forEach(c -> {
+        components.forEach(c -> {
             switch (c.getType()) {
                 case Lib.ComponentType.DOUGH:
                     if (dough == null) {
@@ -80,12 +66,20 @@ public class Recipe {
                     toppings.add(c);
                     break;
                 default:
-                    System.out.println("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
+                    Log.print("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
                     break;
             }
         });
         marginPrice = mp;
         price += mp;
+    }
+
+    private void errorRecipe(String name) {
+        System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
+    }
+
+    public boolean isPersonalized() {
+        return isPersonalized;
     }
 
     public void setPriceMargin(double marginPrice) {

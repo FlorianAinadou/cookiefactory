@@ -35,6 +35,7 @@ public class FakeApiService implements ApiService {
     private HashMap<String, Discount> shopDiscounts = new HashMap<>(generateShopDiscounts());
     private ArrayList<PackComposition> packCompositions= new ArrayList<>(generatePacksComposition());
     private List<Order> orders = new ArrayList<>();
+    private double codMargin = COD_MARGIN;
 
     // customer related methods
 
@@ -70,6 +71,8 @@ public class FakeApiService implements ApiService {
     @Override public void addRecipe(String name, Recipe recipe) { recipes.put(name, recipe); }
     @Override public void deleteRecipe(String name) { recipes.remove(name); }
     @Override public void changeRecipeMargin(String name, double value) { recipes.get(name).setPriceMargin(value); }
+    @Override public double getCodMargin() { return codMargin; }
+    @Override public void setCodMargin(double margin) { codMargin = margin; }
 
     @Override public Map<String, CookieComponent> getDough() {
         return doughs;

@@ -1,101 +1,92 @@
 package model.builders;
 
+import di.Injection;
 import model.Recipe;
 import model.consumables.CookieComponent;
-import utils.Lib;
+import utils.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Virgile Fantauzzi
+ * @author Virgile FANTAUZZI
+ * @author Lydia BARAUKOVA
+ * Recipe builder for creating personalized cookies
  */
 public class RecipeBuilder {
 
-    private final double MARGIN_COD = 1.2;
+    private final double MARGIN_COD = 0.2; // additional margin on personalized cookies
 
-    // paramètres
+    // parameters
     private String name = "";
-    private boolean isPerso;
     private CookieComponent cooking = null;
     private CookieComponent mix = null;
-    private double price = 0;
-    private double rate = 1;
-    private double marginPrice = 0;
-    // ingrédients
     private CookieComponent dough = null;
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
+    private int nbToppings = 0;
 
-    public RecipeBuilder(double rate) {
-        this.rate = rate;
-    }
+    public RecipeBuilder() {}
 
     public Recipe buildRecipe() {
-        return new Recipe(name, cooking, mix, price * rate, marginPrice, dough, flavour, toppings);
+        // without these elements we can't create a cookie
+        if (dough == null) { Log.print("Missing dough"); return null; }
+        else if (cooking == null) { Log.print("Missing dough"); return null; }
+        else if (mix == null) { Log.print("Missing mix"); return null; }
+
+        // we get the CoD margin from our API
+        double codMargin = Injection.createCookieRepository().getCodMargin();
+
+        // we create a list of components
+        List<CookieComponent> components = new ArrayList<>();
+        components.add(dough);
+        components.add(cooking);
+        components.add(mix);
+        if (flavour != null) components.add(flavour);
+        toppings.forEach(topping -> { if (topping != null) components.add(topping); });
+
+        // and return the personalized recipe
+        return new Recipe(name, codMargin, components, true);
     }
 
-    private void errorRecipe(String name) {
-        System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
-    }
-
-    public RecipeBuilder name(String _name) {
-        this.name = _name;
+    public RecipeBuilder setName(String name) {
+        this.name = name;
         return this;
     }
 
-    public RecipeBuilder cooking(CookieComponent cooking) {
-        if (this.cooking == null) {
-            this.cooking = cooking;
-            price += cooking.getPrice();
-        } else {
-            errorRecipe(cooking.getName());
-        }
+    public RecipeBuilder addCooking(CookieComponent cooking) {
+        if (this.cooking == null) this.cooking = cooking;
+        else recipeError(1, "cooking");
         return this;
     }
 
-    public RecipeBuilder mix(CookieComponent mix) {
-        if (this.mix == null) {
-            this.mix = mix;
-            price += mix.getPrice();
-
-        } else {
-            errorRecipe(mix.getName());
-        }
+    public RecipeBuilder addMix(CookieComponent mix) {
+        if (this.mix == null) this.mix = mix;
+        else recipeError(1, "mix");
         return this;
     }
 
-    public RecipeBuilder dough(CookieComponent dough) {
-        if (this.dough == null) {
-            this.dough = dough;
-            price += dough.getPrice();
-
-        } else {
-            errorRecipe(dough.getName());
-        }
+    public RecipeBuilder addDough(CookieComponent dough) {
+        if (this.dough == null) this.dough = dough;
+        else recipeError(1, "dough");
         return this;
     }
 
-    public RecipeBuilder flavour(CookieComponent flavour) {
-        if (this.flavour == null) {
-            this.flavour = flavour;
-            price += flavour.getPrice();
-
-        } else {
-            errorRecipe(flavour.getName());
-        }
+    public RecipeBuilder addFlavour(CookieComponent flavour) {
+        if (this.flavour == null) this.flavour = flavour;
+        else recipeError(1, "flavour");
         return this;
     }
 
-    public RecipeBuilder marginPrice(double marginPrice) {
-        this.marginPrice = marginPrice;
-        price += marginPrice;
+    public RecipeBuilder addTopping(CookieComponent topping) {
+        if (nbToppings == 3) recipeError(3, "toppings");
+        this.toppings.add(topping);
+        nbToppings++;
         return this;
     }
+    public List<CookieComponent> getToppings() { return toppings; }
 
-    public RecipeBuilder toppings(ArrayList<CookieComponent> toppings) {
-        this.toppings.addAll(toppings);
-        toppings.forEach(c -> price += c.getPrice());
-        return this;
+    private void recipeError(int limit, String componentName) {
+        Log.print("You can't pick more than " + limit + " " + componentName + ", the component has not been added");
     }
 }

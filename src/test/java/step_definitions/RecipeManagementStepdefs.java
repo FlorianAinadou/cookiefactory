@@ -39,7 +39,7 @@ public class RecipeManagementStepdefs implements En {
         When("I add a new topping named {string} of price {float}",
                 (String name, Float price) -> cookieRepository.addTopping(name, new CookieComponent(Lib.ComponentType.TOPPING, name, price)));
         Then("A topping named {string} appears in my list",
-                (String name) -> assertTrue(cookieRepository.getTopping().containsKey(name)));
+                (String name) -> assertTrue(cookieRepository.getToppings().containsKey(name)));
 
         // I can manage margins on cookies (ingredients, personalized recipes)
 
@@ -64,8 +64,8 @@ public class RecipeManagementStepdefs implements En {
                 (String name, Float price) -> assertEquals(price.floatValue(), cookieRepository.getFlavour().get(name).getPrice()));
 
         When("I set the price of the topping named {string} to {float}",
-                (String name, Float price) -> cookieRepository.getTopping().get(name).setPrice(price));
+                (String name, Float price) -> cookieRepository.getToppings().get(name).setPrice(price));
         Then("The price of the topping named {string} becomes {float}",
-                (String name, Float price) -> assertEquals(price.floatValue(), cookieRepository.getTopping().get(name).getPrice()));
+                (String name, Float price) -> assertEquals(price.floatValue(), cookieRepository.getToppings().get(name).getPrice()));
     }
 }

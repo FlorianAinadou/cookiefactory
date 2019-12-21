@@ -26,6 +26,8 @@ public class CookieRepository {
     public void addRecipe(String name, Recipe recipe) { apiService.addRecipe(name, recipe); }
     public void deleteRecipe(String name) { apiService.deleteRecipe(name); }
     public void changeRecipeMargin(String name, double value) { apiService.changeRecipeMargin(name, value); }
+    public double getCodMargin() { return apiService.getCodMargin(); }
+    public void setCodMargin(double margin) { apiService.setCodMargin(margin); }
 
     public Map<String, CookieComponent> getDough(){
         return apiService.getDough();
@@ -34,7 +36,7 @@ public class CookieRepository {
     public void deleteDough(String name) { apiService.deleteDough(name); }
     public void changeDoughPrice(String name, double price) { apiService.changeDoughPrice(name, price); }
 
-    public Map<String, CookieComponent> getTopping(){
+    public Map<String, CookieComponent> getToppings(){
         return apiService.getTopping();
     }
     public void addTopping(String name, CookieComponent topping) { apiService.addTopping(name, topping); }

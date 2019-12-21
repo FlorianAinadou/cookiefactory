@@ -47,6 +47,8 @@ public interface ApiService {
     void addRecipe(String name, Recipe recipe);
     void deleteRecipe(String name);
     void changeRecipeMargin(String name, double margin);
+    double getCodMargin();
+    void setCodMargin(double margin);
 
     Map<String, CookieComponent> getDough();
     void addDough(String name, CookieComponent dough);
