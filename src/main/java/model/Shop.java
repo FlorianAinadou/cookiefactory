@@ -1,7 +1,5 @@
 package model;
 
-import model.customer.Manager;
-
 import java.util.*;
 
 /**

@@ -399,5 +399,7 @@ public class FakeApiService implements ApiService {
                 }
             }
         }
+
+        else System.out.println("We are not in the last hour ");
     }
 }
