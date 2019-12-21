@@ -44,12 +44,14 @@ public class CookiesPackCreator {
             try {
                 //THis is the biggest pack you can ever get
 
-                if (cart.getNbCookies() > nbCookiesToCreatePack) { // Check if there is enough cookie to build this pack
+                if (cart.getNbCookies() >= nbCookiesToCreatePack) { // Check if there is enough cookie to build this pack
                     CookiesPack pack = new CookiesPack(nbCookiesToCreatePack, packPrice); //So we create a new pack
                     Cart secondCart = cart.clone();
                     Iterator<Consumable> it = secondCart.getItems().keySet().iterator();
                     for (int i = 0; i < nbCookiesToCreatePack; i++) {
-
+                        if(!it.hasNext()){
+                            break;
+                        }
                         Consumable currentCookie = it.next();//Running the pack
 
                         int nbThisCookie = cart.getItems().get(currentCookie);
@@ -74,7 +76,7 @@ public class CookiesPackCreator {
 
 
                     }
-
+                    //if(it.hasNext())
                     cart.addConsumables(pack, 1);
 
                 }
@@ -91,10 +93,13 @@ public class CookiesPackCreator {
     public void createAllPossiblePacks(Cart cart, List<PackComposition> packCompositions) throws CloneNotSupportedException {
 
         int nbPacks = packCompositions.size();
-        while (cart.getNbCookiesDirectlyInTheCart() >packCompositions.get(0).getCookiesNumber()) {
+        while (cart.getNbCookiesDirectlyInTheCart() >= packCompositions.get(0).getCookiesNumber()) {
 
             for ( int i= nbPacks; i>0 ; i=i-1) {
-                createPack(cart,packCompositions.get( i- 1).getCookiesNumber(),packCompositions.get( nbPacks- 1).getPackPrice());
+                while(cart.getNbCookiesDirectlyInTheCart() >= packCompositions.get(i-1).getCookiesNumber()) {
+                    createPack(cart, packCompositions.get(i - 1).getCookiesNumber(), packCompositions.get(i - 1).getPackPrice());
+                }
+                //if (cart.getNbCookiesDirectlyInTheCart() >packCompositions.get(0).getCookiesNumber()) i++;
             }
 
 

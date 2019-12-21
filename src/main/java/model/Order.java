@@ -2,8 +2,8 @@ package model;
 
 import model.customer.Customer;
 import model.discount.Discount;
+import utils.Utils;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +28,7 @@ public class Order {
         this.customer = customer;
         this.cart = customer.getCart(); // we save the cart in the order
         this.orderStatus = 0;
-        this.date = new Date();
+        this.date = date;
         this.shop = shop;
         this.totalPrice = 0;
         discountsYouCouldApply= discounts;
@@ -83,9 +83,7 @@ public class Order {
 
     @Override
     public String toString(){
-        DecimalFormat price = new DecimalFormat();
-        price.setMaximumFractionDigits(2);
         return ("The order №" + id + " has been placed, for the shop at " + shop.getAddress() + ", "
-                + shop.getCity() + ", final price: " + price.format(totalPrice) + " €");
+                + shop.getCity() + ", final price: " + Utils.formatDouble(totalPrice) + " €");
     }
 }

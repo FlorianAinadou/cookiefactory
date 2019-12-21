@@ -25,11 +25,11 @@ class CookieTest {
                 new CookieComponent(Lib.ComponentType.COOKING, Lib.Cooking.CRUNCHY),
                 new CookieComponent(Lib.ComponentType.FLAVOUR, Lib.Flavour.CHOCOLATE),
                 new CookieComponent(Lib.ComponentType.MIX, Lib.Mix.TOPPED),
-                new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.MILK_CHOCOLATE)))));
+                new CookieComponent(Lib.ComponentType.TOPPING, Lib.Topping.MILK_CHOCOLATE))), true));
     }
 
    @Test
-   void CookieCreated() {
-      assertEquals(cookie, new Cookie(Injection.createCookieRepository().getRecipes().get(Lib.CookieName.CHOCOLALA)));
+   void sameCookie() {
+        assertEquals(cookie, new Cookie(Injection.createCookieRepository().getRecipes().get(Lib.CookieName.CHOCOLALA)));
    }
 }

@@ -25,7 +25,6 @@ public class CookieRepository {
     }
     public void addRecipe(String name, Recipe recipe) { apiService.addRecipe(name, recipe); }
     public void deleteRecipe(String name) { apiService.deleteRecipe(name); }
-    public void changeRecipeMargin(String name, double value) { apiService.changeRecipeMargin(name, value); }
     public double getCodMargin() { return apiService.getCodMargin(); }
     public void setCodMargin(double margin) { apiService.setCodMargin(margin); }
 

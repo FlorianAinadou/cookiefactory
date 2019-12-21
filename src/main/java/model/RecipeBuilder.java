@@ -1,7 +1,6 @@
-package model.builders;
+package model;
 
 import di.Injection;
-import model.Recipe;
 import model.consumables.CookieComponent;
 import utils.Log;
 

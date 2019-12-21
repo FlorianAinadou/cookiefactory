@@ -8,6 +8,7 @@ import model.Shop;
 import model.consumables.CookieComponent;
 import model.consumables.PackComposition;
 import model.customer.Customer;
+import model.customer.Manager;
 import model.customer.RegisteredCustomer;
 import model.customer.UnregisteredCustomer;
 import model.discount.Discount;
@@ -26,6 +27,10 @@ public abstract class FakeApiServiceGenerator {
         List<Customer> c = new ArrayList<>(FAKE_REGISTERED_CUSTOMERS);
         c.addAll(FAKE_UNREGISTERED_CUSTOMERS);
         return c;
+    }
+    static List<Manager> generateManagers() {
+        List<Manager> m = new ArrayList<>(FAKE_MANAGERS);
+        return m;
     }
     static List<Shop> generateShops() { return new ArrayList<>(FAKE_SHOPS); }
     static Map<String, Recipe> generateCookieRecipes() {
@@ -46,6 +51,9 @@ public abstract class FakeApiServiceGenerator {
     static Map<String, Discount> generateShopDiscounts() {
         return new HashMap<>(SHOP_DISCOUNTS);
     }
+    static Map<String, HashMap<String, Integer>> generateStocks() {
+        return new HashMap<>(STOCKS);
+    }
     static ArrayList<PackComposition> generatePacksComposition(){ return new ArrayList<>(FAKE_PACKS);}
 
     static List<Customer> FAKE_REGISTERED_CUSTOMERS = Arrays.asList(
@@ -58,7 +66,11 @@ public abstract class FakeApiServiceGenerator {
             new UnregisteredCustomer("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0),
             new UnregisteredCustomer("Pauline", "Durand", "0645897556", "pauline@gmail.com", 2000.0)
     );
-
+    static List<Manager> FAKE_MANAGERS = Arrays.asList(
+            /*new Manager("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0, ),
+            new Manager("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0),
+            new Manager("Pauline", "Durand", "0645897556", "pauline@gmail.com", 2000.0)*/
+    );
     private static Map<String, CookieComponent> DOUGH_COOKIE = new HashMap<String, CookieComponent>() {
         {
             put(Lib.Dough.PLAIN, new CookieComponent(Lib.ComponentType.DOUGH, Lib.Dough.PLAIN, 0.05f));
@@ -105,6 +117,38 @@ public abstract class FakeApiServiceGenerator {
         put(Lib.CookieName.DARK_TEMPTATION, new Recipe(Lib.CookieName.DARK_TEMPTATION, 2.00, new ArrayList<>(Arrays.asList(DOUGH_COOKIE.get("Chocolate"), COOKING_COOKIE.get("Crunchy"), FLAVOUR_COOKIE.get("Chocolate"), MIX_COOKIE.get("Mixed"), TOPPING_COOKIE.get("Dark chocolate"))), false));
     }};
 
+    private static Map<String, Integer> STOCKS_SAMPLE = new HashMap<String, Integer>() {{
+        put(Lib.Topping.CHERRY_SYRUP, 100);
+        put(Lib.Topping.MILK_CHOCOLATE, 100);
+        put(Lib.Topping.DARK_CHOCOLATE, 100);
+        put(Lib.Topping.MNMS, 100);
+        put(Lib.Topping.WHITE_CHOCOLATE, 100);
+
+        put(Lib.Flavour.CHERRY, 100);
+        put(Lib.Flavour.CHILI, 100);
+        put(Lib.Flavour.CINNAMON, 100);
+        put(Lib.Flavour.VANILLA, 100);
+
+        put(Lib.Dough.CHERRY_JAM, 100);
+        put(Lib.Dough.CHOCOLATE, 100);
+        put(Lib.Dough.OATMEAL, 100);
+        put(Lib.Dough.PEANUT_BUTTER, 100);
+        put(Lib.Dough.PLAIN, 100);
+
+        put(Lib.Drink.COCA_ZERO, 100);
+        put(Lib.Drink.SPRITE, 100);
+
+    }};
+
+
+    private static Map<String, HashMap<String, Integer>> STOCKS = new HashMap<String, HashMap<String, Integer>>() {{
+        put("SophiaCookies", new HashMap<>(STOCKS_SAMPLE));
+        put("NiceCookies", new HashMap<>(STOCKS_SAMPLE));
+        put("CannesCookies", new HashMap<>(STOCKS_SAMPLE));
+    }};
+
+
+
     private static Map<RegisteredCustomer, ArrayList<Discount>> DISCOUNTS = new HashMap<RegisteredCustomer, ArrayList<Discount>>() {{
         put((RegisteredCustomer)FAKE_REGISTERED_CUSTOMERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.10f, "PROMO10"))));
         put((RegisteredCustomer)FAKE_REGISTERED_CUSTOMERS.get(0), new ArrayList<>(Collections.singletonList(new Discount(0.05f, "CE_AMADEUS"))));
@@ -113,6 +157,7 @@ public abstract class FakeApiServiceGenerator {
     private static HashMap<String , Discount> SHOP_DISCOUNTS = new HashMap<String, Discount>(){{
         put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM", 30));
         put("CE_AMADEUS",new Discount(0.05f, "CE_AMADEUS"));
+        put("LAST_HOUR", new Discount(0.3f, "LAST_HOUR"));
         //put("LOYALTY_PROGRAM",new Discount(0.1f, "LOYALTY_PROGRAM"));
     }};
 
@@ -136,6 +181,8 @@ public abstract class FakeApiServiceGenerator {
             new Shop(1,"NiceCookies"," 9 Rue Alberti, 06000 Nice", Place.Nice, 9, 20,0.05, 0.1, COOKIE_RECIPES.get(Lib.CookieName.CHERRY_BLOSSOM)),
             new Shop(2,"CannesCookies","39 Rue Hoche, 06400 Cannes", Place.Cannes, 9, 19,0.1, 0.2, COOKIE_RECIPES.get(Lib.CookieName.DARK_TEMPTATION))
     );
+
+
 
     static List<Order> FAKE_ORDERS = Arrays.asList(
             new Order(0, FAKE_REGISTERED_CUSTOMERS.get(0), new Date(), FAKE_SHOPS.get(0), Arrays.asList(new Discount((float) 0.2,"",0))),

@@ -4,7 +4,6 @@ import model.consumables.CookieComponent;
 import utils.Lib;
 import utils.Log;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,48 +21,46 @@ public class Recipe {
     private CookieComponent flavour = null;
     private ArrayList<CookieComponent> toppings = new ArrayList<>();
     private double price = 0;
-    private double marginPrice = 0;
+    private double marginPrice;
     private boolean isPersonalized;
+    private int nbToppings = 0;
 
     public Recipe(String n, double mp, List<CookieComponent> components, boolean isPersonalized) {
         this.isPersonalized = isPersonalized;
-        name = n;
+        this. name = n;
         components.forEach(c -> {
             switch (c.getType()) {
                 case Lib.ComponentType.DOUGH:
                     if (dough == null) {
                         this.dough = c;
                         price += c.getPrice();
-                    } else {
-                        errorRecipe("dough");
-                    }
+                    } else recipeError(1, "dough");
                     break;
                 case Lib.ComponentType.FLAVOUR:
                     if (flavour == null) {
                         price += c.getPrice();
                         this.flavour = c;
-                    } else {
-                        errorRecipe("flavour");
-                    }
+                    } else recipeError(1, "flavour");
                     break;
                 case Lib.ComponentType.MIX:
                     if (mix == null) {
                         price += c.getPrice();
                         this.mix = c;
-                    } else {
-                        errorRecipe("mix");
-                    }
+                    } else recipeError(1, "mix");
                     break;
                 case Lib.ComponentType.COOKING:
                     if (cooking == null) {
                         price += c.getPrice();
                         this.cooking = c;
-                    } else {
-                        errorRecipe("cooking");
-                    }
+                    } else recipeError(1, "cooking");
                     break;
                 case Lib.ComponentType.TOPPING:
-                    toppings.add(c);
+                    if (nbToppings >= 3) {
+                        recipeError(3, "toppings");
+                    } else {
+                        toppings.add(c);
+                        nbToppings++;
+                    }
                     break;
                 default:
                     Log.print("The ingredient : " + c.getName() + " has an incorrect type and has not been added to the recipe");
@@ -74,18 +71,18 @@ public class Recipe {
         price += mp;
     }
 
-    private void errorRecipe(String name) {
-        System.out.println("The recipe is incorrect, you can't pick more than one " + name + ", the ingredient has not been added");
+    public List<CookieComponent> getIngredients() {
+        List<CookieComponent> ingredients = new ArrayList<>();
+        if (dough != null) ingredients.add(dough);
+        if (cooking != null) ingredients.add(cooking);
+        if (mix != null) ingredients.add(mix);
+        if (flavour != null) ingredients.add(flavour);
+        if (toppings.size() != 0) ingredients.addAll(toppings);
+        return ingredients;
     }
 
     public boolean isPersonalized() {
         return isPersonalized;
-    }
-
-    public void setPriceMargin(double marginPrice) {
-        this.price -= this.marginPrice;
-        this.marginPrice = marginPrice;
-        this.price += this.marginPrice;
     }
 
     public String getName() {
@@ -105,25 +102,23 @@ public class Recipe {
     }
 
     public double getPrice() {
-        DecimalFormat price = new DecimalFormat();
-        price.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
-        return this.price;
+        return price;
+    }
+
+    public double getMarginPrice() {
+        return marginPrice;
     }
 
     public void setCooking(CookieComponent cooking) {
         price -= this.cooking.getPrice();
         this.cooking = cooking;
-        price -= this.cooking.getPrice();
+        price += this.cooking.getPrice();
     }
 
     public void setMix(CookieComponent mix) {
         price -= this.mix.getPrice();
         this.mix = mix;
-        price -= this.mix.getPrice();
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+        price += this.mix.getPrice();
     }
 
     public CookieComponent getDough() {
@@ -133,7 +128,7 @@ public class Recipe {
     public void setDough(CookieComponent dough) {
         price -= this.dough.getPrice();
         this.dough = dough;
-        price -= this.dough.getPrice();
+        price += this.dough.getPrice();
     }
 
     public CookieComponent getFlavour() {
@@ -143,17 +138,15 @@ public class Recipe {
     public void setFlavour(CookieComponent flavour) {
         price -= this.flavour.getPrice();
         this.flavour = flavour;
-        price -= this.flavour.getPrice();
+        price += this.flavour.getPrice();
     }
 
     public ArrayList<CookieComponent> getToppings() {
         return toppings;
     }
 
-    public void setToppings(ArrayList<CookieComponent> toppings) {
-        this.toppings.forEach(c -> price -= c.getPrice());
-        this.toppings = toppings;
-        this.toppings.forEach(c -> price += c.getPrice());
+    private void recipeError(int limit, String componentName) {
+        Log.print("You can't pick more than " + limit + " " + componentName + ", the component has not been added");
     }
 
     @Override
@@ -161,6 +154,12 @@ public class Recipe {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Recipe)) return false;
+        if (((Recipe) obj).getIngredients().size() == this.getIngredients().size() &&
+        ((Recipe) obj).getCooking() == this.cooking &&
+        ((Recipe) obj).getDough() == this.dough &&
+        ((Recipe) obj).getMix() == this.mix &&
+        ((Recipe) obj).getFlavour() == this.flavour &&
+        ((Recipe) obj).getToppings() == this.toppings) return true;
         return name.equals(((Recipe) obj).getName());
     }
 

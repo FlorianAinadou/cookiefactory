@@ -2,8 +2,8 @@ package step_definitions;
 
 import di.Injection;
 import model.Recipe;
-import model.builders.RecipeBuilder;
-import model.consumables.Consumable;
+import model.RecipeBuilder;
+import model.Shop;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.Drink;
@@ -16,6 +16,7 @@ import java.util.Map;
 
 import repository.CustomerRepository;
 import repository.OrderRepository;
+import repository.ShopRepository;
 import utils.Lib;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +28,7 @@ public class OrderStepdefs implements En {
     private CustomerRepository customerRepository;
     private CookieRepository cookieRepository;
     private OrderRepository orderRepository;
+    private ShopRepository shopRepository;
 
     private Customer customer;
     private Cookie predefinedCookie;
@@ -36,6 +38,8 @@ public class OrderStepdefs implements En {
     private Cookie personalizedCookie;
 
     private Drink drink;
+
+    private Shop shop;
 
     public OrderStepdefs() {
 

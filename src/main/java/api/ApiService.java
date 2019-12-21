@@ -3,6 +3,7 @@ package api;
 import model.Order;
 import model.Recipe;
 import model.Shop;
+import model.consumables.Consumable;
 import model.consumables.CookieComponent;
 import model.consumables.PackComposition;
 import model.customer.Customer;
@@ -21,15 +22,27 @@ import java.util.Map;
 public interface ApiService {
 
     List<Customer> getCustomers();
+
     Customer getRandomRegisteredCustomer();
+
     Customer getRandomUnregisteredCustomer();
+
     void addCustomer(Customer username);
+
     void deleteCustomer(Customer username);
 
     List<Shop> getShops();
+
     Shop getRandomShop();
+
     void addShop(Shop shop);
+
     void deleteShop(Shop shop);
+
+
+    Map<String, Integer> getStocks(Shop shop);
+
+    void removeFromStock(Shop shop, Consumable consumable);
 
     List<Order> getOrders();
     int getOrderNum();
@@ -37,18 +50,14 @@ public interface ApiService {
     void deleteOrder(Order orderNum);
     void addOrder(Order order, DiscountStrategy discountStrategy) throws CloneNotSupportedException;
     void payOrder(Order order, Customer customer);
-
-    /*List<Cart> getCarts();
-    void addcart(Cart cartNum);
-    void deletecart(Cart cartNum);*/
-
+    void pickUpOrder(Order order, Shop shop);
 
     Map<String, Recipe> getRecipes();
     void addRecipe(String name, Recipe recipe);
     void deleteRecipe(String name);
-    void changeRecipeMargin(String name, double margin);
     double getCodMargin();
     void setCodMargin(double margin);
+    void changeCodMargin(Shop shop, double margin);
 
     Map<String, CookieComponent> getDough();
     void addDough(String name, CookieComponent dough);
@@ -78,7 +87,6 @@ public interface ApiService {
     List<Discount> getDiscounts(Customer customer);
     void addDiscount(Customer customer, Discount discount);
     double applyDiscount(Customer customer, Shop shop, Discount discount);
-    float askForADiscountApplying(Customer customer, Discount discount);
 
     ArrayList<PackComposition> getPacksComposition();
 }
