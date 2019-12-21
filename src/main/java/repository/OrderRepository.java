@@ -9,6 +9,7 @@ import model.consumables.CookieComponent;
 import model.consumables.CookiesPack;
 import model.customer.Customer;
 import model.discount.DiscountStrategy;
+import utils.Lib;
 
 import java.awt.*;
 import java.util.*;
@@ -40,21 +41,23 @@ public class OrderRepository {
         for (Consumable c : order.getCart().getItems().keySet()) {
             if (c.isCookie()) {
                 for (CookieComponent cc : ((Cookie) c).getRecipe().getIngredients()) {
-                    if (stockNeed.containsKey(cc.getName())) {
-                        stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
-                    } else {
-                        stockNeed.put(cc.getName(), 1);
-                    }
-                }
-            } else if (c.isCookiePack()) {
-                for (Consumable cookie : c.getItemPack().keySet()) {
-                    for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
-
+                    if (cc.getType() != Lib.ComponentType.MIX && cc.getType() != Lib.ComponentType.COOKING)
                         if (stockNeed.containsKey(cc.getName())) {
                             stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
                         } else {
                             stockNeed.put(cc.getName(), 1);
                         }
+                }
+            } else if (c.isCookiePack()) {
+                for (Consumable cookie : c.getItemPack().keySet()) {
+                    for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
+                        if (cc.getType() != Lib.ComponentType.MIX && cc.getType() != Lib.ComponentType.COOKING)
+
+                            if (stockNeed.containsKey(cc.getName())) {
+                                stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
+                            } else {
+                                stockNeed.put(cc.getName(), 1);
+                            }
                     }
                 }
             } else {
@@ -92,8 +95,8 @@ public class OrderRepository {
         }
     }
 
-    public void pickUpOrder(Order order, Shop shop){
-        if(new Date(System.currentTimeMillis() - 3600 * 1000).after(order.getDate())) {
+    public void pickUpOrder(Order order, Shop shop) {
+        if (new Date(System.currentTimeMillis() - 3600 * 1000).after(order.getDate())) {
             apiService.pickUpOrder(order, shop);
         } else {
             System.out.println("This order can't be pick up now, come back later");

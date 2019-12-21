@@ -14,6 +14,7 @@ import model.customer.Customer;
 import model.discount.Discount;
 import model.discount.DiscountStrategy;
 import model.discount.SeniorityPriority;
+import utils.Lib;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -104,21 +105,22 @@ public class FakeApiService implements ApiService {
 
         if (consumable.isCookie()) {
             for (CookieComponent cc : ((Cookie) consumable).getRecipe().getIngredients()) {
-                if (stockNeed.containsKey(cc.getName())) {
-                    stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
-                } else {
-                    stockNeed.put(cc.getName(), 1);
-                }
-            }
-        } else if (consumable.isCookiePack()) {
-            for (Consumable cookie : consumable.getItemPack().keySet()) {
-                for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
-
+                if (cc.getType() != Lib.ComponentType.MIX && cc.getType() != Lib.ComponentType.COOKING)
                     if (stockNeed.containsKey(cc.getName())) {
                         stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
                     } else {
                         stockNeed.put(cc.getName(), 1);
                     }
+            }
+        } else if (consumable.isCookiePack()) {
+            for (Consumable cookie : consumable.getItemPack().keySet()) {
+                for (CookieComponent cc : ((Cookie) cookie).getRecipe().getIngredients()) {
+                    if (cc.getType() != Lib.ComponentType.MIX && cc.getType() != Lib.ComponentType.COOKING)
+                        if (stockNeed.containsKey(cc.getName())) {
+                            stockNeed.put(cc.getName(), stockNeed.get(cc.getName()) + 1);
+                        } else {
+                            stockNeed.put(cc.getName(), 1);
+                        }
                 }
             }
         } else {
@@ -139,17 +141,29 @@ public class FakeApiService implements ApiService {
     // recipe and ingredient related methods
 
     @Override
-    public Map<String, Recipe> getRecipes() { return recipes; }
+    public Map<String, Recipe> getRecipes() {
+        return recipes;
+    }
+
     @Override
-    public void addRecipe(String name, Recipe recipe) { recipes.put(name, recipe); }
+    public void addRecipe(String name, Recipe recipe) {
+        recipes.put(name, recipe);
+    }
+
     @Override
     public void deleteRecipe(String name) {
         recipes.remove(name);
     }
+
     @Override
-    public double getCodMargin() { return codMargin; }
+    public double getCodMargin() {
+        return codMargin;
+    }
+
     @Override
-    public void setCodMargin(double margin) { codMargin = margin; }
+    public void setCodMargin(double margin) {
+        codMargin = margin;
+    }
 
     @Override
     public void changeCodMargin(Shop shop, double margin) {
@@ -329,9 +343,9 @@ public class FakeApiService implements ApiService {
 
     // discount related methods*
     @Override
-    public void pickUpOrder(Order order, Shop shop){
-            shop.shopPickUp(order);
-            System.out.println("This order can be pick up now");
+    public void pickUpOrder(Order order, Shop shop) {
+        shop.shopPickUp(order);
+        System.out.println("This order can be pick up now");
     }
 
     @Override
@@ -391,11 +405,11 @@ public class FakeApiService implements ApiService {
 
     }
 
-    public void lastHourReduction(Order order, Discount discount){
-        if(order.getShop().theLastHour(order.getDate())){
-            for (Consumable consumable :  order.getCart().getItems().keySet()) {
-                if(consumable.isCookie() && consumable.getName().equals("Personalized cookie")){
-                    order.getCart().applyReductionOnConsumable(discount,consumable);
+    public void lastHourReduction(Order order, Discount discount) {
+        if (order.getShop().theLastHour(order.getDate())) {
+            for (Consumable consumable : order.getCart().getItems().keySet()) {
+                if (consumable.isCookie() && consumable.getName().equals("Personalized cookie")) {
+                    order.getCart().applyReductionOnConsumable(discount, consumable);
                 }
             }
         }
