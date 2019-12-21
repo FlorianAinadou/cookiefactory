@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Lydia BARAUKOVA
  */
 public class OrderStepdefs implements En {
-    private CustomerRepository customerRepository;
-    private CookieRepository cookieRepository;
-    private OrderRepository orderRepository;
-    private ShopRepository shopRepository;
+    private CustomerRepository customerRepository = Injection.createCustomerRepository();
+    private CookieRepository cookieRepository = Injection.createCookieRepository();
+    private OrderRepository orderRepository = Injection.createOrderRepository();
+    private ShopRepository shopRepository = Injection.createShopRepository();
 
     private Customer customer;
     private Cookie predefinedCookie;
@@ -44,10 +44,6 @@ public class OrderStepdefs implements En {
     private Shop shop;
 
     public OrderStepdefs() {
-
-        customerRepository = Injection.createCustomerRepository();
-        cookieRepository = Injection.createCookieRepository();
-        orderRepository = Injection.createOrderRepository();
 
         // Even unregistered customers can place an order
 
@@ -63,7 +59,7 @@ public class OrderStepdefs implements En {
                 });
         Then("The cookie named {string} appears in my cart",
                 (String cookieName) -> assertTrue(customer.getCart().getItems().containsKey(predefinedCookie)));
-        And("Its quantity is {int}",
+        And("The quantity of this predefined cookie is {int}",
                 (Integer quantity) -> assertEquals(quantity, customer.getCart().getItems().get(predefinedCookie)));
 
         // I can't order something that is impossible to make
@@ -103,6 +99,7 @@ public class OrderStepdefs implements En {
                     recipeBuilder.addFlavour(cookieRepository.getFlavour().get(Lib.Flavour.CHILI));
                     recipeBuilder.addTopping(cookieRepository.getToppings().get(Lib.Topping.CHERRY_SYRUP));
                     personalizedRecipe = recipeBuilder.buildRecipe();
+                    personalizedCookie = new Cookie(personalizedRecipe);
                 });
         Then("The recipe named {string} is created",
                 (String recipeName) -> assertEquals(recipeName, personalizedRecipe.getName()));
@@ -111,12 +108,19 @@ public class OrderStepdefs implements En {
 
         When("I add {int} personalized cookies to my cart",
                 (Integer quantity) -> {
+                    recipeBuilder = new RecipeBuilder();
+                    recipeBuilder.addDough(cookieRepository.getDough().get(Lib.Dough.OATMEAL));
+                    recipeBuilder.addCooking(cookieRepository.getCooking().get(Lib.Cooking.CHEWY));
+                    recipeBuilder.addMix(cookieRepository.getMix().get(Lib.Mix.MIXED));
+                    recipeBuilder.addFlavour(cookieRepository.getFlavour().get(Lib.Flavour.CHILI));
+                    recipeBuilder.addTopping(cookieRepository.getToppings().get(Lib.Topping.CHERRY_SYRUP));
+                    personalizedRecipe = recipeBuilder.buildRecipe();
                     personalizedCookie = new Cookie(personalizedRecipe);
                     customer.addConsumables(personalizedCookie, quantity);
                 });
         Then("This personalized cookie is added to my cart",
                 () -> assertTrue(customer.getCart().getItems().containsKey(personalizedCookie)));
-        And("Its quantity is {int}",
+        And("The quantity of this personalized cookie is {int}",
                 (Integer quantity) -> assertEquals(quantity, customer.getCart().getItems().get(personalizedCookie)));
 
         // I can place an order with both predefined and personalized cookies

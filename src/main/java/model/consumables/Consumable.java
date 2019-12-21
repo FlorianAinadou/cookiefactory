@@ -5,15 +5,21 @@ import java.util.Map;
 /**
  * Cause both cookies and drinks are consumables
  */
-public abstract class Consumable{
+public abstract class Consumable {
+
+    protected double price;
+
+    public Consumable(double price) {
+        this.price = price;
+    }
 
     protected String name = "";
 
-    public abstract double getPrice();
+    public double getPrice() { return this.price; }
 
     @Override
     public String toString() {
-        return this.name  + "  " + " Price: "+ this.getPrice();
+        return this.name  + "  " + " Price: "+ this.price;
     }
 
     public abstract String getName();

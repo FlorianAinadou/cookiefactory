@@ -13,12 +13,11 @@ public class Cookie extends Consumable {
     protected Recipe recipe;
 
     public Cookie(Recipe r) {
+        super(/*r == null ? 0 : */r.getPrice());
         recipe = r;
     }
 
     public Recipe getRecipe() { return recipe; }
-
-    public double getPrice() { return  recipe.getPrice(); }
 
     @Override
     public String toString() {

@@ -1,7 +1,7 @@
 package step_definitions;
 
 import di.Injection;
-import io.cucumber.java8.En;
+
 import model.CinemaTicket;
 import model.Order;
 import model.Shop;
@@ -14,6 +14,8 @@ import repository.ShopRepository;
 import utils.Lib;
 
 import java.util.Date;
+
+import io.cucumber.java8.En;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

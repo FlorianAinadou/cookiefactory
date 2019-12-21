@@ -6,7 +6,7 @@ Feature: Ordering cookies
   Scenario: I can add predefined cookies to my cart
     When I add 20 predefined cookies named "Chocolala" to my cart
     Then The cookie named "Chocolala" appears in my cart
-    And Its quantity is 20
+    And The quantity of this predefined cookie is 20
 
   Scenario: I can't create personalized cookies with too few ingredients
     When I try to create a personalized recipe with too few ingredients
@@ -23,4 +23,4 @@ Feature: Ordering cookies
   Scenario: I can add personalized cookies to my cart
     When I add 10 personalized cookies to my cart
     Then This personalized cookie is added to my cart
-    And Its quantity is 10
+    And The quantity of this personalized cookie is 10

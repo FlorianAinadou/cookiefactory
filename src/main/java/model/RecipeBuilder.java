@@ -78,7 +78,10 @@ public class RecipeBuilder {
     }
 
     public RecipeBuilder addTopping(CookieComponent topping) {
-        if (nbToppings == 3) recipeError(3, "toppings");
+        if (nbToppings == 3) {
+            recipeError(3, "toppings");
+            return this;
+        }
         this.toppings.add(topping);
         nbToppings++;
         return this;

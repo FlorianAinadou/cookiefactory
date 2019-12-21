@@ -4,16 +4,9 @@ import java.util.Map;
 
 public class Drink extends Consumable {
 
-    private final double  price;
-
     public Drink(double price, String name) {
-        this.price = price;
+        super(price);
         this.name = name;
-    }
-
-    @Override
-    public double getPrice() {
-        return price;
     }
 
     @Override
