@@ -67,9 +67,7 @@ public abstract class FakeApiServiceGenerator {
             new UnregisteredCustomer("Pauline", "Durand", "0645897556", "pauline@gmail.com", 2000.0)
     );
     static List<Manager> FAKE_MANAGERS = Arrays.asList(
-            /*new Manager("Alexis", "Blanchard", "0612345638", "alexis@gmail.com", 2000.0, ),
-            new Manager("Alexandre", "Roman", "0612335678", "alexandre@gmail.com", 2000.0),
-            new Manager("Pauline", "Durand", "0645897556", "pauline@gmail.com", 2000.0)*/
+            new Manager("Patrick", "Strew", "0625345638", "patrickStrew@gmail.com", 2000.0)
     );
     private static Map<String, CookieComponent> DOUGH_COOKIE = new HashMap<String, CookieComponent>() {
         {

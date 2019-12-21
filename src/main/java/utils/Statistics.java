@@ -50,6 +50,7 @@ public class Statistics {
         Log.print("\t% of personalized cookies: " +( nbCookiesSold==0 ? 0 : decimal.format(nbCodSold*100/nbCookiesSold)) + "%");
         Log.print("\tDrinks sold: " + nbDrinksSold);
         Log.print("\tNumber of orders: " + nbOrders);
+        Log.print("\tNumber of orders with discount: " + (int)nbOrdersWithDiscount);
         Log.print("\t% of orders with discount: " + ( nbOrders==0 ? 0 : decimal.format(nbOrdersWithDiscount*100/nbOrders) ) + "%");
         Log.print("\tBest selling recipe: " + bestSellingCookie);
         Log.print("\tWorst selling recipe: " + worstSellingCookie);
@@ -182,7 +183,7 @@ public class Statistics {
 
     public static int nbDrinksSoldInShop(Shop shop) {
         int res = 0;
-        HashMap<String, Integer> allConsumable = getAllCookieWithQuantity(shop);
+        HashMap<String, Integer> allConsumable = getAllDrinkWithQuantity(shop);
         for (Map.Entry<String, Integer> mapEntry : allConsumable.entrySet()) {
             res += mapEntry.getValue();
         }
@@ -203,7 +204,7 @@ public class Statistics {
         int res = 0;
         for (Order order: allOrders) {
             if (order.getShop().equals(shop)) {
-                if (order.getOrderStatus() == 2) {
+                if (order.getOrderStatus() >= 4) {
                     res++;
                 }
             }
@@ -270,7 +271,7 @@ public class Statistics {
     public static float moneyEarnedByShop(Shop shop) {
         float res = 0;
         for (Order order: allOrders) {
-            if (order.getShop().equals(shop) && order.getOrderStatus() >= 1) {
+            if (order.getShop().equals(shop) && order.getOrderStatus() >= 2) {
                 res += order.getTotalPrice();
             }
         }

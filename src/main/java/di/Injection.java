@@ -26,4 +26,7 @@ public class Injection {
     public static ShopRepository createShopRepository() {
         return new ShopRepository(fakeApiService);
     }
+    public static ManagerRepository createManagerRepository() {
+        return new ManagerRepository(fakeApiService);
+    }
 }

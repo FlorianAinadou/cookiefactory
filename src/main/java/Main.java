@@ -7,6 +7,8 @@ import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.CookiesPackCreator;
 import model.customer.Customer;
+import model.customer.Manager;
+import model.discount.EntrepriseCodePriority;
 import repository.*;
 import utils.Lib;
 import utils.Statistics;
@@ -27,6 +29,7 @@ public class Main {
     private static OrderRepository orderRepository;
     private static DiscountRepository discountRepository;
     private static ShopRepository shopRepository;
+    private static ManagerRepository managerRepository;
 
     private static Shop shopStat = null; // mettre un shop si on veut avoir les stats de celui-ci
 
@@ -36,6 +39,7 @@ public class Main {
         if (customerRepository == null) customerRepository = Injection.createCustomerRepository();
         if (orderRepository == null) orderRepository = Injection.createOrderRepository();
         if (discountRepository == null) discountRepository = Injection.createDiscountRepository();
+        if (managerRepository == null) managerRepository = Injection.createManagerRepository();
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, ParseException {
@@ -52,7 +56,7 @@ public class Main {
         Map<String, CookieComponent> DOUGH_COOKIE = cookieRepository.getDough();
         Map<String, CookieComponent> TOPPING_COOKIE = cookieRepository.getToppings();
 
-
+        Manager manager = managerRepository.getManager();
         Customer customer = customerRepository.getRandomRegisteredCustomer();
         Customer customer2 = customerRepository.getRandomUnregisteredCustomer();
         Shop shop = shopRepository.getRandomShop();
@@ -78,8 +82,8 @@ public class Main {
 
 
         //customer.addConsumables(new Cookie(cherryBlossom), 301  );
-        //customer.addConsumables(new Cookie(cod), 1);
-        //customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
+        customer.addConsumables(new Cookie(cod), 1);
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
         //customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
         //customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
         //customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
@@ -90,16 +94,17 @@ public class Main {
         //customer.showCart();
         //creator.createPack(customer.getCart(), 30, 3);
         //System.out.println("Cookies number: " + customer.getCart().getNbCookies());
-        //customer.showCart();
+        customer.showCart();
 
         //shopRepository.showStock(shop);
 
-        //Order order = new Order(orderRepository.getOrderNum(), customer,new Date(System.currentTimeMillis() - 3600 * 1000) , shop, discountRepository.getDiscounts(customer));
+        Order order = new Order(2, customer,new Date(System.currentTimeMillis() - 3600 * 1000), new Date(System.currentTimeMillis() - 7200 * 1000) , shop, discountRepository.getDiscounts(customer));
         //orderRepository.addOrder(order, new EntrepriseCodePriority());
-        //orderRepository.addOrder(order);
+        orderRepository.addOrder(order);
 
-        //orderRepository.payOrder(order, customer);
-        //System.out.println(order.getOrderStatus());
+        orderRepository.payOrder(order, customer);
+        System.out.println(order.getOrderStatus());
+        orderRepository.pickUpOrder(order, shop2);
 
         //shopRepository.showStock(shop);
 
@@ -129,20 +134,16 @@ public class Main {
 
         orderRepository.addOrder(order3);
         //customer2.showCart();
+        System.out.println("before pay " + order3.getOrderStatus());
         orderRepository.payOrder(order3, customer2);
+        System.out.println("after : " +order3.getOrderStatus());
         orderRepository.pickUpOrder(order3, shop2);
-        System.out.println(order3.getOrderStatus());
+        System.out.println("after pick up : " +order3.getOrderStatus());
         //shopRepository.showStock(shop2);
 
-        //stat
+        //Manager show Stat
+        manager.showStatistique();
+        manager.showStatistique(shop2);
 
-
-        Statistics.showGeneralStatistics();
-        Statistics.showShopStatistics(shop2);
-
-       // SimpleDateFormat s=new SimpleDateFormat();
-        //  SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
-        //Date date= s.parse("Friday, Jun 7, 2013 12:10:56 PM");
-        //System.out.println(date);
     }
 }

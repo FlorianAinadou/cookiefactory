@@ -80,4 +80,5 @@ public abstract class Customer {
     }
 
     public abstract boolean isRegistered();
+    public abstract boolean isManager();
 }
