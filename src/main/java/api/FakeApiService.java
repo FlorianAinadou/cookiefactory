@@ -340,7 +340,11 @@ public class FakeApiService implements ApiService {
         DecimalFormat totalFinalPrice = new DecimalFormat();
         totalFinalPrice.setMaximumFractionDigits(2); //arrondi à 2 chiffres apres la virgules
         if (customer.getWalletAmount() > order.getTotalPrice()) {
-            order.setOrderStatus(2);
+            if(order.getOrderStatus() ==1) {
+                order.setOrderStatus(4);
+            }else {
+                order.setOrderStatus(2);
+            }
             customers.get(customers.indexOf(customer)).setWalletAmount((customer.getWalletAmount() - order.getTotalPrice()));
             System.out.println("Customer money : " + totalFinalPrice.format(customers.get(customers.indexOf(customer)).getWalletAmount()) + " €");
         } else {
@@ -352,7 +356,11 @@ public class FakeApiService implements ApiService {
     @Override
     public void pickUpOrder(Order order, Shop shop) {
         shop.shopPickUp(order);
-        order.setOrderStatus(3);
+        if(order.getOrderStatus() == 2) {
+            order.setOrderStatus(3);
+        }else{
+            order.setOrderStatus(5);
+        }
         System.out.println("This order can be pick up now");
     }
 
