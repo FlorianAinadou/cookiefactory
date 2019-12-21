@@ -6,6 +6,7 @@ import model.Shop;
 import model.consumables.Cookie;
 import model.consumables.CookieComponent;
 import model.consumables.CookiesPackCreator;
+import model.consumables.Drink;
 import model.customer.Customer;
 import model.customer.Manager;
 import model.discount.EntrepriseCodePriority;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @author Florian AINADOU
  * @author Lydia BARAUKOVA
  * @author Virgile FANTAUZZI
+ * @author Aldric DUCREUX
  */
 public class Main {
     private static CookieRepository cookieRepository;
@@ -30,8 +32,6 @@ public class Main {
     private static DiscountRepository discountRepository;
     private static ShopRepository shopRepository;
     private static ManagerRepository managerRepository;
-
-    private static Shop shopStat = null; // mettre un shop si on veut avoir les stats de celui-ci
 
     private static void initRepositories() {
         if (cookieRepository == null) cookieRepository = Injection.createCookieRepository();
@@ -44,9 +44,6 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException, ParseException {
         initRepositories();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
 
         Map<String, Recipe> recipes = cookieRepository.getRecipes();
 
@@ -72,74 +69,33 @@ public class Main {
                 .addTopping(TOPPING_COOKIE.get(Lib.Topping.CHERRY_SYRUP))
                 .buildRecipe();
 
-        Recipe cod2 = new RecipeBuilder()
-                .addCooking(COOKING_COOKIE.get(Lib.Cooking.CRUNCHY))
-                .addDough(DOUGH_COOKIE.get(Lib.Dough.PEANUT_BUTTER))
-                .addFlavour(FLAVOUR_COOKIE.get(Lib.Flavour.CHOCOLATE))
-                .addMix(MIX_COOKIE.get(Lib.Mix.MIXED))
-                .addTopping(TOPPING_COOKIE.get(Lib.Topping.MNMS))
-                .buildRecipe();
-
-
-        //customer.addConsumables(new Cookie(cherryBlossom), 301  );
+        customer.addConsumables(new Cookie(cherryBlossom), 301  );
         customer.addConsumables(new Cookie(cod), 1);
         customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.CHOCOLALA)), 10);
-        //customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
-        //customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
-        //customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
-        //System.out.println(customer.getCart().getNbCookiesDirectlyInTheCart());
+        customer.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)), 9);
+        customer.addConsumables(new Drink(0.5f, Lib.Drink.COCA_ZERO), 2);
+        customer.addConsumables(new Drink(0.5f, Lib.Drink.SPRITE), 1);
 
         CookiesPackCreator creator = new CookiesPackCreator();
-        //creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
-        //customer.showCart();
-        //creator.createPack(customer.getCart(), 30, 3);
-        //System.out.println("Cookies number: " + customer.getCart().getNbCookies());
+        creator.createAllPossiblePacks(customer.getCart(), cookieRepository.getPacksComposition());
         customer.showCart();
-
-        //shopRepository.showStock(shop);
 
         Order order = new Order(2, customer,new Date(System.currentTimeMillis() - 3600 * 1000), new Date(System.currentTimeMillis() - 7200 * 1000) , shop, discountRepository.getDiscounts(customer));
         //orderRepository.addOrder(order, new EntrepriseCodePriority());
         orderRepository.addOrder(order);
-
+        System.out.println(order.getOrderStatus());
         orderRepository.payOrder(order, customer);
         System.out.println(order.getOrderStatus());
         orderRepository.pickUpOrder(order, shop2);
 
-        //shopRepository.showStock(shop);
-
-
-        //System.out.println("");
-
-        //shopRepository.showStock(shop2);
-/*
-        customer2.addConsumables(new Cookie(cherryBlossom),40 );
-        customer2.addConsumables(new Cookie(cherryBlossom),7 );
-
-        creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
-        customer2.showCart();
-        Order order2 = shop2.placeOrder(orderRepository.getNbOrders(), customer2, new Date(System.currentTimeMillis() - 3600 * 1000));
-        orderRepository.addOrder(order2);
-        orderRepository.payOrder(order2, customer2);
-        System.out.println(order2.getOrderStatus());
-        //shopRepository.showStock(shop2);
-*/
         System.out.println("*****************");
         customer2.addConsumables(new Cookie(recipes.get(Lib.CookieName.DARK_TEMPTATION)),10 );
         creator.createAllPossiblePacks(customer2.getCart(), cookieRepository.getPacksComposition() );
         customer2.showCart();
         Order order3 = new Order(1, customer2, new Date(System.currentTimeMillis() - 7200 * 1000), new Date(System.currentTimeMillis() - 7200 * 1000), shop2, discountRepository.getDiscounts(customer2));
-        //orderRepository.lastHourReduction(order3, new Discount(0.3f, "LAST_HOUR"));
-        //customer2.showCart();
-
         orderRepository.addOrder(order3);
-        //customer2.showCart();
-        System.out.println("before pay " + order3.getOrderStatus());
         orderRepository.payOrder(order3, customer2);
-        System.out.println("after : " +order3.getOrderStatus());
         orderRepository.pickUpOrder(order3, shop2);
-        System.out.println("after pick up : " +order3.getOrderStatus());
-        //shopRepository.showStock(shop2);
 
         //Manager show Stat
         manager.showStatistique();

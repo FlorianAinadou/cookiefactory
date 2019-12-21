@@ -3,7 +3,9 @@ package model.customer;
 import model.Recipe;
 import model.Shop;
 import utils.Statistics;
-
+/**
+ * @author Aldric DUCREUX
+ */
 public class Manager extends Customer {
 
 

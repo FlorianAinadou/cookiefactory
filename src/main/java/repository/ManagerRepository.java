@@ -1,11 +1,11 @@
 package repository;
 
 import api.ApiService;
-import model.customer.Customer;
 import model.customer.Manager;
 
-import java.util.List;
-
+/**
+ * @author Aldric DUCREUX
+ */
 public class ManagerRepository {
     private final ApiService apiService;
 

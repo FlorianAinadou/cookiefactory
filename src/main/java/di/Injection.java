@@ -6,6 +6,7 @@ import repository.*;
 /**
  * @author Virgile FANTAUZZI
  * @author Lydia BARAUKOVA
+ * @author Aldric DUCREUX
  */
 public class Injection {
 
